@@ -22,7 +22,6 @@ app.get('/api/usuarios', async (req, res) => {
     }
 });
 
-// Agrega más rutas y operaciones CRUD según tus necesidades
 
 app.listen(PORT, () => {
     console.log(`Servidor Express en ejecución en http://localhost:${PORT}`);
