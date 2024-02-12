@@ -1,94 +1,183 @@
 
 const express = require('express')
+const morgan = require('morgan')
 const app = express()
 
-//* POST
-app.use(express.text())
+const usuarios = [
+    {
+        id: 1,
+        nombre: "Angel",
+        apellido: "Gonzalez",
+        usuario: "edangel",
+        correo: "angel@zascita.com",
+        contraseña: "contraseñaPrueba1",
+    },
+    {
+        id: 2,
+        nombre: "Alexis",
+        apellido: "Morales",
+        usuario: "alemorales",
+        correo: "alexis@zascita.conm",
+        contraseña: "contraseña123",
+    },
+    {
+        id: 3,
+        nombre: "Carlos",
+        apellido: "Rozado",
+        usuario: "Carrozado",
+        correo: "carlos@zascita.com",
+        contraseña: "preubacontraseña",
+    },
+]
+
+app.use(morgan('dev'))
 app.use(express.json())
-app.use(express.urlencoded({extended: false}))  //para formularios
 
-
-//mideware para auntetificar los usuarios
-app.use((req,res,next) => {
-    console.log("paso por el primer mideware");
-    console.log(`Route: ${req.url} Metodo: ${req.method}`);
-    next()
-})
-
-app.use((req,res,next) => {
-    console.log("paso por el segundo mideware");
-    console.log(`Route: ${req.url} Metodo: ${req.method}`);
-    next()
-})
-
-app.get('/', (req,res) => {
-    res.end('7u7')
-})
-
-app.get('/itsAlive', (req,res) => {
+app.get('/SiguesVivo', (req,res) => {
     res.sendStatus(204)
 })
 
-
-//Midaware de Authentificacion de usuarios
-app.use((req,res,next) => {
-    console.log("mideware de autentificacion");
-    console.log(`Route: ${req.url} Metodo: ${req.method}`);
-
-    if(req.query.login === 'Angel'){
-        next()
-    } else {
-        req.send("usuario sin acceso")
-    }
-
+//* Obteniendo Usuarios
+app.get('/usuario', (req,res) =>{
+    res.json(usuarios)
 })
 
-app.get('/dashboard',(req,res) => {
-    res.send("Dashboar Page")
-})
-
-
-app.get('/prueba/:x/:y', (req,res) => {
-    console.log(req.params.x);
-    console.log(req.params.y);
-    const resul = req.params.x + req.params.y;
-    console.log('Resultado:', resul);
-})
-
-app.get('/usuarios/:nombre', (req,res) => {
-    console.log(req.params.nombre);
-    if(req.params.nombre === "angel") {
-        res.send("usuario con Acceso")
-    }
-    res.send("El usuario se puede realizar")
-    // res.json({"nombre": "angel"})
-
-})
-
-app.post('/usuarios', (req,res) => {
+//* Creando Usuarios
+app.post('/usuario', (req,res) =>{
+    // console.log(...req.body);
     console.log(req.body);
-    res.end('creando usuarios')
+    res.send("Creando Usuarios")
 })
 
-app.put('/usuarios', (req,res) => {
-    res.end('Actualizando usuarios')
+//* Actualizando Usuarios
+app.put('/usuario', (req,res) =>{
+    res.send("Actualizando Usuarios")
 })
 
-app.delete('/usuarios', (req,res) => {
-    res.end('eliminando usuarios')
+//* Eliminando Usuarios
+app.delete('/usuario', (req,res) =>{
+    res.send("Eleminando Usuarios")
 })
 
-app.patch('/usuarios', (req,res) => {
-    res.end('Actualizando unos usuarios')
+//* Obteniendo un Usuarios
+app.get('/usuario/:id', (req,res) =>{
+    res.send("Obteniendo un Usuarios por id")
 })
 
 
-app.use((req,res)=>{
-    res.status(404).send('No se encontro la url Solicitada')
-})
+
 
 app.listen(3000)
 console.log(`Servidor en ejecución: http://localhost:${3000}`);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//! #####################################################################################################
+
+
+// //* POST
+// app.use(express.text())
+// app.use(express.json())
+// app.use(express.urlencoded({extended: false}))  //para formularios
+
+// //mideware para auntetificar los usuarios
+// app.use((req,res,next) => {
+//     console.log("paso por el primer mideware");
+//     console.log(`Route: ${req.url} Metodo: ${req.method}`);
+//     next()
+// })
+
+// app.use((req,res,next) => {
+//     console.log("paso por el segundo mideware");
+//     console.log(`Route: ${req.url} Metodo: ${req.method}`);
+//     next()
+// })
+
+// app.get('/', (req,res) => {
+//     res.end('7u7')
+// })
+
+// app.get('/itsAlive', (req,res) => {
+//     res.sendStatus(204)
+// })
+
+// //Midaware de Authentificacion de usuarios
+// app.use((req,res,next) => {
+//     console.log("mideware de autentificacion");
+//     console.log(`Route: ${req.url} Metodo: ${req.method}`);
+
+//     if(req.query.login === 'Angel'){
+//         next()
+//     } else {
+//         req.send("usuario sin acceso")
+//     }
+
+// })
+
+// app.get('/dashboard',(req,res) => {
+//     res.send("Dashboar Page")
+// })
+
+// app.get('/prueba/:x/:y', (req,res) => {
+//     console.log(req.params.x);
+//     console.log(req.params.y);
+//     const resul = req.params.x + req.params.y;
+//     console.log('Resultado:', resul);
+// })
+
+// app.get('/usuarios/:nombre', (req,res) => {
+//     console.log(req.params.nombre);
+//     if(req.params.nombre === "angel") {
+//         res.send("usuario con Acceso")
+//     }
+//     res.send("El usuario se puede realizar")
+//     // res.json({"nombre": "angel"})
+
+// })
+
+// app.post('/usuarios', (req,res) => {
+//     console.log(req.body);
+//     res.end('creando usuarios')
+// })
+
+// app.put('/usuarios', (req,res) => {
+//     res.end('Actualizando usuarios')
+// })
+
+// app.delete('/usuarios', (req,res) => {
+//     res.end('eliminando usuarios')
+// })
+
+// app.patch('/usuarios', (req,res) => {
+//     res.end('Actualizando unos usuarios')
+// })
+
+// app.use((req,res)=>{
+//     res.status(404).send('No se encontro la url Solicitada')
+// })
+
+
+//! ########################################################################################################
 
 
 
