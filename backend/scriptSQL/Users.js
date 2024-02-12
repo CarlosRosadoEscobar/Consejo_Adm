@@ -8,12 +8,13 @@ const getUsuarios = async () => {
             const result = await pool.request().query("SELECT prv,role FROM Users");
             // console.log(result.recordset);
             console.table(result.recordset)
-        } else {git 
+        } else {
             console.error('Error: Objeto pool no devuelto');
         }
     } catch (error) {
         console.log(error);
     }
 }
+
 
 getUsuarios();
