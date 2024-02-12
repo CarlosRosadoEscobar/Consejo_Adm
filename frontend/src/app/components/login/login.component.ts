@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Usuarios } from 'src/app/models/usuarios';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +14,8 @@ export class LoginComponent implements OnInit {
   usuarioForm : FormGroup
 
   constructor(private fb:FormBuilder,
-              private router: Router) {
+              private router: Router,
+              private toastr: ToastrService) {
     this.usuarioForm = fb.group({
       usuario:['',Validators.required],         
       password:['',Validators.required]         
@@ -32,7 +34,7 @@ export class LoginComponent implements OnInit {
     
 
     if (this.usuarioForm.invalid) {
-      alert('Error: Invalid form');
+      this.toastr.error("Todos los campos son obligatorios","Error de validación");
     } else {
       // Navigate to the 'inicio' route if the form is valid
       this.router.navigate(['inicio']);
