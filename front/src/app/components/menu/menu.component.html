@@ -1,11 +1,11 @@
 <nav>
   <div class="wrapper">
-    <div class="logo"><a href="#">Dashboard</a></div>
+    <div class="logo"><a [routerLink]="['/inicio']">Dashboard</a></div>
     <input type="radio" name="slider" id="menu-btn">
     <input type="radio" name="slider" id="close-btn">
     <ul class="nav-links">
       <label for="close-btn" class="btn close-btn"><i class="fas fa-times"></i></label>
-      <li><a href="#">Inicio</a></li>
+      <li><a [routerLink]="['/inicio']">Inicio</a></li>
       <li><a href="#">Usuarios</a></li>
       <li>
         <a href="#" class="desktop-item">Dropdown Menu</a>
