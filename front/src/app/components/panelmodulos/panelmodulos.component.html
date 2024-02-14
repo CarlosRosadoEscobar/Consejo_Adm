@@ -1,161 +1,26 @@
 <div class="panelModulo">
+
   <!-- TOP MENU -->
   <div class="container-fluid menutamaño"></div>
 
   <!-- MENU TITLE -->
-  <div class="container text-center dashboardTitleContainer">
-
-    <div class="container ">
-      <span>panel 1</span>
+  <div class="container text-center moduleTitle">
+    <div class="container conTitle">
+      <span>Modulos</span>
     </div>
-
-    <div class="container ">
-      <span>panel 2</span>
-    </div>
-
-    <div class="container ">
-      <span>panel 3</span>
-    </div>
-
-    <div class="container ">
-      <span>panel 4</span>
-    </div>
-
-
   </div>
 
-  <!-- DASHBOARD -->
-  <div class="container text-center dashboardContainer">
+  <!-- MODULE SECCION -->
+  <div class="container text-center muduleContianer">
 
-    <div class="container dashConInfo">
-
-      <div class="container dashInfo1">
-        <div class="container">
-          <span>modulo 1</span>
-        </div>
-        <div class="container">
-          <span>modulo 2</span>
-        </div>
-      </div>
-      <div class="container dashInfo2">
-        <div class="container">
-          <span>modulo 1</span>
-        </div>
-        <div class="container">
-          <span>modulo 2</span>
-        </div>
-      </div>
-
+    <div class="container" *ngFor="let modulo of modulos" (click)="oneSelect(modulo)">
+      <span>{{ modulo.name }}</span>
     </div>
 
-    <div class="container dashConInfo2">
-      <div class="container dashInfo11">
-        <div class="container">modulo 1</div>
-      </div>
-      <div class="container dashInfo22">
-        <div class="container">modulo 2</div>
-      </div>
-
-    </div>
-
-  </div>
-
-  <!-- GRAFICAS -->
-  <div class="container text-center graficasContainer">
-
-    <div class="container graficasConInfo">
-
-      <div class="container graficasInfo1 ">
-        <span>panel 1</span>
-      </div>
-
-      <div class="container graficasInfo2">
-        <span>panel 2</span>
-      </div>
-
-    </div>
-
-    <div class="container graficasConInfo2">
-      <div class="container">
-        <span>panel 2</span>
-      </div>
-    </div>
-
-  </div>
-
-  <!-- TABLA -->
-  <div class="container text-center tablaContainer">
-
-    <div class="container ">
-      <span>panel 1</span>
-    </div>
-
-    <div class="container ">
-      <span>panel 2</span>
-    </div>
-
-  </div>
-
-  <div class="contianer text-center usuariosGraficas">
-
+    <div class="container"></div>
 
   </div>
 
 </div>
 
 
-<!-- PAGINA -->
-<!-- <div class="container text-center graficasCon">
-  <div class="row align-items-start">
-
-<div class="col-1"></div>
-<div class="col-10">
-  <div class="graficaTitulo">
-    <h2>Graficos</h2>
-  </div>
-</div>
-<div class="col-1"></div>
-
-  </div>
-</div> -->
-
-<!-- Dashboa Panel -->
-<!-- <div class="container text-center graficasCon">
-  <div class="row align-items-start">
-
-    <div class="col-6">
-      <div class="container graficas">
-
-      <div class="container grupo1graficas">
-        <div class="container grafCon1">
-          <h3>Ordenes</h3>
-        </div>
-        <div class="container grafCon2">
-          <h3>Usuario</h3>
-        </div>
-      </div>
-      <div class="contianer grupo2graficas">
-        <div class="container grafCon3">
-          <h3>Archivos</h3>
-        </div>
-        <div class="container grafCon4">
-          <h3>Notas</h3>
-        </div>
-      </div>
-
-      </div>
-    </div>
-
-    <div class="col-6">
-      <div class="container graficas2">
-        <div class="container">
-          <span></span>
-        </div>
-        <div class="container">
-          <span></span>
-        </div>
-      </div>
-    </div>
-
-  </div>
-</div> -->

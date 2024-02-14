@@ -1,6 +1,8 @@
 .panelModulo{
   background-color: seagreen;
   width: 100%;
+  height: auto;
+  padding-bottom: 20px;
 }
 
 /* Menu Top */
@@ -9,162 +11,25 @@
   height: 60px;
 }
 
-/* MENU TITLE */
-.dashboardTitleContainer {
-  background-color: #86b7fe;
-  width: 100%;
-  height: 100px;
-  margin-top: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* DASHBOARD */
-.dashboardContainer {
+/* Module title */
+.moduleTitle{
   background-color: violet;
   width: 100%;
-  height: 300px;
+  height: 40px;
   margin-top: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
-/* GRAFICAS */
-.graficasContainer{
-  background-color: tomato;
-  width: 100%;
-  height: 300px;
-  margin-top: 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: row;
-  flex-wrap: nowrap;
-}
-
-/* Tabla */
-.tablaContainer{
-  background-color: steelblue;
-  width: 100%;
-  height: 200px;
-  margin-top: 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: row;
-  flex-wrap: nowrap;
-}
-
-.dashConInfo{
-  background-color: #dc3545;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  align-content: center;
-}
-
-.dashInfo1 {
-  background-color: slateblue;
-  display: flex;
-  width: 100%;
-  height: 50%;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: nowrap;
-  flex-direction: row;
-}
-
-.dashInfo2 {
-  background-color:aliceblue;
-  display: flex;
-  width: 100%;
-  height: 50%;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: nowrap;
-  flex-direction: row;
-}
-
-.dashConInfo2{
-  background-color: #86b7fe;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-wrap: nowrap;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-}
-
-.dashInfo11 {
-  background-color:yellowgreen;
-  display: flex;
-  width: 100%;
-  height: 100%;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: nowrap;
-  flex-direction: row;
-}
-
-.dashInfo22 {
-  background-color:aliceblue;
-  display: flex;
-  width: 100%;
-  height: 100%;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: nowrap;
-  flex-direction: row;
-}
-
-.graficasConInfo{
-  background-color: #0dcaf0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  justify-content: center;
-  align-items: center;
-}
-
-.graficasConInfo2{
+.muduleContianer {
   background-color: #0d6efd;
   width: 100%;
-  height: 100%;
+  height: 450px;
+  margin-top: 10px;
   display: flex;
   flex-direction: row;
-  flex-wrap: nowrap;
-  justify-content: center;
-  align-items: center;
-
-}
-
-.graficasInfo1{
-  background-color: #86b7fe;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
   justify-content: center;
   align-items: center;
 }
 
-.graficasInfo2{
-  background-color: turquoise;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  justify-content: center;
-  align-items: center;
+.muduleContianer a {
+  color: black;
 }
