@@ -14,6 +14,7 @@ export class DashboardComponent {
     const closeBtn  = document.querySelector('#btn');
     const searchBtn = document.querySelector('.bx-search');
     const imgMenu   = document.querySelector('.imgMenu');
+    const logoname   = document.querySelector('.logo_name');
 
     if (closeBtn) {
       closeBtn.addEventListener('click', () => {
@@ -23,6 +24,10 @@ export class DashboardComponent {
         }
         if (imgMenu) {
           imgMenu.classList.remove('d-none')
+          menuBtnChange();
+        }
+        if (logoname) {
+          logoname.classList.remove('d-none')
           menuBtnChange();
         }
       });
@@ -38,18 +43,21 @@ export class DashboardComponent {
           imgMenu.classList.remove('d-none')
           menuBtnChange();
         }
+        if (logoname) {
+          logoname.classList.remove('d-none')
+          menuBtnChange();
+        }
       });
     }
 
     function menuBtnChange() {
-      if (sidebar && closeBtn && imgMenu) {
+      if (sidebar && closeBtn && imgMenu && logoname) {
         if (sidebar.classList.contains('open')) {
           closeBtn.classList.replace('bx-menu', 'bx-menu-alt-right');
         } else {
           closeBtn.classList.replace('bx-menu-alt-right', 'bx-menu');
           imgMenu.classList.add('d-none')
-
-
+          logoname.classList.add('d-none')
         }
       }
     }
