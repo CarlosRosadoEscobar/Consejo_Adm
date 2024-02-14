@@ -16,14 +16,14 @@
         <span class="tooltip">Buscar</span>
       </li>
       <li>
-        <a href="#">
+        <a [routerLink]="['/inicio']">
           <i class="bx bx-grid-alt"></i>
           <span class="links_name">Dashboard</span>
         </a>
         <span class="tooltip">Dashboard</span>
       </li>
       <li>
-        <a href="#">
+        <a [routerLink]="['/modulos']">
           <i class='bx bx-collection'></i>
           <span class="links_name">Modulos</span>
         </a>
@@ -46,7 +46,7 @@
 
   <section class="home-section">
     <app-menu></app-menu>
-    <app-panelmodulos></app-panelmodulos>
+    <app-paneldashboard></app-paneldashboard>
   </section>
 
 
