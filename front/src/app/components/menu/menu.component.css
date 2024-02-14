@@ -29,6 +29,11 @@ nav .wrapper{
   font-weight: 600;
   text-decoration: none;
 }
+
+.wrapper .logo img{
+width: 10px;
+height: 10px;
+}
 .wrapper .nav-links{
   display: inline-flex;
   padding-left: 150px;
