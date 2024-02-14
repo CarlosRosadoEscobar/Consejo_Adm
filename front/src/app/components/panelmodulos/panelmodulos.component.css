@@ -1,0 +1,54 @@
+.menutamaño{
+  width: 100%;
+  height: 60px;
+}
+
+.graficasCon{
+  margin-top: 10px;
+  /* background-color: blue; */
+}
+
+/* .graficas{
+    background-color: violet;
+    width: 100%;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center;
+    margin-top: 5px;
+    margin-bottom: 5px;
+} */
+
+.graficaTitulo{
+    /* background-color: brown; */
+    width: 100%;
+    height: 32px;
+    margin-top: 5px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-content: space-around;
+    justify-content: flex-start;
+}
+
+/* ############################# */
+.graficas{
+  /* background-color: violet; */
+  width: 100%;
+  height: 300px;
+}
+/* 
+.grafCon1{
+  background-color: yellow;
+}
+.grafCon2{
+  background-color: yellow;
+}
+.grafCon3{
+  background-color: yellow;
+}
+.grafCon4{
+  background-color: yellow;
+} */
