@@ -1,0 +1,49 @@
+<div class="sidebar">
+  <div class="logo-details">
+    <!-- <i class="bx bxl-c-plus-plus icon"></i> -->
+    <div class="imgMenu d-none">
+      <img src="../../../assets/images/letra-z-2.png" alt="">
+    </div>
+    <div class="logo_name d-none">Panel Zascita</div>
+    <i class="bx bx-menu" id="btn"></i>
+  </div>
+
+  <ul class="nav-list">
+    <li>
+      <i class="bx bx-search"></i>
+      <input type="text" placeholder="Buscar..." />
+      <span class="tooltip">Buscar</span>
+    </li>
+    <li>
+      <a [routerLink]="['/inicio']">
+        <i class="bx bx-grid-alt"></i>
+        <span class="links_name">Dashboard</span>
+      </a>
+      <span class="tooltip">Dashboard</span>
+    </li>
+    <li>
+      <a [routerLink]="['/mudulo']">
+        <i class='bx bx-collection'></i>
+        <span class="links_name">Modulos</span>
+      </a>
+      <span class="tooltip">Modulos</span>
+    </li>
+    <li class="profile">
+      <div class="profile-details">
+        <img src="../../../assets/images/profile.jpg" alt="profileImg" />
+        <div class="name_job">
+          <div class="name">Angel Gonzalez</div>
+          <div class="job">Anlista programador</div>
+        </div>
+      </div>
+      <i class="bx bx-log-out" id="log_out"></i>
+    </li>
+
+  </ul>
+
+</div>
+
+<section class="home-section">
+  <app-menu></app-menu>
+  <app-panelmodulos></app-panelmodulos>
+</section>
