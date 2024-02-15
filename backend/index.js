@@ -1,7 +1,9 @@
+require('dotenv').config();
 
-const express = require('express')
-const morgan = require('morgan')
-const app = express()
+const express = require('express');
+const morgan = require('morgan');
+const MessagingResponse = require('twilio/lib/twiml/MessagingResponse');
+const app = express();
 
 const usuarios = [
     {
@@ -36,6 +38,21 @@ app.use(express.json())
 app.get('/SiguesVivo', (req,res) => {
     res.sendStatus(204)
 })
+//! ##################################################################
+//! ########################### SMS ##################################
+//! ##################################################################
+
+app.post('/sms', (req,res) => {
+    const twiml = new MessagingResponse();
+    twiml.message('He recibido tu message');
+    res.writeHead(200, {'Content-Type': 'text/xml'});
+    res.end(twiml.toString());
+})
+
+
+//! ##################################################################
+//! ######################### USUARIOS ###############################
+//! ##################################################################
 
 //* Obteniendo Usuarios
 app.get('/usuario', (req,res) =>{
