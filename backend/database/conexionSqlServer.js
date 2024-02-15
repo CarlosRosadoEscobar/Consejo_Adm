@@ -1,11 +1,13 @@
+require('dotenv').config();
+const BD_PORT = parseInt(process.env.BD_PORT, 10);
 const mssql = require("mssql");
 
 const connectionSettings = {
-    server: 'SRV-ZASCITA-SM',
-    port: 2552,
-    database: 'Zascita_BD',
-    user: 'sa',
-    password: 'S3guridad.2022',
+    server:     process.env.BD_SERVER,
+    port:       BD_PORT,
+    database:   process.env.BD_DATABASE,
+    user:       process.env.BD_USER,
+    password:   process.env.BD_PASSWORD,
     options: {
         encrypt: false,
         trustServerCertificate: true,
