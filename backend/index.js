@@ -82,6 +82,21 @@ app.get('/usuario/:id', (req,res) =>{
 })
 
 
+// DOCUSING
+const path = require('path');
+const bodyParser = require('body-parser');
+
+app.use(bodyParser.urlencoded({extended:true}))
+
+app.post('/documentos_g', (req,res)=>{
+    console.log('Enviado',req.body);
+    res.send('Recibido');
+});
+app.get('/documentos', (req,res) => {
+    res.sendFile(path.join(__dirname, 'static/form.html'));
+});
+
+
 
 
 app.listen(3000)
