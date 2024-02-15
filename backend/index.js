@@ -85,14 +85,29 @@ app.get('/usuario/:id', (req,res) =>{
 // DOCUSING
 const path = require('path');
 const bodyParser = require('body-parser');
+const dotenv = require('dotenv');
 
+const docusing = require('docusign-esign');
+const fs = require('fs');
+
+dotenv.config();
 app.use(bodyParser.urlencoded({extended:true}))
 
 app.post('/documentos_g', (req,res)=>{
     console.log('Enviado',req.body);
     res.send('Recibido');
 });
-app.get('/documentos', (req,res) => {
+app.get('/documentos', async (req,res) => {
+    let dsApiClient = new docusign.ApiClient();
+
+    const results = await dsApi.requestJWTUserToken(
+        process.env.INTEGRARION_KEY,
+        process.env.USER_ID,
+        "signature",
+        fs.readFileSync(path.join(__dirname,"private.key")),
+        3600
+    );
+    console.log(results.body);
     res.sendFile(path.join(__dirname, 'static/form.html'));
 });
 
@@ -100,7 +115,7 @@ app.get('/documentos', (req,res) => {
 
 
 app.listen(3000)
-console.log(`Servidor en ejecución: http://localhost:${3000}`);
+console.log(`Servidor en ejecución: http://localhost:${3000}`, process.env.USER_ID);
 
 
 
