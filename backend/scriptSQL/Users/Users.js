@@ -1,20 +1,20 @@
-const { getConnection, mssql } = require('../database/conexionSqlServer');
+const { getConnection, mssql } = require('../../database/conexionSqlServer');
 
 const getUsuarios = async () => {
     try {
         const pool = await getConnection();
         if (pool) {
-            console.log('Objeto pool devuelto correctamente');
+            console.log('Data Usuarios devuelto correctamente');
             const result = await pool.request().query("SELECT * FROM Users");
-            // console.log(result.recordset);
-            console.table(result.recordset)
+            return result.recordset; 
         } else {
             console.error('Error: Objeto pool no devuelto');
+            return []; 
         }
     } catch (error) {
         console.log(error);
+        return []; 
     }
 }
 
-
-getUsuarios();
+module.exports = { getUsuarios };
