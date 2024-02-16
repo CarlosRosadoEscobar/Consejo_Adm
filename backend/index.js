@@ -172,7 +172,7 @@ app.get('/', async (req,res)=>{
     res.sendFile(path.join(__dirname,'./static/form.html'));
 });
 
-//https://account-d.docusign.com/oauth/auth?response_type=code&scope=signature%20impersonation&client_id=cf8868c0-ba10-4496-8ea5-948431cbbd83&redirect_uri=http://localhost:3000/
+//https://account-d.docusign.com/oauth/auth?response_type=code&scope=signature%20impersonation&client_id=7dc7690c-b043-416b-aa63-77ac01d94818&redirect_uri=http://localhost:3000/
 
 app.listen(3000, () => {
     console.log('El servidor ha sido iniciado en http://localhost:3000/', process.env.USER_ID);

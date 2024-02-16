@@ -8,6 +8,6 @@ client.messages
       .create({
         from: '+12177344976', 
         body: 'Mensaje de Prueba Zascita', 
-        to: '+525563776118'})
+        to: '+527228032683'})
       .then(message => console.log(message.sid));
 
