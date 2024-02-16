@@ -86,36 +86,97 @@ app.get('/usuario/:id', (req,res) =>{
 const path = require('path');
 const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
+const docusign = require('docusign-esign');
+const fs = require("fs");
 
-const docusing = require('docusign-esign');
-const fs = require('fs');
+const session = require('express-session');
 
 dotenv.config();
-app.use(bodyParser.urlencoded({extended:true}))
 
-app.post('/documentos_g', (req,res)=>{
-    console.log('Enviado',req.body);
-    res.send('Recibido');
+app.use(bodyParser.urlencoded({extended:true}));
+app.use(session({
+    secret:"50289sdf88a56as56", 
+    resave:true,
+    saveUninitialized:true,
+}))
+
+app.post('/form', async(req,res)=>{
+
+    await checarToken(req);
+    let envelopesApi = getSobresApi(req);
+    let envelope = makeEnvelope(req.body.nombre, req.body.email);
+
+    let results = await envelopesApi.createEnvelope(
+        process.env.ACCOUNT_ID, {envelopeDefinition: envelope});
+    console.log("envelope results ", results);
+
+
+    // console.log('Información recibida', req.body);
+    res.send('Información recibida');
 });
-app.get('/documentos', async (req,res) => {
+
+function getSobresApi(req){
     let dsApiClient = new docusign.ApiClient();
+    dsApiClient.setBasePath(process.env.BASE_PATH);
+    dsApiClient.addDefaultHeader('Authorization', 'Bearer ' + req.session.access_token);
+    return new docusign.EnvelopesApi(dsApiClient);
+}
 
-    const results = await dsApi.requestJWTUserToken(
-        process.env.INTEGRARION_KEY,
-        process.env.USER_ID,
-        "signature",
-        fs.readFileSync(path.join(__dirname,"private.key")),
-        3600
+function makeEnvelope(nombre,email){
+    let env = new docusign.EnvelopeDefinition();
+    env.templateId = process.env.TEMPLATE_ID;
+
+
+    let signer1 = docusign.TemplateRole.constructFromObject(
+        {
+            name: nombre,
+            email: email,
+            roleName: 'Prueba'
+        }
     );
-    console.log(results.body);
-    res.sendFile(path.join(__dirname, 'static/form.html'));
+
+   
+
+    env.templateRoles = [signer1];
+    env.status = "sent"; // We want the envelope to be sent
+
+    return env;
+}
+
+
+
+async function checarToken(req){
+    if(req.session.access_token && Date.now() < req.session.expires_at){
+        console.log('reutiliza el token de acceso', req.session.access_token);
+    }else{
+        console.log('Generando un nuevo token');
+        let dsApiClient = new docusign.ApiClient();
+        dsApiClient.setBasePath(process.env.BASE_PATH);
+        
+        const results = await dsApiClient.requestJWTUserToken(
+            process.env.INTEGRATION_KEY, 
+            process.env.USER_ID, 
+            "signature",
+            fs.readFileSync(path.join(__dirname,"private.key")),
+            3600
+        );
+        console.log(results.body);
+        req.session.access_token = results.body.access_token;
+        req.session.expires_at = Date.now() + (results.body.expires_in - 60) * 1000;
+    }
+}
+
+
+app.get('/', async (req,res)=>{
+    await checarToken(req);
+    res.sendFile(path.join(__dirname,'./static/form.html'));
 });
 
+//https://account-d.docusign.com/oauth/auth?response_type=code&scope=signature%20impersonation&client_id=cf8868c0-ba10-4496-8ea5-948431cbbd83&redirect_uri=http://localhost:3000/
 
-
-
-app.listen(3000)
-console.log(`Servidor en ejecución: http://localhost:${3000}`, process.env.USER_ID);
+app.listen(3000, () => {
+    console.log('El servidor ha sido iniciado en http://localhost:3000/', process.env.USER_ID);
+})
 
 
 
