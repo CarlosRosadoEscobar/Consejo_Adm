@@ -7,6 +7,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { PanelmodulosComponent } from './components/panelmodulos/panelmodulos.component';
 
+// services
+import { HttpClientModule } from '@angular/common/http';
+
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
@@ -52,6 +56,8 @@ import { JuridicoNormativoComponent } from './components/juridico-normativo/juri
     CommonModule,
     BrowserAnimationsModule, // required animations module
     ToastrModule.forRoot(), // ToastrModule added
+    HttpClientModule,
+
   ],
   providers: [],
   bootstrap: [AppComponent]
