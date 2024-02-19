@@ -1,63 +1,33 @@
-require('dotenv').config();
+//* DATA BD
+const { getUsuarios } = require('./scriptSQL/Users/Users'); 
 
+//* SERVER
 const express = require('express');
 const morgan = require('morgan');
-const MessagingResponse = require('twilio/lib/twiml/MessagingResponse');
 const app = express();
 
-const usuarios = [
-    {
-        id: 1,
-        nombre: "Angel",
-        apellido: "Gonzalez",
-        usuario: "edangel",
-        correo: "angel@zascita.com",
-        contraseña: "contraseñaPrueba1",
-    },
-    {
-        id: 2,
-        nombre: "Alexis",
-        apellido: "Morales",
-        usuario: "alemorales",
-        correo: "alexis@zascita.conm",
-        contraseña: "contraseña123",
-    },
-    {
-        id: 3,
-        nombre: "Carlos",
-        apellido: "Rozado",
-        usuario: "Carrozado",
-        correo: "carlos@zascita.com",
-        contraseña: "preubacontraseña",
-    },
-]
-
+//* MIDDLEWARE
 app.use(morgan('dev'))
 app.use(express.json())
 
+//* ASSET
 app.get('/SiguesVivo', (req,res) => {
     res.sendStatus(204)
 })
-//! ##################################################################
-//! ########################### SMS ##################################
-//! ##################################################################
-
-app.post('/sms', (req,res) => {
-    const twiml = new MessagingResponse();
-    twiml.message('He recibido tu message');
-    res.writeHead(200, {'Content-Type': 'text/xml'});
-    res.end(twiml.toString());
-})
-
 
 //! ##################################################################
 //! ######################### USUARIOS ###############################
 //! ##################################################################
 
-//* Obteniendo Usuarios
-app.get('/usuario', (req,res) =>{
-    res.json(usuarios)
-})
+app.get('/usuario', async (req, res) => {
+    try {
+        const userData = await getUsuarios(); 
+        res.json(userData);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Hubo un error al obtener los usuarios' });
+    }
+});
 
 //* Creando Usuarios
 app.post('/usuario', (req,res) =>{
@@ -323,3 +293,4 @@ app.listen(3000, () => {
         connect(); // Conectar a la base de datos al iniciar el servidor
     }); 
 */
+
