@@ -1,4 +1,6 @@
-import { Component, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
+import { Component } from '@angular/core';
+import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
+import { UserDataService } from '../../services/user-data.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -7,9 +9,21 @@ import { Component, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 })
 export class DashboardComponent {
 
-  constructor() { }
+  usuario: any;
+
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private userDataService: UserDataService
+    ) { }
 
   ngOnInit(): void {
+
+    this.usuario = this.userDataService.getUsuario();
+    console.log('Datos del usuario Dashboard:', this.usuario);
+
+
+
     const sidebar   = document.querySelector('.sidebar');
     const closeBtn  = document.querySelector('#btn');
     const searchBtn = document.querySelector('.bx-search');
@@ -66,3 +80,40 @@ export class DashboardComponent {
 
 
 }
+
+
+/*
+
+import { Router, ActivatedRoute, NavigationExtras, RouterStateSnapshot } from '@angular/router';
+
+constructor(private router: Router, private route: ActivatedRoute) { }
+
+Ingresar() {
+  // Tu lógica para autenticar al usuario
+
+  this._AuthService.login(usuarioValue, passwordValue).subscribe(response => {
+    console.log('Respuesta del servidor:', response);
+    if (response.mensaje === 'Autenticación exitosa') {
+      console.log('Mensaje del servidor:', response.mensaje);
+      console.log('Datos del usuario:', response.usuario);
+
+      // Navega a la página de inicio y pasa los datos del usuario como objeto de estado
+      const navigationExtras: NavigationExtras = {
+        state: {
+          usuario: response.usuario
+        }
+      };
+      this.router.navigate(['inicio'], navigationExtras);
+    } else {
+      this.toastr.error("Credenciales incorrectas", "Error");
+    }
+  }, error => {
+    console.error('Error:', error);
+    this.toastr.error("Error al iniciar sesión", "Error");
+  });
+}
+
+
+
+
+*/
