@@ -19,11 +19,7 @@ export class PaneldashboardComponent implements OnInit {
   }
 
   llenarData() {
-    this.ApiService.getData().subscribe( data => {
-      this.data = data;
-      console.log("data: ", data);
 
-    })
   }
 
 }

@@ -32,9 +32,9 @@
       <li class="profile">
         <div class="profile-details">
           <img src="../../../assets/images/profile.jpg" alt="profileImg" />
-          <div class="name_job">
-            <div class="name">Angel Gonzalez</div>
-            <div class="job">Anlista programador</div>
+          <div class="name_job" *ngIf="usuario">
+            <div class="name">{{ usuario.Nombre }} {{ usuario.Apellido }}</div>
+            <div class="job">{{ usuario.Puesto }}</div>
           </div>
         </div>
         <i class="bx bx-log-out" id="log_out"></i>
