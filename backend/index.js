@@ -1,12 +1,22 @@
 //* DATA BD
 const { getUsuarios } = require('./scriptSQL/Users/Users'); 
 const { crecimiento_servicios } = require('./scriptSQL/comercial/crecimiento_servicios'); 
-const { getProspectos } = require('./scriptSQL/comercial/seguimiento_prospectos'); 
+const { getProspectos } = require('./scriptSQL/comercial/seguimiento_prospectos');
+const { getVacantes } = require('./scriptSQL/rrhh/vacante');
+
+const {getUsuariosRegion} = require('./scriptSQL/rrhh/region');
+
+const {getUsuariosConsulta} = require('./scriptSQL/juridico_normativo/proceso_armado/consulta');
+const {getUsuariosInscripcion} = require('./scriptSQL/juridico_normativo/proceso_armado/inscripcion');
+
+const { getUsuariosCredencializacion } = require('./scriptSQL/juridico_normativo/proceso_armado/credencializacion');
+
 
 //* SERVER
 const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
+const { json } = require('body-parser');
 const app = express();
 
 //* Middleware para permitir solicitudes
@@ -61,7 +71,62 @@ app.get('/prospectos', async (req,res) => {
     }
 });
 
+// RECURSOS HUMANOS
 
+
+app.get('/rrhh/vacantes', async (req,res) => {
+    try {
+        const vacantes = await getVacantes();
+        res.json(vacantes);        
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({error:"No se pudo traer la información de las vacantes"});
+    }
+});
+
+
+app.get('/rrhh/rotacion');
+
+app.get('/rrhh/region', async (req,res) => {
+    try {
+        const regiones = await getUsuariosRegion();
+        res.json(regiones);
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({error: "No se pudo traer la información de los usuarios por region."});
+    }
+});
+
+
+// Jurídico Normativo
+
+app.get('/juridico_normativo/consulta', async (req,res) => {
+    try {
+        const consulta = await getUsuariosConsulta();
+        res.json(consulta);        
+    } catch (error) {
+        console.log(error);
+        res.status(500),json({ error : "No se pudo traer la información"})
+    }
+});
+app.get('/juridico_normativo/inscripcion', async (req,res) => {
+    try {
+        const inscripcion = await getUsuariosInscripcion();
+        res.json(inscripcion);        
+    } catch (error) {
+        console.log(error);
+        res.status(500),json({ error : "No se pudo traer la información"})
+    }
+});
+app.get('/juridico_normativo/credencializacion', async (req,res) => {
+    try {
+        const credencializacion = await getUsuariosCredencializacion();
+        res.json(credencializacion);        
+    } catch (error) {
+        console.log(error);
+        res.status(500),json({ error : "No se pudo traer la información"})
+    }
+});
 
 
 //* Creando Usuarios
