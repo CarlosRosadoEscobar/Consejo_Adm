@@ -20,4 +20,23 @@ export class AuthServiceService {
     return this.http.post(url, datosLogin);
   }
 
+  getContadorSesiones(): number {
+    const contadorSesiones = localStorage.getItem('contadorSesiones');
+    return contadorSesiones ? parseInt(contadorSesiones) : 0;
+  }
+
+  getHistorialInicioSesion(): any[] {
+    const historialInicioSesion = localStorage.getItem('historialInicioSesion');
+    return historialInicioSesion ? JSON.parse(historialInicioSesion) : [];
+  }
+
+  enviarHistorialInicioSesion(historialInicioSesion: any[]): Observable<any> {
+    const url = 'http://localhost:3000/registro';
+    return this.http.post(url, historialInicioSesion);
+  }
+
 }
+
+
+
+
