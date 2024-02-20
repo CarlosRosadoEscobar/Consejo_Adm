@@ -40,34 +40,41 @@ export class LoginComponent implements OnInit {
     const usuarioValue = this.usuarioForm.get('usuario')?.value;
     const passwordValue = this.usuarioForm.get('password')?.value;
 
-    console.log('Usuario:', usuarioValue);
-    console.log('Contraseña:', passwordValue);
+    // console.log('Usuario:', usuarioValue);
+    // console.log('Contraseña:', passwordValue);
 
     if (this.usuarioForm.invalid) {
       this.toastr.error("Todos los campos son obligatorios", "Error de validación");
     } else {
 
-      this._AuthService.login(usuarioValue, passwordValue).subscribe(response => {
-        console.log('Respuesta del servidor:', response);
-        if (response.mensaje === 'Autenticación exitosa') {
-          console.log('Mensaje del servidor:', response.mensaje);
-          console.log('Datos del usuario:', response.usuario);
 
+      this._AuthService.login(usuarioValue, passwordValue).subscribe(response => {
+        if (response.mensaje === 'Autenticación exitosa') {
           this.userDataService.setUsuario(response.usuario);
 
+          const timestampInicioSesion = new Date().getTime();
+          localStorage.setItem('timestampInicioSesion', timestampInicioSesion.toString());
+
+          let contadorSesiones = localStorage.getItem('contadorSesiones');
+          if (!contadorSesiones) {
+            contadorSesiones = '1';
+          } else {
+            contadorSesiones = (parseInt(contadorSesiones) + 1).toString();
+          }
+
+          const historialInicioSesion = JSON.parse(localStorage.getItem('historialInicioSesion') || '[]');
+          const usuario = response.usuario;
+          historialInicioSesion.push({ usuario, timestampInicioSesion });
+          localStorage.setItem('historialInicioSesion', JSON.stringify(historialInicioSesion));
+
+          localStorage.setItem('contadorSesiones', contadorSesiones);
+
           this.router.navigate(['inicio']);
-
-
-        } else {
-          this.toastr.error("Credenciales incorrectas", "Error");
         }
-      }, error => {
-        console.error('Error:', error);
-        this.toastr.error("Error al iniciar sesión", "Error");
       });
 
 
-      // ####
+
     }
   }
 

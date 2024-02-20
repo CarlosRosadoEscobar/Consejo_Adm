@@ -6,16 +6,23 @@ import { Injectable } from '@angular/core';
 })
 export class UserDataService {
 
+  private sessionStartTimeKey = 'sessionStartTime';
+  private usuarioKey = 'usuario'
   private usuario: any;
 
   constructor() { }
 
   setUsuario(usuario: any) {
-    this.usuario = usuario;
+    localStorage.setItem(this.usuarioKey, JSON.stringify(usuario));
   }
 
   getUsuario() {
-    return this.usuario;
+    const usuarioString = localStorage.getItem(this.usuarioKey);
+    return usuarioString ? JSON.parse(usuarioString) : null;
+  }
+
+  clearUserData() {
+    localStorage.removeItem(this.usuarioKey);
   }
 
 }

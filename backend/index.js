@@ -111,6 +111,22 @@ app.get('/usuario/:id', (req,res) =>{
     res.send("Obteniendo un Usuarios por id")
 })
 
+//! ##################################################################
+//! ####################### REGISTRO LOGIN ###########################
+//! ##################################################################
+
+app.post('/registro', async (req, res) => {
+    try {
+      const historialInicioSesion = req.body;
+      console.log('Historial de inicio de sesión recibido:', historialInicioSesion);
+      res.status(200).send({ mensaje: 'Datos de historial de inicio de sesión recibidos correctamente' });
+    } catch (error) {
+      console.error('Error al procesar los datos del historial de inicio de sesión:', error);
+      res.status(500).send({ error: 'Hubo un error al procesar los datos del historial de inicio de sesión' });
+    }
+  });
+  
+
 
 // DOCUSING
 // const path = require('path');
