@@ -1,5 +1,7 @@
 //* DATA BD
 const { getUsuarios } = require('./scriptSQL/Users/Users'); 
+const { crecimiento_servicios } = require('./scriptSQL/comercial/crecimiento_servicios'); 
+const { getProspectos } = require('./scriptSQL/comercial/seguimiento_prospectos'); 
 
 //* SERVER
 const express = require('express');
@@ -29,8 +31,32 @@ app.get('/usuario', async (req, res) => {
     }
 });
 
+// COMERCIAL
+app.get('/cmr', async (req,res)=>{
+    try {
+        const crecimiento_servicio = await crecimiento_servicios();
+        res.json(crecimiento_servicio)        
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({error:'Hubo un error'});
+    }
+});
+
+app.get('/prospectos', async (req,res) => {
+    try {
+        const prospectos = await getProspectos();
+        res.json(prospectos)         
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({error:"No se pudo traer la información de prospectos"});
+    }
+});
+
+
+
+
 //* Creando Usuarios
-app.post('/usuario', (req,res) =>{
+/* app.post('/usuario', (req,res) =>{
     // console.log(...req.body);
     console.log(req.body);
     res.send("Creando Usuarios")
@@ -49,7 +75,7 @@ app.delete('/usuario', (req,res) =>{
 //* Obteniendo un Usuarios
 app.get('/usuario/:id', (req,res) =>{
     res.send("Obteniendo un Usuarios por id")
-})
+}) */
 
 
 // DOCUSING
