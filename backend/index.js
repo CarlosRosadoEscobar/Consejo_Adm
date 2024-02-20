@@ -65,11 +65,6 @@ app.get('/prospectos', async (req,res) => {
 
 
 //* Creando Usuarios
-app.post('/usuario', (req,res) =>{
-    // console.log(...req.body);
-    console.log(req.body);
-    res.send("Creando Usuarios")
-})
 
 app.post('/usuario', async (req, res) => {
   const { usuario, password } = req.body;
