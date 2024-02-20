@@ -212,7 +212,7 @@
 .sidebar li.profile .job{
   font-size: 12px;
 }
-.sidebar .profile #log_out{
+.sidebar .profile #log_out {
   position: absolute;
   top: 50%;
   right: 0;
@@ -223,11 +223,26 @@
   line-height: 60px;
   border-radius: 0px;
   transition: all 0.5s ease;
+  cursor: pointer;
 }
+
+.sidebar .profile #log_out:hover {
+  background: #2c2a4a;
+  color: white;
+  cursor: pointer;
+}
+
 .sidebar.open .profile #log_out{
   width: 50px;
   background: none;
 }
+
+.sidebar.open .profile #log_out:hover{
+  background: #2c2a4a;
+  color: white;
+  cursor: pointer;
+}
+
 .home-section{
   position: relative;
   background: #E4E9F7;
