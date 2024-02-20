@@ -12,8 +12,8 @@ import { JuridicoCorporativoComponent } from './components/juridico-corporativo/
 import { PpComponent } from './components/pp/pp.component';
 import { RrhhComponent } from './components/rrhh/rrhh.component';
 import { TiComponent } from './components/ti/ti.component';
-import { PanelgraficasComponent } from './components/panelgraficas/panelgraficas.component';
-import { PanelexportarComponent } from './components/panelexportar/panelexportar.component';
+import { GraficasComponent } from './components/graficas/graficas.component';
+import { ExportarComponent } from './components/exportar/exportar.component';
 
 const routes: Routes = [
   {path:'',component:LoginComponent},
@@ -21,8 +21,8 @@ const routes: Routes = [
   {path:'login', component:LoginComponent},
   {path: 'modulos/:moduloUrl', component: ModulosComponent },
   {path: 'modulos', component: ModulosComponent },
-  {path: 'graficas', component:  PanelgraficasComponent },
-  {path: 'exportar', component: PanelexportarComponent },
+  {path: 'graficas', component:  GraficasComponent },
+  {path: 'exportar', component: ExportarComponent },
 
   {path: 'admfin',component: AdministracionFinanzasComponent },
   {path: 'caez',component: CaezComponent },

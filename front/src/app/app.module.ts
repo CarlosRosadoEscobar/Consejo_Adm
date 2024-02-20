@@ -30,6 +30,8 @@ import { PpComponent } from './components/pp/pp.component';
 import { JuridicoNormativoComponent } from './components/juridico-normativo/juridico-normativo.component';
 import { PanelexportarComponent } from './components/panelexportar/panelexportar.component';
 import { PanelgraficasComponent } from './components/panelgraficas/panelgraficas.component';
+import { GraficasComponent } from './components/graficas/graficas.component';
+import { ExportarComponent } from './components/exportar/exportar.component';
 
 
 @NgModule({
@@ -51,7 +53,9 @@ import { PanelgraficasComponent } from './components/panelgraficas/panelgraficas
     PpComponent,
     JuridicoNormativoComponent,
     PanelexportarComponent,
-    PanelgraficasComponent
+    PanelgraficasComponent,
+    GraficasComponent,
+    ExportarComponent
   ],
   imports: [
     BrowserModule,
