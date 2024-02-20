@@ -28,6 +28,8 @@ import { CaezComponent } from './components/caez/caez.component';
 import { OperacionesComponent } from './components/operaciones/operaciones.component';
 import { PpComponent } from './components/pp/pp.component';
 import { JuridicoNormativoComponent } from './components/juridico-normativo/juridico-normativo.component';
+import { PanelexportarComponent } from './components/panelexportar/panelexportar.component';
+import { PanelgraficasComponent } from './components/panelgraficas/panelgraficas.component';
 
 
 @NgModule({
@@ -47,7 +49,9 @@ import { JuridicoNormativoComponent } from './components/juridico-normativo/juri
     CaezComponent,
     OperacionesComponent,
     PpComponent,
-    JuridicoNormativoComponent
+    JuridicoNormativoComponent,
+    PanelexportarComponent,
+    PanelgraficasComponent
   ],
   imports: [
     BrowserModule,
