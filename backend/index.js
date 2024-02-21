@@ -12,6 +12,8 @@ const {getUsuariosInscripcion} = require('./scriptSQL/juridico_normativo/proceso
 const { getUsuariosCredencializacion } = require('./scriptSQL/juridico_normativo/proceso_armado/credencializacion');
 
 
+
+
 //* SERVER
 const express = require('express');
 const cors = require('cors');
@@ -191,6 +193,61 @@ app.post('/registro', async (req, res) => {
     }
   });
   
+
+
+//   PDF
+const fileUpload = require('express-fileupload')
+const fs = require('fs');
+
+const { insertarDocumento } = require('./scriptSQL/documentos/documentos')
+
+app.use(fileUpload())
+
+
+
+function base64encode(filePath) {
+    // Read the file content
+    const fileContent = fs.readFileSync(filePath);
+
+    // Encode the file content to base64
+    const base64Data = fileContent.toString('base64');
+
+    return base64Data;
+}
+
+
+app.post('/upload', (req, res) => {
+    if (!req.files || Object.keys(req.files).length === 0) {
+        return res.status(400).send('No files were uploaded.');
+    }
+
+    const EDFile = req.files.file;
+    
+    EDFile.mv(`./files/${EDFile.name}`, async (err) => {
+        if (err) {
+            return res.status(500).send({ message: err });
+        } else {
+            try {
+                let base64Data = base64encode(`./files/${EDFile.name}`);
+               
+                const fecha = new Date().toISOString().slice(0, 19).replace("T", " ");
+    
+                const insertResult = await insertarDocumento(base64Data, fecha);
+    
+                if (insertResult) {
+                    return res.send({ datos: { base64Data, fecha } });
+                } else {
+                    return res.status(500).send({ message: 'Error no se puede guardar en la BD' });
+                }
+            } catch (error) {
+                console.error(error);
+                return res.status(500).send({ message: 'Error no se puede guardar en la BD' });
+            }
+        }
+    });
+});
+
+
 
 
 // DOCUSING
