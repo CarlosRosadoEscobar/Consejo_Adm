@@ -33,8 +33,6 @@ import { PanelgraficasComponent } from './components/panelgraficas/panelgraficas
 import { GraficasComponent } from './components/graficas/graficas.component';
 import { ExportarComponent } from './components/exportar/exportar.component';
 
-import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
-
 
 @NgModule({
   declarations: [
@@ -66,7 +64,7 @@ import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
     CommonModule,
     BrowserAnimationsModule, // required animations module
     ToastrModule.forRoot(), // ToastrModule added
-    HttpClientModule, NgxExtendedPdfViewerModule,
+    HttpClientModule,
 
   ],
   providers: [],
