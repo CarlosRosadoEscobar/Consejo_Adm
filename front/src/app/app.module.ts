@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 // Animaciones
 import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgxChartsModule }from '@swimlane/ngx-charts';  // graficas
 import { ToastrModule } from 'ngx-toastr';
 import { PanelmodulosComponent } from './components/panelmodulos/panelmodulos.component';
 
@@ -32,8 +33,6 @@ import { PanelexportarComponent } from './components/panelexportar/panelexportar
 import { PanelgraficasComponent } from './components/panelgraficas/panelgraficas.component';
 import { GraficasComponent } from './components/graficas/graficas.component';
 import { ExportarComponent } from './components/exportar/exportar.component';
-
-import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
 
 
 @NgModule({
@@ -66,7 +65,8 @@ import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
     CommonModule,
     BrowserAnimationsModule, // required animations module
     ToastrModule.forRoot(), // ToastrModule added
-    HttpClientModule, NgxExtendedPdfViewerModule,
+    HttpClientModule,
+    NgxChartsModule,
 
   ],
   providers: [],
