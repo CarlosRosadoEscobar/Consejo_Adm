@@ -1,4 +1,4 @@
-const {getConnection} = require('../../database/conexionSqlServer');
+const { getConnection } = require('../../database/conexionSqlServer');
 
 const insertarDocumento = async (base64Data, fecha) => {
     try {
@@ -26,6 +26,25 @@ const insertarDocumento = async (base64Data, fecha) => {
     }
 }
 
-module.exports = { insertarDocumento }
+const listarDocumentos = async () => {
+    try {
 
+        let pool = await getConnection();
+        if (pool) {
+            console.log('Consulta');
 
+            let result = await pool.request().query("SELECT * FROM direccion_general_documentos");
+           
+            return result.recordset;
+
+        } else {
+            console.log("Objeto pool no devuelto");
+            return[];
+        } 
+    } catch (error) {
+        console.log(error);
+        return[];
+    }    
+}
+
+module.exports = { insertarDocumento, listarDocumentos };

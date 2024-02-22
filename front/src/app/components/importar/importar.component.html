@@ -1,0 +1,23 @@
+<div class="container mt-5">
+    <div class="row">
+        <div class="card">
+            <div class="card-body text-center">
+                <span class="titulo">PDF</span>
+
+                <form [formGroup]="documentoForm" (ngSubmit)="guardarDocumento()">
+                    <div class="mt-5">
+                      <input type="file" formControlName="documento" id="documento">
+                      <div class="text-danger" >
+                        <span><b>Es necesario subir el documento</b></span>
+                      </div>
+                    </div>
+                    <div class="mt-5">
+                      <button class="btn btn-success">Guardar</button>
+                    </div>
+                  </form>
+                  
+
+            </div>            
+        </div>
+    </div>
+</div>

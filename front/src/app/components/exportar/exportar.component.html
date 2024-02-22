@@ -1,4 +1,4 @@
-<form action='http://localhost:3000/upload' method="POST" enctype="multipart/form-data">
+<form action='http://localhost:3000/documentos' method="POST" enctype="multipart/form-data">
     <input type="file" name="file">
     <input type="submit" value="Subir">
 </form>
@@ -6,5 +6,12 @@
 
 
 
+<button class="btn btn-success" [routerLink]="['/importar']" routerLinkActive="router-link-active" >Agregar</button>
 
-
+<ul>
+    <li *ngFor="let documento of listDocumentos">
+        <a href="data:application/pdf;base64,{{documento.documento}}" target="_blank" download="data:application/pdf;base64,{{documento.documento}}">
+            sdsdds
+        </a>
+    </li>
+</ul>
