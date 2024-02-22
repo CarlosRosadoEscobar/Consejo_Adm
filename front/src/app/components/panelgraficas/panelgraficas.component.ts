@@ -3,6 +3,10 @@ import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
 import { UserDataService } from '../../services/user-data.service';
 import { AuthServiceService } from '../../services/auth-service.service';
 
+import { BrowserModule } from '@angular/platform-browser';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { single } from './data';
+
 @Component({
   selector: 'app-panelgraficas',
   templateUrl: './panelgraficas.component.html',
@@ -10,18 +14,45 @@ import { AuthServiceService } from '../../services/auth-service.service';
 })
 export class PanelgraficasComponent {
 
+
+
+  single =[];
+  view: [number,number] = [1000, 400];
+
+  // options
+  gradient: boolean = true;
+  showLegend: boolean = true;
+  showLabels: boolean = true;
+  isDoughnut: boolean = false;
+
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private _userData: UserDataService,
+    private _authService: AuthServiceService,
+    ) {
+      Object.assign(this, { single });
+    }
+
+
+  onSelect(data: any): void {
+    console.log('Item clicked', JSON.parse(JSON.stringify(data)));
+  }
+
+  onActivate(data: any): void {
+    console.log('Activate', JSON.parse(JSON.stringify(data)));
+  }
+
+  onDeactivate(data: any): void {
+    console.log('Deactivate', JSON.parse(JSON.stringify(data)));
+  }
+
   usuario: any;
   primerNombre: string = '';
   primerApellido: string = '';
   contadorSesiones!: number;
   historialInicioSesion!: any[];
 
-  constructor(
-    private router: Router,
-    private route: ActivatedRoute,
-    private _userData: UserDataService,
-    private _authService: AuthServiceService
-    ) { }
 
   ngOnInit(): void {
 

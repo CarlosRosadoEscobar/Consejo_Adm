@@ -1,7 +1,12 @@
 .panelModulo{
-  background-color: seagreen;
+  background: #000428;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #004e92, #000428);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #004e92, #000428); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+  color: white;
   width: 100%;
   padding-bottom: 20px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 /* Menu Top */
@@ -12,24 +17,27 @@
 
 /* MENU TITLE */
 .dashboardTitleContainer {
-  background-color: #86b7fe;
+  /* background-color: black; */
   width: 100%;
-  height: 100px;
+  height: auto;
   margin-top: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  padding-top: 20px;
 }
 
 /* DASHBOARD */
 .dashboardContainer {
-  background-color: violet;
+  /* background-color: black; */
   width: 100%;
-  height: 300px;
+  height: auto;
   margin-top: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
+  padding-top: 75px;
 }
 
 /* GRAFICAS */
@@ -47,15 +55,17 @@
 
 /* Tabla */
 .tablaContainer{
-  background-color: steelblue;
+  /* background-color: black; */
   width: 100%;
-  height: 200px;
+  height: auto;
   margin-top: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: row;
   flex-wrap: nowrap;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  color: white;
 }
 
 .dashConInfo{
