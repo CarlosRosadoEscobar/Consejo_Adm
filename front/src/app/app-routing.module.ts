@@ -14,6 +14,7 @@ import { RrhhComponent } from './components/rrhh/rrhh.component';
 import { TiComponent } from './components/ti/ti.component';
 import { GraficasComponent } from './components/graficas/graficas.component';
 import { ExportarComponent } from './components/exportar/exportar.component';
+import { FirmaComponent } from './components/firma/firma.component';
 
 const routes: Routes = [
   {path:'',component:LoginComponent},
@@ -23,6 +24,8 @@ const routes: Routes = [
   {path: 'modulos', component: ModulosComponent },
   {path: 'graficas', component:  GraficasComponent },
   {path: 'exportar', component: ExportarComponent },
+  {path: 'firma', component: FirmaComponent },
+
 
   {path: 'admfin',component: AdministracionFinanzasComponent },
   {path: 'caez',component: CaezComponent },

@@ -1,71 +1,116 @@
+<div class="panelModulo">
+  <!-- TOP MENU -->
+  <div class="container-fluid menutamaño"></div>
 
-<div class="sidebar">
-  <div class="logo-details">
-    <!-- <i class="bx bxl-c-plus-plus icon"></i> -->
-    <div class="imgMenu d-none">
-      <img src="../../../assets/images/letra-z-2.png" alt="">
+  <!-- MENU TITLE -->
+  <div class="container text-center dashboardTitleContainer">
+
+    <ngx-charts-advanced-pie-chart
+      [view]="view"
+      scheme="neons"
+      [results]="single"
+      [gradient]="gradient"
+      (select)="onSelect($event)"
+      (activate)="onActivate($event)"
+      (deactivate)="onDeactivate($event)"
+      >
+    </ngx-charts-advanced-pie-chart>
+
+
+    <!-- <div class="container ">
+      <span>panel 1</span>
     </div>
-    <div class="logo_name d-none">Panel Zascita</div>
-    <i class="bx bx-menu" id="btn"></i>
+
+    <div class="container ">
+      <span>panel 2</span>
+    </div>
+
+    <div class="container ">
+      <span>panel 3</span>
+    </div>
+
+    <div class="container ">
+      <span>panel 4</span>
+    </div> -->
+
+
   </div>
 
-  <ul class="nav-list">
-    <li>
-      <i class="bx bx-search"></i>
-      <input type="text" placeholder="Buscar..." />
-      <span class="tooltip">Buscar</span>
-    </li>
-    <li>
-      <a [routerLink]="['/inicio']">
-        <i class="bx bx-grid-alt"></i>
-        <span class="links_name">Dashboard</span>
-      </a>
-      <span class="tooltip">Dashboard</span>
-    </li>
-    <li>
-      <a [routerLink]="['/modulos']">
-        <i class='bx bx-collection'></i>
-        <span class="links_name">Modulos</span>
-      </a>
-      <span class="tooltip">Modulos</span>
-    </li>
-    <li>
-      <a [routerLink]="['/graficas']">
-        <i class='bx bx-pie-chart-alt-2'></i>
-        <span class="links_name">Graficas</span>
-      </a>
-      <span class="tooltip">Graficas</span>
-    </li>
+  <!-- DASHBOARD -->
+  <div class="container text-center dashboardContainer">
 
-    <li>
-      <a [routerLink]="['/exportar']">
-        <i class='bx bx-folder'></i>
-        <span class="links_name">exportar</span>
-      </a>
-      <span class="tooltip">Exportar</span>
-    </li>
+    <div class="container dashConInfo">
 
-
-
-
-    <li class="profile">
-      <div class="profile-details">
-        <img src="../../../assets/images/profile.jpg" alt="profileImg" />
-        <div class="name_job" *ngIf="usuario">
-          <div class="name">{{ primerNombre  }} {{ primerApellido }}</div>
-          <div class="job">{{ usuario.Puesto }}</div>
+      <div class="container dashInfo1">
+        <div class="container">
+          <span>modulo 1</span>
+        </div>
+        <div class="container">
+          <span>modulo 2</span>
         </div>
       </div>
-      <i class="bx bx-log-out" id="log_out" (click)="logout()"></i>
-    </li>
+      <div class="container dashInfo2">
+        <div class="container">
+          <span>modulo 1</span>
+        </div>
+        <div class="container">
+          <span>modulo 2</span>
+        </div>
+      </div>
 
-  </ul>
+    </div>
+
+    <div class="container dashConInfo2">
+      <div class="container dashInfo11">
+        <div class="container">modulo 1</div>
+      </div>
+      <div class="container dashInfo22">
+        <div class="container">modulo 2</div>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- GRAFICAS -->
+  <div class="container text-center graficasContainer">
+
+    <div class="container graficasConInfo">
+
+      <div class="container graficasInfo1 ">
+        <span>panel 1</span>
+      </div>
+
+      <div class="container graficasInfo2">
+        <span>panel 2</span>
+      </div>
+
+    </div>
+
+    <div class="container graficasConInfo2">
+      <div class="container">
+        <span>panel 2</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- TABLA -->
+  <div class="container text-center tablaContainer">
+
+    <div class="container ">
+      <span>panel 1</span>
+    </div>
+
+    <div class="container ">
+      <span>panel 2</span>
+    </div>
+
+  </div>
+
+  <div class="contianer text-center usuariosGraficas">
+
+
+  </div>
 
 </div>
-
-<section class="home-section">
-  <app-menu></app-menu>
-  <app-paneldashboard></app-paneldashboard>
-</section>
-
-

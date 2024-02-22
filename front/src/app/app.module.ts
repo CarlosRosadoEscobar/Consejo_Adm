@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 // Animaciones
 import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgxChartsModule }from '@swimlane/ngx-charts';  // graficas
 import { ToastrModule } from 'ngx-toastr';
 import { PanelmodulosComponent } from './components/panelmodulos/panelmodulos.component';
 
@@ -65,6 +66,7 @@ import { ExportarComponent } from './components/exportar/exportar.component';
     BrowserAnimationsModule, // required animations module
     ToastrModule.forRoot(), // ToastrModule added
     HttpClientModule,
+    NgxChartsModule,
 
   ],
   providers: [],
