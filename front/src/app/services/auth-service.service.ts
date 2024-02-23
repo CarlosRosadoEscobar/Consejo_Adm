@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from './config';
 
 @Injectable({
   providedIn: 'root'
@@ -10,9 +11,8 @@ export class AuthServiceService {
   constructor(private http: HttpClient) { }
 
   login(usuario: string, password: string): Observable<any> {
-    const url = 'http://localhost:3000/usuario';
 
-    // const url = 'https://7736-189-203-150-5.ngrok-free.app/usuario';
+    const url = `${environment.apiUrl}/usuario`;
 
     const datosLogin = {
       usuario: usuario,
@@ -33,7 +33,7 @@ export class AuthServiceService {
   }
 
   enviarHistorialInicioSesion(historialInicioSesion: any[]): Observable<any> {
-    const url = 'http://localhost:3000/registro';
+    const url = `${environment.apiUrl}/registro`;
     return this.http.post(url, historialInicioSesion);
   }
 
