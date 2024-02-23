@@ -34,11 +34,14 @@ import { PanelgraficasComponent } from './components/panelgraficas/panelgraficas
 import { GraficasComponent } from './components/graficas/graficas.component';
 import { ExportarComponent } from './components/exportar/exportar.component';
 import { ImportarComponent } from './components/importar/importar.component';
+import { VisualizarComponent } from './components/visualizar/visualizar.component';
+
+import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
 
 @NgModule({
   declarations: [
     AppComponent,
-    DashboardComponent,
+    DashboardComponent, 
     LoginComponent,
     MenuComponent,
     PanelmodulosComponent,
@@ -57,7 +60,9 @@ import { ImportarComponent } from './components/importar/importar.component';
     PanelgraficasComponent,
     GraficasComponent,
     ExportarComponent,
-    ImportarComponent
+    ImportarComponent,
+    VisualizarComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -68,7 +73,7 @@ import { ImportarComponent } from './components/importar/importar.component';
     ToastrModule.forRoot(), // ToastrModule added
     HttpClientModule,
     NgxChartsModule,
-
+    NgxExtendedPdfViewerModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
