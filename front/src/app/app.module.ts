@@ -33,10 +33,15 @@ import { PanelexportarComponent } from './components/panelexportar/panelexportar
 import { PanelgraficasComponent } from './components/panelgraficas/panelgraficas.component';
 import { GraficasComponent } from './components/graficas/graficas.component';
 import { ExportarComponent } from './components/exportar/exportar.component';
+<<<<<<< HEAD
+import { FirmaComponent } from './components/firma/firma.component';
+import { PanelfirmaComponent } from './components/panelfirma/panelfirma.component';
+=======
 import { ImportarComponent } from './components/importar/importar.component';
 import { VisualizarComponent } from './components/visualizar/visualizar.component';
 
 import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
+>>>>>>> main
 
 @NgModule({
   declarations: [
@@ -60,9 +65,14 @@ import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
     PanelgraficasComponent,
     GraficasComponent,
     ExportarComponent,
+<<<<<<< HEAD
+    FirmaComponent,
+    PanelfirmaComponent,
+=======
     ImportarComponent,
     VisualizarComponent,
 
+>>>>>>> main
   ],
   imports: [
     BrowserModule,
