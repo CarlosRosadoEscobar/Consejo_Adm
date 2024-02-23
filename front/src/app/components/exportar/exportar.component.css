@@ -2,3 +2,19 @@
     cursor: pointer;
     margin-left: 7px;
 }
+
+
+.panelModulo{
+    background-color: seagreen;
+    width: 100%;
+    padding-bottom: 20px;
+  }
+  
+  /* Menu Top */
+  .menutamaño{
+    width: 100%;
+    height: 60px;
+  }
+  
+  /* MENU TITLE */
+  
