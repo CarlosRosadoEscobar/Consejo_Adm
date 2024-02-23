@@ -1,1 +1,14 @@
-<ngx-extended-pdf-viewer *ngIf="listDocumento.length > 0" [src]="listDocumento[0].documento" [theme]="theme"></ngx-extended-pdf-viewer>
+
+<button class="btn btn-success" [routerLink]="['/exportar']" routerLinkActive="router-link-active" >Regresar</button>
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="card">
+            <div class="card-body">
+                <ngx-extended-pdf-viewer *ngIf="listDocumento.length > 0" [src]="listDocumento[0].documento" [theme]="theme"></ngx-extended-pdf-viewer>
+            </div>
+        </div>
+    </div>
+</div>
+
+
