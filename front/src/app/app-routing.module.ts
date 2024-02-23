@@ -17,6 +17,7 @@ import { ExportarComponent } from './components/exportar/exportar.component';
 import { FirmaComponent } from './components/firma/firma.component';
 import { ImportarComponent } from './components/importar/importar.component';
 import { VisualizarComponent } from './components/visualizar/visualizar.component';
+import { PanelexportarComponent } from './components/panelexportar/panelexportar.component';
 
 const routes: Routes = [
   {path:'',component:LoginComponent},
@@ -25,7 +26,7 @@ const routes: Routes = [
   {path: 'modulos/:moduloUrl', component: ModulosComponent },
   {path: 'modulos', component: ModulosComponent },
   {path: 'graficas', component:  GraficasComponent },
-  {path: 'exportar', component: ExportarComponent },
+  {path: 'exportarr', component: ExportarComponent },
   {path: 'firma', component: FirmaComponent },
   {path: 'importar', component:ImportarComponent},
 
@@ -39,7 +40,11 @@ const routes: Routes = [
   {path: 'pp',component: PpComponent},
   {path: 'rrhh',component: RrhhComponent},
   {path: 'ti',component: TiComponent},
-  {path: 'visualizar/:id', component:VisualizarComponent}
+
+
+  {path: 'visualizar/:id', component:VisualizarComponent},
+
+  {path:'exportar', component:PanelexportarComponent}
 
 
   // {path:'**',redirectTo:'',pathMatch:'full'}
