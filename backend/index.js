@@ -199,7 +199,7 @@ app.post('/registro', async (req, res) => {
 const fileUpload = require('express-fileupload')
 const fs = require('fs');
 
-const { insertarDocumento } = require('./scriptSQL/documentos/documentos')
+const { insertarDocumento, listarDocumentos } = require('./scriptSQL/documentos/documentos')
 
 app.use(fileUpload())
 
@@ -216,7 +216,18 @@ function base64encode(filePath) {
 }
 
 
-app.post('/upload', (req, res) => {
+app.get('/documentos', async (req,res) => {
+    try {
+        const documentos = await listarDocumentos();
+        res.json(documentos);        
+    } catch (error) {
+        console.log(error);
+        res.status(500),json({ error : "No se pudo traer la información"})
+    }
+});
+
+
+app.post('/documentos', (req, res) => {
     if (!req.files || Object.keys(req.files).length === 0) {
         return res.status(400).send('No files were uploaded.');
     }
@@ -235,7 +246,7 @@ app.post('/upload', (req, res) => {
                 const insertResult = await insertarDocumento(base64Data, fecha);
     
                 if (insertResult) {
-                    return res.send({ datos: { base64Data, fecha } });
+                    return res.json(insertResult);
                 } else {
                     return res.status(500).send({ message: 'Error no se puede guardar en la BD' });
                 }
