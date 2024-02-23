@@ -16,6 +16,7 @@ import { GraficasComponent } from './components/graficas/graficas.component';
 import { ExportarComponent } from './components/exportar/exportar.component';
 import { FirmaComponent } from './components/firma/firma.component';
 import { ImportarComponent } from './components/importar/importar.component';
+import { VisualizarComponent } from './components/visualizar/visualizar.component';
 
 const routes: Routes = [
   {path:'',component:LoginComponent},
@@ -38,7 +39,7 @@ const routes: Routes = [
   {path: 'pp',component: PpComponent},
   {path: 'rrhh',component: RrhhComponent},
   {path: 'ti',component: TiComponent},
-
+  {path: 'visualizar/:id', component:VisualizarComponent}
 
 
   // {path:'**',redirectTo:'',pathMatch:'full'}
