@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Documentos } from '../models/documentos';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,15 @@ export class PdfService {
     return this.http.get(this.url);
   }
 
-  
+  guardarDocumento(documento : Documentos) : Observable<any>{
+    return this.http.post(this.url,documento);
+  }
+
+  obtenerDocumento(id:number)  :Observable<any> {
+    return  this.http.get(this.url + id);
+  }
+
+
 
   
 
