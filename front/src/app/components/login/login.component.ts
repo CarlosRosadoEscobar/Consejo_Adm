@@ -71,7 +71,11 @@ export class LoginComponent implements OnInit {
 
           this.router.navigate(['inicio']);
         }
-      });
+      },erro => {
+        this.toastr.error("Todos los campos son obligatorios", "Error de validación");
+
+      }
+      );
 
 
 
