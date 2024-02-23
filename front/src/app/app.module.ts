@@ -33,7 +33,8 @@ import { PanelexportarComponent } from './components/panelexportar/panelexportar
 import { PanelgraficasComponent } from './components/panelgraficas/panelgraficas.component';
 import { GraficasComponent } from './components/graficas/graficas.component';
 import { ExportarComponent } from './components/exportar/exportar.component';
-
+import { FirmaComponent } from './components/firma/firma.component';
+import { PanelfirmaComponent } from './components/panelfirma/panelfirma.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +58,8 @@ import { ExportarComponent } from './components/exportar/exportar.component';
     PanelgraficasComponent,
     GraficasComponent,
     ExportarComponent,
+    FirmaComponent,
+    PanelfirmaComponent,
   ],
   imports: [
     BrowserModule,
