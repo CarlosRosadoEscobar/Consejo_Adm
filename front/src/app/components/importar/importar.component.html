@@ -6,7 +6,7 @@
 
                 <form [formGroup]="documentoForm" (ngSubmit)="guardarDocumento()">
                     <div class="mt-5">
-                      <input type="file" formControlName="documento" id="documento" accept="application/pdf">
+                      <input type="file" formControlName="documento" id="documento" (change)="onFileChange($event)"  accept="application/pdf">
                       <div class="text-danger" *ngIf="documentoForm.get('documento')?.hasError('required') && documentoForm.get('documento')?.touched" >
                         <span><b>Es necesario subir el documento</b></span>
                       </div>
