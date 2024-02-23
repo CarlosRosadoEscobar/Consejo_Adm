@@ -8,7 +8,10 @@ import { Documentos } from '../models/documentos';
 })
 export class PdfService {
 
+
   private url = "http://localhost:3000/documentos/"
+
+  // private url = "https://7736-189-203-150-5.ngrok-free.app/documentos/"
 
 
   constructor(private http:HttpClient) { }
