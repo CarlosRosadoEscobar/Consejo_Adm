@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Documentos } from '../models/documentos';
+import { environment } from './config';
 
 @Injectable({
   providedIn: 'root'
@@ -9,10 +10,7 @@ import { Documentos } from '../models/documentos';
 export class PdfService {
 
 
-  private url = "http://localhost:3000/documentos/"
-
-  // private url = "https://7736-189-203-150-5.ngrok-free.app/documentos/"
-
+  private url = `${environment.apiUrl}/documentos`;
 
   constructor(private http:HttpClient) { }
 
@@ -30,6 +28,6 @@ export class PdfService {
 
 
 
-  
+
 
 }
