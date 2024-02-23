@@ -33,7 +33,7 @@ const listarDocumentos = async () => {
         if (pool) {
             console.log('Consulta');
 
-            let result = await pool.request().query("SELECT * FROM direccion_general_documentos");
+            let result = await pool.request().query("SELECT * FROM direccion_general_documentos order by fecha desc ");
            
             return result.recordset;
 
@@ -45,6 +45,38 @@ const listarDocumentos = async () => {
         console.log(error);
         return[];
     }    
+
+
 }
 
-module.exports = { insertarDocumento, listarDocumentos };
+const obtenerDocumento = async (id) => {
+    try {
+        let pool = await getConnection();
+
+        if (pool) {
+            console.log('consulta');
+
+            const result = await pool.request()
+            const consulta = `SELECT * FROM direccion_general_documentos WHERE id
+            = ${id}`;
+
+            const respuesta = await pool.request().query(consulta);
+            
+            //console.log(respuesta.recordset);
+
+            return respuesta.recordset;
+
+        }else{
+            console.log('Objeto pool no devuelto');
+            return[];
+        }
+
+    } catch (error) {
+        console.log(error);
+        return [];
+    }       
+}
+
+
+
+module.exports = { insertarDocumento, listarDocumentos, obtenerDocumento };

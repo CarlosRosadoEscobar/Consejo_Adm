@@ -1,18 +1,12 @@
 //* DATA BD
-const { getUsuarios } = require('./scriptSQL/Users/Users'); 
-const { crecimiento_servicios } = require('./scriptSQL/comercial/crecimiento_servicios'); 
+const { getUsuarios } = require('./scriptSQL/Users/Users');
+const { crecimiento_servicios } = require('./scriptSQL/comercial/crecimiento_servicios');
 const { getProspectos } = require('./scriptSQL/comercial/seguimiento_prospectos');
 const { getVacantes } = require('./scriptSQL/rrhh/vacante');
-
 const {getUsuariosRegion} = require('./scriptSQL/rrhh/region');
-
 const {getUsuariosConsulta} = require('./scriptSQL/juridico_normativo/proceso_armado/consulta');
 const {getUsuariosInscripcion} = require('./scriptSQL/juridico_normativo/proceso_armado/inscripcion');
-
 const { getUsuariosCredencializacion } = require('./scriptSQL/juridico_normativo/proceso_armado/credencializacion');
-
-
-
 
 //* SERVER
 const express = require('express');
@@ -20,11 +14,13 @@ const cors = require('cors');
 const morgan = require('morgan');
 const { json } = require('body-parser');
 const app = express();
+app.use(express.json({limit: '50mb'}));
+app.use(express.urlencoded({limit: '50mb'}));
 
 //* Middleware para permitir solicitudes
 const corsOptions = {
-    origin: 'http://localhost:4200',
-    optionsSuccessStatus: 200 // 204
+  origin: 'http://localhost:4200',
+  optionsSuccessStatus: 200 // 204
 };
 
 //* MIDDLEWARE
@@ -34,7 +30,7 @@ app.use(cors(corsOptions));
 
 //* ASSET
 app.get('/SiguesVivo', (req,res) => {
-    res.sendStatus(204)
+  res.sendStatus(204)
 })
 
 //! ##################################################################
@@ -42,104 +38,92 @@ app.get('/SiguesVivo', (req,res) => {
 //! ##################################################################
 
 app.get('/usuario', async (req, res) => {
-    try {
-        const userData = await getUsuarios(); 
-        res.json(userData);
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'Hubo un error al obtener los usuarios' });
-    }    
+  try {
+    const userData = await getUsuarios(); 
+    res.json(userData);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Hubo un error al obtener los usuarios' });
+  }    
 });
-
 
 // COMERCIAL
 app.get('/cmr', async (req,res)=>{
-    try {
-        const crecimiento_servicio = await crecimiento_servicios();
-        res.json(crecimiento_servicio)        
-    } catch (error) {
-        console.log(error);
-        res.status(500).json({error:'Hubo un error'});
-    }
+  try {
+    const crecimiento_servicio = await crecimiento_servicios();
+    res.json(crecimiento_servicio)
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({error:'Hubo un error'});
+  }
 });
-
 app.get('/prospectos', async (req,res) => {
-    try {
-        const prospectos = await getProspectos();
-        res.json(prospectos)         
-    } catch (error) {
-        console.log(error);
-        res.status(500).json({error:"No se pudo traer la información de prospectos"});
-    }
+  try {
+    const prospectos = await getProspectos();
+    res.json(prospectos)
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({error:"No se pudo traer la información de prospectos"});
+  }
 });
 
 // RECURSOS HUMANOS
-
-
 app.get('/rrhh/vacantes', async (req,res) => {
-    try {
-        const vacantes = await getVacantes();
-        res.json(vacantes);        
-    } catch (error) {
-        console.log(error);
-        res.status(500).json({error:"No se pudo traer la información de las vacantes"});
-    }
+  try {
+    const vacantes = await getVacantes();
+    res.json(vacantes);        
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({error:"No se pudo traer la información de las vacantes"});
+  }
 });
 
-
-app.get('/rrhh/rotacion');
-
+// app.get('/rrhh/rotacion');
 app.get('/rrhh/region', async (req,res) => {
-    try {
-        const regiones = await getUsuariosRegion();
-        res.json(regiones);
-    } catch (error) {
-        console.log(error);
-        res.status(500).json({error: "No se pudo traer la información de los usuarios por region."});
-    }
+  try {
+    const regiones = await getUsuariosRegion();
+    res.json(regiones);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({error: "No se pudo traer la información de los usuarios por region."});
+  }
 });
-
 
 // Jurídico Normativo
-
 app.get('/juridico_normativo/consulta', async (req,res) => {
-    try {
-        const consulta = await getUsuariosConsulta();
-        res.json(consulta);        
-    } catch (error) {
-        console.log(error);
-        res.status(500),json({ error : "No se pudo traer la información"})
-    }
+  try {
+    const consulta = await getUsuariosConsulta();
+    res.json(consulta);        
+  } catch (error) {
+    console.log(error);
+    res.status(500),json({ error : "No se pudo traer la información"})
+  }
 });
 app.get('/juridico_normativo/inscripcion', async (req,res) => {
-    try {
-        const inscripcion = await getUsuariosInscripcion();
-        res.json(inscripcion);        
-    } catch (error) {
-        console.log(error);
-        res.status(500),json({ error : "No se pudo traer la información"})
-    }
+  try {
+    const inscripcion = await getUsuariosInscripcion();
+    res.json(inscripcion);        
+  } catch (error) {
+    console.log(error);
+    res.status(500),json({ error : "No se pudo traer la información"})
+  }
 });
 app.get('/juridico_normativo/credencializacion', async (req,res) => {
-    try {
-        const credencializacion = await getUsuariosCredencializacion();
-        res.json(credencializacion);        
-    } catch (error) {
-        console.log(error);
-        res.status(500),json({ error : "No se pudo traer la información"})
-    }
+  try {
+    const credencializacion = await getUsuariosCredencializacion();
+    res.json(credencializacion);        
+  } catch (error) {
+    console.log(error);
+    res.status(500),json({ error : "No se pudo traer la información"})
+  }
 });
 
-
 //* Creando Usuarios
-
 app.post('/usuario', async (req, res) => {
   const { usuario, password } = req.body;
-
   try {
     const usuarios = await getUsuarios(); 
-    const usuarioValido = usuarios.find(u => u.usuario === usuario && u.decrypted_contraseña === password); 
-
+    const usuarioValido = usuarios.find(u => u.usuario === usuario && u.decrypted_contraseña === password);
     if (usuarioValido) {
       const datosUsuario = {
         id_colaborador: usuarioValido.id_colaborador,
@@ -162,103 +146,75 @@ app.post('/usuario', async (req, res) => {
   }
 });
 
-
 //* Actualizando Usuarios
 app.put('/usuario', (req,res) =>{
-    res.send("Actualizando Usuarios")
+  res.send("Actualizando Usuarios")
 })
 
 //* Eliminando Usuarios
 app.delete('/usuario', (req,res) =>{
-    res.send("Eleminando Usuarios")
+  res.send("Eleminando Usuarios")
 })
 
 //* Obteniendo un Usuarios
 app.get('/usuario/:id', (req,res) =>{
-    res.send("Obteniendo un Usuarios por id")
+  res.send("Obteniendo un Usuarios por id")
 })
 
 //! ##################################################################
 //! ####################### REGISTRO LOGIN ###########################
 //! ##################################################################
-
 app.post('/registro', async (req, res) => {
-    try {
-      const historialInicioSesion = req.body;
-      console.log('Historial de inicio de sesión recibido:', historialInicioSesion);
-      res.status(200).send({ mensaje: 'Datos de historial de inicio de sesión recibidos correctamente' });
-    } catch (error) {
-      console.error('Error al procesar los datos del historial de inicio de sesión:', error);
-      res.status(500).send({ error: 'Hubo un error al procesar los datos del historial de inicio de sesión' });
-    }
-  });
-  
-
+  try {
+    const historialInicioSesion = req.body;
+    console.log('Historial de inicio de sesión recibido:', historialInicioSesion);
+    res.status(200).send({ mensaje: 'Datos de historial de inicio de sesión recibidos correctamente' });
+  } catch (error) {
+    console.error('Error al procesar los datos del historial de inicio de sesión:', error);
+    res.status(500).send({ error: 'Hubo un error al procesar los datos del historial de inicio de sesión' });
+  }
+});
 
 //   PDF
 const fileUpload = require('express-fileupload')
-const fs = require('fs');
-
-const { insertarDocumento, listarDocumentos } = require('./scriptSQL/documentos/documentos')
-
+const { insertarDocumento, listarDocumentos, obtenerDocumento } = require('./scriptSQL/documentos/documentos')
 app.use(fileUpload())
-
-
-
-function base64encode(filePath) {
-    // Read the file content
-    const fileContent = fs.readFileSync(filePath);
-
-    // Encode the file content to base64
-    const base64Data = fileContent.toString('base64');
-
-    return base64Data;
-}
-
-
 app.get('/documentos', async (req,res) => {
-    try {
-        const documentos = await listarDocumentos();
-        res.json(documentos);        
-    } catch (error) {
-        console.log(error);
-        res.status(500),json({ error : "No se pudo traer la información"})
-    }
+  try {
+    const documentos = await listarDocumentos();
+    res.json(documentos);        
+  } catch (error) {
+    console.log(error);
+    res.status(500),json({ error : "No se pudo traer la información"})
+  }
 });
-
-
-app.post('/documentos', (req, res) => {
-    if (!req.files || Object.keys(req.files).length === 0) {
-        return res.status(400).send('No files were uploaded.');
+app.post('/documentos', async (req, res) => {
+  try {
+    let base64Data = req.body.documento;
+    const fecha = new Date().toISOString().slice(0, 19).replace("T", " ");
+    const insertResult = await insertarDocumento(base64Data, fecha);
+    if (insertResult) {
+      return res.json(insertResult);
+    } else {
+      return res.status(500).send({ message: 'Error no se puede guardar en la BD' });
     }
-
-    const EDFile = req.files.file;
-    
-    EDFile.mv(`./files/${EDFile.name}`, async (err) => {
-        if (err) {
-            return res.status(500).send({ message: err });
-        } else {
-            try {
-                let base64Data = base64encode(`./files/${EDFile.name}`);
-               
-                const fecha = new Date().toISOString().slice(0, 19).replace("T", " ");
-    
-                const insertResult = await insertarDocumento(base64Data, fecha);
-    
-                if (insertResult) {
-                    return res.json(insertResult);
-                } else {
-                    return res.status(500).send({ message: 'Error no se puede guardar en la BD' });
-                }
-            } catch (error) {
-                console.error(error);
-                return res.status(500).send({ message: 'Error no se puede guardar en la BD' });
-            }
-        }
-    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({error : 'Hubo un error'});
+  }
 });
-
-
+app.get('/documentos/:id', async (req,res) => {  
+  try {
+    let id = req.params.id;
+    
+    let documento = await obtenerDocumento(id)
+    return res.json(documento);
+        
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({error: 'Hubo un error'});
+  }
+});
 
 
 // DOCUSING
