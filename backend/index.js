@@ -14,13 +14,13 @@ const cors = require('cors');
 const morgan = require('morgan');
 const { json } = require('body-parser');
 const app = express();
-app.use(express.json({limit: '50mb'}));
-app.use(express.urlencoded({limit: '50mb'}));
+app.use(express.json({limit: '500mb'}));
+app.use(express.urlencoded({limit: '500mb'}, extended=true)); 
 
 //* Middleware para permitir solicitudes
 const corsOptions = {
-  origin: 'http://localhost:4200',
-  // origin: 'http://10.10.10.146:4200/',
+  // origin: 'http://localhost:4200',
+  origin: 'http://10.10.10.146:4200/',
   optionsSuccessStatus: 200, // 204,
   origin: true, // "true" will copy the domain of the request back
                   // to the reply. If you need more control than this
@@ -328,5 +328,5 @@ app.get('/documentos/:id', async (req,res) => {
 
 
 app.listen(3000, () => {
-    console.log('El servidor ha sido iniciado en http://localhost:3000/');
+    console.log('El servidor ha sido iniciado en http://10.10.10.146:3000/');
 })

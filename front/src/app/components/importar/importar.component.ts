@@ -8,7 +8,7 @@ import { PdfService } from 'src/app/services/pdf.service';
 @Component({
   selector: 'app-importar',
   templateUrl: './importar.component.html',
-  styleUrl: './importar.component.css'
+  styleUrls: ['./importar.component.css']
 })
 export class ImportarComponent {
 
@@ -20,64 +20,53 @@ export class ImportarComponent {
     private toastr : ToastrService,
     private _documentoService : PdfService
   ){
-
     this.documentoForm = this.fb.group({
-      documento : ['',Validators.required]
-    })    
+      documento : ['', Validators.required]
+    });
   }
 
-  ngOnInit() : void {
-
-  }
-
-  guardarDocumento(){
-    /* const DOCUMENTO : Documentos = {
-      documento : this.documentoForm.get('documento')?,
+  onFileChange(event: any): void {
+    const fileInput = event.target;
+    if (fileInput.files.length > 0) {
+      const file = fileInput.files[0];
+      const isValidFileType = this.isValidFileType(file);
+      
+      if (!isValidFileType) {
+        this.toastr.error('Por favor, seleccione un archivo PDF.');
+        this.documentoForm.get('documento')?.setValue('');
+      }
     }
-    
-    console.log(DOCUMENTO);
+  }
 
-    this._documentoService.guardarDocumento(DOCUMENTO).subscribe(data =>{
-      
-      console.log(data);
-      
+  isValidFileType(file: File): boolean {
+    const allowedTypes = ['application/pdf'];
+    return allowedTypes.includes(file.type);
+  }
 
-      this.toastr.success('El producto ha sido guardado correctamente');
-      this.router.navigate(['/exportar'],{state:{doc:DOCUMENTO}})
-
-    }); */
-
-
+  guardarDocumento(): void {
     const fileInput = document.getElementById('documento') as HTMLInputElement;
     const file = fileInput.files![0];
+
+    if (!this.isValidFileType(file)) {
+      this.toastr.error('Por favor, seleccione un archivo PDF.');
+      return;
+    }
 
     const reader = new FileReader();
     reader.onloadend = () => {
       const base64String = reader.result as string;
-      // Lógica para enviar base64String al servidor (por ejemplo, mediante una solicitud HTTP)
 
-      const  DOCUMENTO : Documentos = {
-        id:0,
-        documento : base64String,
-        fecha:''
-      }
+      const DOCUMENTO: Documentos = {
+        id: 0,
+        documento: base64String,
+        fecha: ''
+      };
 
-
-      this._documentoService.guardarDocumento(DOCUMENTO).subscribe(data =>{
+      this._documentoService.guardarDocumento(DOCUMENTO).subscribe(data => {
         this.toastr.success('El producto ha sido guardado correctamente');
-        this.router.navigate(['/exportar'],{state:{doc:DOCUMENTO}})
+        this.router.navigate(['/exportar'], { state: { doc: DOCUMENTO } });
       });
-
-      
     };
     reader.readAsDataURL(file);
-
-    
-
   }
-
-
-
-
-
 }
