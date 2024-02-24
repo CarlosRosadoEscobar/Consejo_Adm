@@ -10,7 +10,7 @@ import { environment } from './config';
 export class PdfService {
 
 
-  private url = `${environment.apiUrl}/documentos`;
+  private url = `${environment.apiUrl}/documentos/`;
 
   constructor(private http:HttpClient) { }
 
@@ -22,8 +22,8 @@ export class PdfService {
     return this.http.post(this.url,documento);
   }
 
-  obtenerDocumento(id:number)  :Observable<any> {
-    return  this.http.get(this.url + id);
+  obtenerDocumento(id: number): Observable<any> {
+    return this.http.get(this.url + id, { responseType: 'text' });
   }
 
 
