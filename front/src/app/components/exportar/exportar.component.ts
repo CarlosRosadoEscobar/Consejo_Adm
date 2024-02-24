@@ -14,8 +14,35 @@ export class ExportarComponent {
 
   constructor(private _documentoService: PdfService) {}
 
-  ngOnInit(): void {
+  ngOnInit(): void { 
     this.obtenerDocumentos();
+
+    let id =12;
+
+    this._documentoService.obtenerDocumento(id).subscribe(
+      (response) => {
+        console.log('Raw Response:', response);
+    
+        try {
+          // Attempt to parse the response as JSON
+          const parsedResponse = JSON.parse(response);
+    
+          console.log('Parsed Response:', parsedResponse);
+          // Handle the parsed response here
+    
+        } catch (parseError) {
+          console.error('Error parsing JSON:', parseError);
+          // Handle parsing error here
+        }
+      },
+      (error) => {
+        console.error('Error:', error);
+        // Handle errors here
+      }
+    );
+   
+
+
   }
 
   obtenerDocumentos() {

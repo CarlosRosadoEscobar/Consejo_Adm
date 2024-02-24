@@ -35,7 +35,7 @@
                 </tr>
                 <tr *ngIf="subfilaVisible[documento.id]">
                   <td colspan="3">
-                    <ngx-extended-pdf-viewer [src]="documento.documento" [showPresentationModeButton]="true"
+                    <ngx-extended-pdf-viewer [src]="documento.documento.toString()" [showPresentationModeButton]="true"
                     [height]="'auto'" [textLayer]="true" [showHandToolButton]="true"></ngx-extended-pdf-viewer>                                 
                   </td>
                 </tr>
