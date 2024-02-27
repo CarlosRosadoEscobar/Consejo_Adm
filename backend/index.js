@@ -12,6 +12,8 @@ const { getUsuariosCredencializacion } = require('./scriptSQL/juridico_normativo
 const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
+const bcrypt = require('bcrypt');
+const { body, validationResult } = require('express-validator');
 const { json } = require('body-parser');
 const app = express();
 
@@ -49,7 +51,7 @@ app.get('/SiguesVivo', (req,res) => {
 //! ##################################################################
 //! ######################### USUARIOS ###############################
 //! ##################################################################
-
+//*  Usuarios
 app.get('/usuario', async (req, res) => {
   try {
     const userData = await getUsuarios(); 
@@ -60,7 +62,46 @@ app.get('/usuario', async (req, res) => {
   }    
 });
 
-// COMERCIAL
+//* validacion usuarios
+app.post('/usuario', 
+  async (req, res) => {
+    try {
+      const { usuario, password } = req.body;
+
+      // Realizar la autenticación del usuario
+      const usuarios = await getUsuarios(); 
+      const usuarioValido = usuarios.find(u => u.usuario === usuario && u.decrypted_contraseña === password);
+      
+      if (usuarioValido) {
+        // Si la autenticación es exitosa, devolver datos de usuario
+        const datosUsuario = {
+          id_colaborador: usuarioValido.id_colaborador,
+          Nombre: usuarioValido.Nombre,
+          Apellido: usuarioValido.Apellido,
+          Area: usuarioValido.Area,
+          Puesto: usuarioValido.Puesto,
+          estatus: usuarioValido.estatus,
+          prv: usuarioValido.prv,
+          estado: usuarioValido.estado,
+          role: usuarioValido.role
+        };
+        return res.status(200).json({ mensaje: 'Autenticación exitosa', usuario: datosUsuario });
+      } else {
+        // Si las credenciales son incorrectas, devolver un mensaje de error con código 401 (No autorizado)
+        return res.status(401).json({ mensaje: 'Usuario o contraseña incorrectos', codigo: 401 });
+      }
+    } catch (error) {
+      // Si ocurre un error durante el proceso de autenticación o en el servidor, devolver un mensaje de error genérico con código 500 (Error del servidor)
+      console.error(error);
+      return res.status(500).json({ mensaje: 'Error al procesar la solicitud', codigo: 500 });
+    }
+  }
+);
+
+//! ##################################################################
+//! ######################### Comercial ##############################
+//! ##################################################################
+//* COMERCIAL
 app.get('/cmr', async (req,res)=>{
   try {
     const crecimiento_servicio = await crecimiento_servicios();
@@ -79,8 +120,11 @@ app.get('/prospectos', async (req,res) => {
     res.status(500).json({error:"No se pudo traer la información de prospectos"});
   }
 });
+//! ##################################################################
+//! ########################## RRHH ##################################
+//! ##################################################################
 
-// RECURSOS HUMANOS
+//* RECURSOS HUMANOS
 app.get('/rrhh/vacantes', async (req,res) => {
   try {
     const vacantes = await getVacantes();
@@ -91,7 +135,7 @@ app.get('/rrhh/vacantes', async (req,res) => {
   }
 });
 
-// app.get('/rrhh/rotacion');
+//* app.get('/rrhh/rotacion');
 app.get('/rrhh/region', async (req,res) => {
   try {
     const regiones = await getUsuariosRegion();
@@ -102,7 +146,11 @@ app.get('/rrhh/region', async (req,res) => {
   }
 });
 
-// Jurídico Normativo
+//! ##################################################################
+//! ####################### jUR_NORMATIVO ############################
+//! ##################################################################
+
+//* Jurídico Normativo
 app.get('/juridico_normativo/consulta', async (req,res) => {
   try {
     const consulta = await getUsuariosConsulta();
@@ -131,48 +179,6 @@ app.get('/juridico_normativo/credencializacion', async (req,res) => {
   }
 });
 
-//* Creando Usuarios
-app.post('/usuario', async (req, res) => {
-  const { usuario, password } = req.body;
-  try {
-    const usuarios = await getUsuarios(); 
-    const usuarioValido = usuarios.find(u => u.usuario === usuario && u.decrypted_contraseña === password);
-    if (usuarioValido) {
-      const datosUsuario = {
-        id_colaborador: usuarioValido.id_colaborador,
-        Nombre: usuarioValido.Nombre,
-        Apellido: usuarioValido.Apellido,
-        Area: usuarioValido.Area,
-        Puesto: usuarioValido.Puesto,
-        estatus: usuarioValido.estatus,
-        prv: usuarioValido.prv,
-        estado: usuarioValido.estado,
-        role: usuarioValido.role
-      };
-      res.status(200).json({ mensaje: 'Autenticación exitosa', usuario: datosUsuario });
-    } else {
-      res.status(401).send({ mensaje: 'Usuario o contraseña incorrectos' });
-    }
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Hubo un error al autenticar al usuario' });
-  }
-});
-
-//* Actualizando Usuarios
-app.put('/usuario', (req,res) =>{
-  res.send("Actualizando Usuarios")
-})
-
-//* Eliminando Usuarios
-app.delete('/usuario', (req,res) =>{
-  res.send("Eleminando Usuarios")
-})
-
-//* Obteniendo un Usuarios
-app.get('/usuario/:id', (req,res) =>{
-  res.send("Obteniendo un Usuarios por id")
-})
 
 //! ##################################################################
 //! ####################### REGISTRO LOGIN ###########################
@@ -229,7 +235,9 @@ app.get('/documentos/:id', async (req,res) => {
   }
 });
 
-
+//! ##################################################################
+//! ######################### DOCUSING ###############################
+//! ##################################################################
 // DOCUSING
 // const path = require('path');
 // const bodyParser = require('body-parser');
