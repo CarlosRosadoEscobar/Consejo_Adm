@@ -155,16 +155,21 @@ export class LoginComponent implements OnInit {
                 } else {
                     this.mostrarMensajeError('credenciales_invalidas');
                 }
-            } else if (error.status === 500) {
+            } else if (error.status === 403){
+              console.log("error.status: ",error);
+
+              this.toastr.error("Usuario sin permisos");
+            }
+
+
+            else if (error.status === 500) {
                 this.mostrarMensajeError('error_conexion');
             } else {
                 this.mostrarMensajeError('error_desconocido');
             }
         }
     );
-}
-
-
+  }
 
   bloquearCampos() {
     if (!this.bloqueoEjecutado) {
@@ -193,109 +198,4 @@ export class LoginComponent implements OnInit {
   }
 
 
-
-
-
 }
-
-  /*
-
-  Ingresar() {
-    const usuarioValue = this.usuarioForm.get('usuario')?.value;
-    const passwordValue = this.usuarioForm.get('password')?.value;
-
-    if (usuarioValue.trim() === '' && passwordValue.trim() === '') {
-      this.mostrarMensajeError('campos_vacios');
-      return;
-    } else if (usuarioValue.trim() === '') {
-      this.mostrarMensajeError('usuario_requerido');
-      return;
-    } else if (passwordValue.trim() === '') {
-      this.mostrarMensajeError('contrasena_requerida');
-      return;
-    } else if (this.usuarioForm.invalid) {
-      console.log("error de formulario: ", this.usuarioForm.invalid);
-      return;
-    }
-
-    this._AuthService.login(usuarioValue, passwordValue).subscribe(
-      response => {
-        if (response.mensaje === 'Autenticación exitosa') {
-          this.intentosFallidos = 0;
-          localStorage.setItem('intentosFallidos', this.intentosFallidos.toString());
-          this._userDataService.setUsuario(response.usuario);
-          const timestampInicioSesion = new Date().getTime();
-          localStorage.setItem('timestampInicioSesion', timestampInicioSesion.toString());
-          let contadorSesiones = localStorage.getItem('contadorSesiones');
-          if (!contadorSesiones) {
-            contadorSesiones = '1';
-          } else {
-            contadorSesiones = (parseInt(contadorSesiones) + 1).toString();
-          }
-          const historialInicioSesion = JSON.parse(localStorage.getItem('historialInicioSesion') || '[]');
-          const usuario = response.usuario;
-          historialInicioSesion.push({ usuario, timestampInicioSesion });
-          localStorage.setItem('historialInicioSesion', JSON.stringify(historialInicioSesion));
-          localStorage.setItem('contadorSesiones', contadorSesiones);
-          this.router.navigate(['inicio']);
-        }
-      },
-      error => {
-        if (error.status === 401) {
-          this.intentosFallidos++;
-          let intentosFallidosData: any[] = JSON.parse(localStorage.getItem('intentosFallidosData') || '[]');
-          const nuevoIntentoFallido = {
-            intentosFallidos: this.intentosFallidos,
-            usuarioValue: usuarioValue,
-            passwordValue: passwordValue
-          };
-          intentosFallidosData.push(nuevoIntentoFallido);
-          localStorage.setItem('intentosFallidosData', JSON.stringify(intentosFallidosData));
-
-          if (this.intentosFallidos === 3 && this.contadorIntentosConsecutivos < 2) {
-            console.log('Se han producido tres intentos fallidos consecutivos.');
-            this.bloquearCampos();
-            this.contadorIntentosConsecutivos++;
-        } else if (this.intentosFallidos >= 3 && !this.bloqueadoIndefinido) {
-            console.log('Se han producido tres intentos fallidos.');
-            if (this.contadorIntentosConsecutivos === 2) {
-                console.log('¡Dos intentos consecutivos!');
-            }
-            this.bloquearCampos();
-        } else {
-            this.mostrarMensajeError('credenciales_invalidas');
-        }
-        } else if (error.status === 500) {
-          this.mostrarMensajeError('error_conexion');
-        } else {
-          this.mostrarMensajeError('error_desconocido');
-        }
-      }
-    );
-  }
-
-  bloquearCampos() {
-    this.bloqueoActivo = true;
-    this.usuarioForm.disable();
-    const tiempoTotal = 0.1 * 60;
-    this.segundosRestantes = tiempoTotal;
-    const intervalo = setInterval(() => {
-      this.segundosRestantes--;
-      localStorage.setItem('intentosFallidos', this.intentosFallidos.toString());
-      if (this.segundosRestantes <= 0) {
-        clearInterval(intervalo);
-        this.bloqueoActivo = false;
-        this.usuarioForm.enable();
-        if (!this.bloqueadoIndefinido && this.intentosFallidos < 4) {
-          this.intentosFallidos = 0;
-          localStorage.setItem('intentosFallidos', this.intentosFallidos.toString());
-        } else if (this.intentosFallidos >= 4) {
-          this.bloqueadoIndefinido = true;
-          console.log("Usuario bloqueado indefinidamente");
-        }
-      }
-    }, 1000);
-  }
-
-
-  */
