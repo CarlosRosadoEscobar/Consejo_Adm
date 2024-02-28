@@ -16,6 +16,8 @@ const bcrypt = require('bcrypt');
 const { body, validationResult } = require('express-validator');
 const { json } = require('body-parser');
 const app = express();
+app.use(express.json({limit: '500mb'}));
+app.use(express.urlencoded({limit: '500mb'}, extended=true)); 
 
 //* Middleware para permitir solicitudes
 const corsOptions = {
@@ -46,8 +48,7 @@ app.use((req, res, next) => {
 app.use(morgan('dev'))
 app.use(express.json())
 app.use(cors(corsOptions));
-app.use(express.json({limit: '500mb'}));
-app.use(express.urlencoded({limit: '500mb'}, extended=true)); 
+
 
 //* ASSET
 app.get('/SiguesVivo', (req,res) => {
@@ -226,11 +227,20 @@ app.get('/documentos', async (req,res) => {
     res.status(500),json({ error : "No se pudo traer la información"})
   }
 });
+
+
+
+
+
 app.post('/documentos', async (req, res) => {
   try {
     let base64Data = req.body.documento;
+    let usuario =  req.body.usuario;
     const fecha = new Date().toISOString().slice(0, 19).replace("T", " ");
-    const insertResult = await insertarDocumento(base64Data, fecha);
+    const insertResult = await insertarDocumento(base64Data,fecha,usuario);
+
+    console.log(usuario);
+
     if (insertResult) {
       return res.json(insertResult);
     } else {
@@ -254,9 +264,29 @@ app.get('/documentos/:id', async (req,res) => {
   }
 });
 
+app.put("/documentos/:id", async (req, res) => {
+  try {
+    let id = req.params.id;
+    const firmaResult = await firmaDocumento(id);
+
+    if (firmaResult) {
+      return res.json({ message: 'Documento firmado correctamente' });
+    } else {
+      return res.status(500).send({ message: 'Error al firmar el documento' });
+    }
+  } catch (error) {
+    console.log(error);
+    res.status(500).send({ error: 'Hubo un error' });
+  }
+});
+
+
+
+
 //! ##################################################################
 //! ######################### DOCUSING ###############################
 //! ##################################################################
+
 // DOCUSING
 // const path = require('path');
 // const bodyParser = require('body-parser');

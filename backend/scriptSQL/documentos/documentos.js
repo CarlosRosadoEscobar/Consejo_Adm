@@ -1,14 +1,14 @@
 const { getConnection } = require('../../database/conexionSqlServer');
 
-const insertarDocumento = async (base64Data, fecha) => {
+const insertarDocumento = async (base64Data, fecha, usuario) => {
     try {
         let pool = await getConnection();
         
         if (pool) {
 
             let result = await pool.request().query(`
-            INSERT INTO direccion_general_documentos (documento, fecha)
-            VALUES ('${base64Data}', '${fecha}')
+            INSERT INTO direccion_general_documentos (documento, fecha, usuario)
+            VALUES ('${base64Data}', '${fecha}','${usuario}')
         `);
 
         return result.rowsAffected > 0;
@@ -77,6 +77,29 @@ const obtenerDocumento = async (id) => {
     }       
 }
 
+const firmaDocumento = async (id) => {
+    try {
+        let pool = await getConnection();
+
+        if (pool) {
+            const updateQuery = `
+                UPDATE direccion_general_documentos
+                SET firmado = 1 WHERE id = ${id};
+            `;
+
+            let result = await pool.request().query(updateQuery);
+
+            return result.rowsAffected > 0;
+        } else {
+            console.log('Objeto pool no devuelto');
+            return false;
+        }
+    } catch (error) {
+        console.log(error);
+        return false;
+    }
+}
 
 
-module.exports = { insertarDocumento, listarDocumentos, obtenerDocumento };
+
+module.exports = { insertarDocumento, listarDocumentos, obtenerDocumento, firmaDocumento };

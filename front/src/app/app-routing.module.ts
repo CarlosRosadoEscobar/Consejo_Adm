@@ -47,7 +47,8 @@ const routes: Routes = [
 
   {path: 'visualizar/:id', component:VisualizarComponent},
 
-  {path:'exportar', component:PanelexportarComponent}
+  {path:'exportar', component:PanelexportarComponent},
+
 
 
   // {path:'**',redirectTo:'',pathMatch:'full'}
