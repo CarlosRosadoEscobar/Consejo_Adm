@@ -264,6 +264,7 @@ app.get('/documentos/:id', async (req,res) => {
   }
 });
 
+
 app.put("/documentos/:id", async (req, res) => {
   try {
     let id = req.params.id;
@@ -279,9 +280,6 @@ app.put("/documentos/:id", async (req, res) => {
     res.status(500).send({ error: 'Hubo un error' });
   }
 });
-
-
-
 
 //! ##################################################################
 //! ######################### DOCUSING ###############################
