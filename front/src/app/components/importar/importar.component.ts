@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Documentos } from 'src/app/models/documentos';
 import { PdfService } from 'src/app/services/pdf.service';
 
+
 @Component({
   selector: 'app-importar',
   templateUrl: './importar.component.html',
@@ -42,26 +43,46 @@ export class ImportarComponent {
     const allowedTypes = ['application/pdf'];
     return allowedTypes.includes(file.type);
   }
+  
+
+
+
+
 
   guardarDocumento(): void {
     const fileInput = document.getElementById('documento') as HTMLInputElement;
     const file = fileInput.files![0];
-
+    const usuarioS = localStorage.getItem('usuario');
+  
     if (!this.isValidFileType(file)) {
       this.toastr.error('Por favor, seleccione un archivo PDF.');
       return;
     }
 
+    if (!usuarioS) {
+      // Handle the case where 'usuario' is not found in localStorage
+      return;
+    }
+
+
+    const usuario = JSON.parse(usuarioS);
+
+    const nombre = usuario.Nombre;
+ 
+    
     const reader = new FileReader();
     reader.onloadend = () => {
       const base64String = reader.result as string;
-
+  
       const DOCUMENTO: Documentos = {
         id: 0,
         documento: base64String,
-        fecha: ''
+        fecha: '',
+        usuario: nombre,
       };
-
+  
+      console.log(DOCUMENTO);
+  
       this._documentoService.guardarDocumento(DOCUMENTO).subscribe(data => {
         this.toastr.success('El producto ha sido guardado correctamente');
         this.router.navigate(['/exportar'], { state: { doc: DOCUMENTO } });
@@ -69,4 +90,7 @@ export class ImportarComponent {
     };
     reader.readAsDataURL(file);
   }
+  
+
+  
 }

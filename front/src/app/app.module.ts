@@ -42,6 +42,9 @@ import { VisualizarComponent } from './components/visualizar/visualizar.componen
 
 import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
 
+import { SignaturePadModule } from 'angular2-signaturepad';
+
+
 
 @NgModule({
   declarations: [
@@ -69,7 +72,6 @@ import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
     PanelfirmaComponent,
     ImportarComponent,
     VisualizarComponent,
-
   ],
   imports: [
     BrowserModule,
@@ -80,7 +82,8 @@ import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
     ToastrModule.forRoot(), // ToastrModule added
     HttpClientModule,
     NgxChartsModule,
-    NgxExtendedPdfViewerModule,
+    NgxExtendedPdfViewerModule, 
+    SignaturePadModule,     
   ],
   providers: [],
   bootstrap: [AppComponent]
