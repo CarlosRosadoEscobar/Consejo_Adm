@@ -8,20 +8,31 @@
     <h3>ZASCITA</h3>
 
     <label for="username">Usuario</label>
-    <input type="text" placeholder="Usuario" id="usuario" formControlName="usuario" autocomplete="username">
+    <input type="text" placeholder="Usuario" id="usuario" formControlName="usuario" autocomplete="username" [readonly]="bloqueoActivo || bloqueadoIndefinido" [class.bloqueado]="bloqueoActivo || bloqueadoIndefinido">
     <div class="text-danger" *ngIf="usuarioForm.get('usuario')?.hasError('required') && usuarioForm.get('usuario')?.touched">
       <span>El usuario es <strong>obligatorio</strong></span>
     </div>
 
     <label for="password">Contraseña</label>
-    <input type="password" placeholder="Contraseña" id="password" formControlName="password" autocomplete="current-password">
+    <input type="password" placeholder="Contraseña" id="password" formControlName="password" autocomplete="current-password" [readonly]="bloqueoActivo || bloqueadoIndefinido" [class.bloqueado]="bloqueoActivo || bloqueadoIndefinido">
     <div class="text-danger" *ngIf="usuarioForm.get('password')?.hasError('required') && usuarioForm.get('password')?.touched">
       <span>La contraseña es <strong>obligatoria</strong></span>
     </div>
 
-    <button>
+
+    <p *ngIf="bloqueoActivo" class="bloqueo">
+      Has superado el máximo de intentos. Inténtelo nuevamente en {{ minutosRestantes() }}:{{ segundosRestantesCalculados() }} minutos.
+    </p>
+
+    <!-- Mostrar mensaje si el usuario está bloqueado indefinidamente -->
+    <div *ngIf="bloqueadoIndefinido" class="bloqueo">
+      <p>Usuario bloqueado, contactar al administrador.</p>
+    </div>
+
+    <!-- Ajustar el estilo del botón según el estado de bloqueo -->
+    <button type="submit" [ngClass]="{'boton-bloqueado': bloqueoActivo || bloqueadoIndefinido}" [disabled]="bloqueoActivo || bloqueadoIndefinido">
       <span>Ingresar</span>
     </button>
+    
   </form>
-
 </div>

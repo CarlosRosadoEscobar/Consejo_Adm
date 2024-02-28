@@ -7,7 +7,7 @@
     background-color: black ;
     z-index: -1;
   }
-  
+
   *:after {
     padding: 0;
     margin: 0;
@@ -130,6 +130,28 @@
   .social i{
   margin-right: 4px;
   }
+
+  .boton-bloqueado {
+    background-color: gray;
+    color: white;
+    cursor: not-allowed;
+    margin-top: 10px;
+  }
+
+  .bloqueo{
+    margin-top: 10px;
+  }
+  input.bloqueado {
+    background-color: #f0f0f0; /* Cambia el color de fondo para hacerlo ver desactivado */
+    color: #999; /* Cambia el color del texto para hacerlo ver desactivado */
+  }
+  button.boton-bloqueado {
+    background-color: #ccc; /* Cambia el color de fondo para hacerlo ver desactivado */
+    color: #999; /* Cambia el color del texto para hacerlo ver desactivado */
+    cursor: not-allowed; /* Cambia el cursor a no permitido */
+  }
+
+
 
 
 @media (max-width: 575.98px) {
