@@ -18,9 +18,12 @@ import { FirmaComponent } from './components/firma/firma.component';
 import { ImportarComponent } from './components/importar/importar.component';
 import { VisualizarComponent } from './components/visualizar/visualizar.component';
 import { PanelexportarComponent } from './components/panelexportar/panelexportar.component';
+import { RegistroUsuarioComponent } from './components/registro-usuario/registro-usuario.component';
 
 const routes: Routes = [
   {path:'',component:LoginComponent},
+  {path:'resgitro',component:RegistroUsuarioComponent},
+
   {path:'inicio',component:DashboardComponent},
   {path:'login', component:LoginComponent},
   {path: 'modulos/:moduloUrl', component: ModulosComponent },
