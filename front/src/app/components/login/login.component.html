@@ -24,15 +24,13 @@
       Has superado el máximo de intentos. Inténtelo nuevamente en {{ minutosRestantes() }}:{{ segundosRestantesCalculados() }} minutos.
     </p>
 
-    <!-- Mostrar mensaje si el usuario está bloqueado indefinidamente -->
     <div *ngIf="bloqueadoIndefinido" class="bloqueo">
       <p>Usuario bloqueado, contactar al administrador.</p>
     </div>
 
-    <!-- Ajustar el estilo del botón según el estado de bloqueo -->
     <button type="submit" [ngClass]="{'boton-bloqueado': bloqueoActivo || bloqueadoIndefinido}" [disabled]="bloqueoActivo || bloqueadoIndefinido">
       <span>Ingresar</span>
     </button>
-    
+
   </form>
 </div>
