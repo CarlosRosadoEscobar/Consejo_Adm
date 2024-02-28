@@ -1,0 +1,70 @@
+.full-height {
+  background: #093028;
+  background: -webkit-linear-gradient(to right, #237A57, #093028);
+  background: linear-gradient(to right, #237A57, #093028);
+  height: 100vh;
+  color: black;
+}
+
+.header, .menu, .panel {
+  width: 100%;
+  background-color: whitesmoke;
+  margin-top: 10px;
+  border-radius: 10px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  color: black;
+
+}
+
+.header {
+  height: 50px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.menu {
+  height: 50px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.panel {
+  height: 450px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* ===== */
+
+.info, .btnSalir{
+  width: 250px;
+  height: 40px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.registrar{
+  width: 50%;
+  height: 100%;
+  overflow-x: auto;
+  padding: 10px 10px 10px 10px;
+
+}
+
+.tabla{
+  padding: 10px 10px 10px 10px;
+  width: 50%;
+  height: 100%;
+}

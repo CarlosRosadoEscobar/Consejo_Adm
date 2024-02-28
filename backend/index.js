@@ -69,17 +69,29 @@ app.get('/usuario', async (req, res) => {
 });
 
 //* validacion usuarios
-app.post('/usuario', 
+app.post('/usuario',
   async (req, res) => {
     try {
       const { usuario, password } = req.body;
 
       // Realizar la autenticación del usuario
-      const usuarios = await getUsuarios(); 
+      const usuarios = await getUsuarios();
       const usuarioValido = usuarios.find(u => u.usuario === usuario && u.decrypted_contraseña === password);
-      
+
       if (usuarioValido) {
-        // Si la autenticación es exitosa, devolver datos de usuario
+
+                if (usuarioValido.estatus === "1") {
+          // Validar el rol del usuario si el usuario está activo
+          const rolesPermitidos = ['asistente_de_direccion', 'direccion_general', 'miembros_del_consejo', 'admin'];
+          if (!rolesPermitidos.includes(usuarioValido.role)) {
+            return res.status(403).json({ mensaje: 'Usuario sin permisos adecuados', codigo: 403 });
+          }
+        } else {
+          return res.status(403).json({ mensaje: 'Usuario inactivo o bloqueado', codigo: 403 });
+        }
+        
+
+        // Si la autenticación es exitosa y el estado y rol del usuario son válidos, devolver datos de usuario
         const datosUsuario = {
           id_colaborador: usuarioValido.id_colaborador,
           Nombre: usuarioValido.Nombre,
@@ -92,6 +104,7 @@ app.post('/usuario',
           role: usuarioValido.role
         };
         return res.status(200).json({ mensaje: 'Autenticación exitosa', usuario: datosUsuario });
+        
       } else {
         // Si las credenciales son incorrectas, devolver un mensaje de error con código 401 (No autorizado)
         return res.status(401).json({ mensaje: 'Usuario o contraseña incorrectos', codigo: 401 });
