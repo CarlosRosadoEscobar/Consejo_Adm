@@ -77,29 +77,29 @@ const obtenerDocumento = async (id) => {
     }       
 }
 
-const firmaDocumento = async (id) => {
+const firmaDocumento = async (id, documento, usuario) => {
     try {
-        let pool = await getConnection();
+      let pool = await getConnection();
+  
+      if (pool) {
+        
+        const updateQuery = `UPDATE direccion_general_documentos
+                            SET documento = @documento, usuario = @usuario
+                            WHERE id = @id;`;
 
-        if (pool) {
-            const updateQuery = `
-                UPDATE direccion_general_documentos
-                SET firmado = 1 WHERE id = ${id};
-            `;
-
-            let result = await pool.request().query(updateQuery);
-
-            return result.rowsAffected > 0;
-        } else {
-            console.log('Objeto pool no devuelto');
-            return false;
-        }
-    } catch (error) {
-        console.log(error);
+        const result = await pool.request().input('id', id).input('documento', documento).input('usuario', usuario).query(updateQuery);
+        
+        return result.rowsAffected > 0;
+      } else {
+        console.log('Objeto pool no devuelto');
         return false;
+      }
+    } catch (error) {
+      console.log(error);
+      return false;
     }
-}
-
+  };
+  
 
 
 module.exports = { insertarDocumento, listarDocumentos, obtenerDocumento, firmaDocumento };
