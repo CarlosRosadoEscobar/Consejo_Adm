@@ -28,6 +28,7 @@
     "fabric": "^5.3.0",
     "file-saver": "^2.0.5",
     "fs": "^0.0.1-security",
+    "html2canvas": "^1.4.1",
     "lodash-es": "^4.17.21",
     "ngx-extended-pdf-viewer": "^19.4.0-alpha.2",
     "ngx-toastr": "^18.0.0",
