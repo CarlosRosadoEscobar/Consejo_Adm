@@ -1,7 +1,9 @@
-import { Component, ElementRef, ViewChild, AfterViewInit  } from '@angular/core';
-import { NgxExtendedPdfViewerComponent } from 'ngx-extended-pdf-viewer';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Documentos } from 'src/app/models/documentos';
 import { PdfService } from 'src/app/services/pdf.service';
+import * as html2canvas from 'html2canvas';
+import { NgxExtendedPdfViewerService } from 'ngx-extended-pdf-viewer';
+
 @Component({
   selector: 'app-exportar',
   templateUrl: './exportar.component.html',
@@ -12,9 +14,8 @@ export class ExportarComponent {
   subfilaVisible: { [key: number]: boolean } = {};
   isLoading: boolean = true; // Variable para indicar si la carga está en curso
 
-  @ViewChild('pdfViewer') pdfViewer!: NgxExtendedPdfViewerComponent;
 
-  constructor(private _documentoService: PdfService) {
+  constructor(private _documentoService: PdfService, private pdfViewerService: NgxExtendedPdfViewerService) {
   }
 
 
@@ -61,28 +62,54 @@ export class ExportarComponent {
     }
   }
 
- 
-  exportToBase64(): void {
-    // Obtén la instancia de PDF.js desde el visor de PDF
-    const pdfJsViewer = this.pdfViewer;
-    console.log(pdfJsViewer);
-    
+  public blob: Blob | undefined;
 
-    // Accede al objeto PDF.js
-    // const pdfJs = pdfJsViewer.pdfViewer;
-
-    // Accede al documento PDF
-    // const pdfDocument = pdfJs.pdfDocument;
-
-    // Obtén el contenido del PDF en base64
-    // pdfDocument.getData().then((data: Uint8Array) => {
-      // const binary = String.fromCharCode(...data);
-      // const base64Data = btoa(binary);
-
-      // console.log('PDF en base64:', base64Data);
-      // Puedes realizar acciones adicionales con el PDF en base64
-    // });
+  public async export(): Promise<void> {
+    try {
+      this.blob = await this.pdfViewerService.getCurrentDocumentAsBlob();
+      console.log('PDF exportado como Blob exitosamente.');
+    } catch (error) {
+      console.error('Error al exportar el PDF como Blob:', error);
+    }
   }
 
+  public downloadBlob(): void {
+    if (this.blob) {
+      const url = window.URL.createObjectURL(this.blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'documento.pdf';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      window.URL.revokeObjectURL(url);
+    }
+  }
+  
+
+  /* showSaveButtonOption = 'visible';
+  onPdfViewerEvent() {
+    console.log('Inicio de impresión');
+  }
+  showPrintButtonOption = 'visible';
+  
+  onBeforePrint() {
+    console.log('Inicio de impresión');
+  }
+  
+  onAfterPrint() {
+    console.log('Impresión completada o cancelada');
+  } */
+
+
+
+
+  /* exportPdf() {
+    const pdfViewer = document.querySelector('ngx-extended-pdf-viewer');
+    if (pdfViewer) {
+      pdfViewer.download();
+      // Alternatively, you can use pdfViewer.download() to trigger download.
+    }
+  } */
 
 }
