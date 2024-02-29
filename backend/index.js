@@ -7,50 +7,51 @@ const {getUsuariosRegion} = require('./scriptSQL/rrhh/region');
 const {getUsuariosConsulta} = require('./scriptSQL/juridico_normativo/proceso_armado/consulta');
 const {getUsuariosInscripcion} = require('./scriptSQL/juridico_normativo/proceso_armado/inscripcion');
 const { getUsuariosCredencializacion } = require('./scriptSQL/juridico_normativo/proceso_armado/credencializacion');
+const { updateUserStatusByUsername } = require('./scriptSQL/Users/UserBloqueo')
+const { alertasUser } = require('./scriptSQL/Users/AlertasUsers')
 
 //* SERVER
-const express = require('express');
-const cors = require('cors');
-const morgan = require('morgan');
-const bcrypt = require('bcrypt');
-const bodyParser = require('body-parser');
 const { body, validationResult } = require('express-validator');
 const { json } = require('body-parser');
+const fileUpload = require('express-fileupload')
+const { insertarDocumento, listarDocumentos, obtenerDocumento } = require('./scriptSQL/documentos/documentos')
+
+const express     = require('express');
+const cors        = require('cors');
+const morgan      = require('morgan');
+const bcrypt      = require('bcrypt');
+const bodyParser  = require('body-parser');
+
 const app = express();
-app.use(express.json({limit: '500mb'}));
-app.use(express.urlencoded({limit: '500mb'}, extended=true)); 
-const PORT = 3000;
+const PORT = process.env.PORT;
 
-//* Middleware para permitir solicitudes
+
+//* OPCIONES CORS
 const corsOptions = {
-  origin: 'http://localhost:4200',
-  // origin: 'http://10.10.10.146:4200/',
+  origin: process.env.ORIGIN,
   optionsSuccessStatus: 200, // 204,
-  origin: true, // "true" will copy the domain of the request back
-                  // to the reply. If you need more control than this
-                  // use a function.
-
-    credentials: true, // This MUST be "true" if your endpoint is
-                       // authenticated via either a session cookie
-                       // or Authorization header. Otherwise the
-                       // browser will block the response.
-
-    methods: 'POST,GET,PUT,OPTIONS,DELETE' // Make sure you're not blocking
-                                           // pre-flight OPTIONS requests
-
+  origin: true, 
+  credentials: true, 
+  methods: 'POST,GET,PUT,OPTIONS,DELETE' 
 };
 
+
+//* IP REMOTE
 app.use((req, res, next) => {
   const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
   req.clientIp = ip;
   next();
 });
 
+
 //* MIDDLEWARE
 app.use(morgan('dev'))
 app.use(express.json())
 app.use(cors(corsOptions));
 app.use(bodyParser.json());
+app.use(express.json({limit: '500mb'}));
+app.use(express.urlencoded({limit: '500mb'}, extended=true)); 
+app.use(fileUpload())
 
 
 //* ASSET
@@ -84,7 +85,7 @@ app.post('/usuario',
       if (usuarioValido) {
 
         if (usuarioValido.estatus === "1") {
-          const rolesPermitidos = ['asistente_de_direccion', 'direccion_general', 'miembros_del_consejo', 'admin'];
+          const rolesPermitidos = [process.env.ROLE1, process.env.ROLE2,process.env.ROLE3, process.env.ROLE4];
           if (!rolesPermitidos.includes(usuarioValido.role)) {
             return res.status(403).json({ mensaje: 'Usuario sin permisos adecuados', codigo: 403 });
           }
@@ -114,21 +115,6 @@ app.post('/usuario',
     }
   }
 );
-
-//* Credencisa fallidas
-app.post('/credenciales-fallidas', (req, res) => {
-  const { usuario, password } = req.body;
-  console.log(`Credenciales fallidas recibidas - Usuario: ${usuario}, Contraseña: ${password}`);
-  res.status(200).json({ mensaje: 'Credenciales fallidas recibidas correctamente' });
-
-});
-
-//* Usuario Bloqueado
-app.post('/bloquear-usuario', (req, res) => {
-  const { usuario, password } = req.body;
-  console.log('Usuario bloqueado:', usuario);
-  res.status(200).json({ mensaje: 'Usuario bloqueado correctamente' });
-});
 
 //! ##################################################################
 //! ######################### Comercial ##############################
@@ -216,6 +202,8 @@ app.get('/juridico_normativo/credencializacion', async (req,res) => {
 //! ##################################################################
 //! ####################### REGISTRO LOGIN ###########################
 //! ##################################################################
+
+//* Historial de inicio de sesión
 app.post('/registro', async (req, res) => {
   try {
     const historialInicioSesion = req.body;
@@ -227,10 +215,35 @@ app.post('/registro', async (req, res) => {
   }
 });
 
-//   PDF
-const fileUpload = require('express-fileupload')
-const { insertarDocumento, listarDocumentos, obtenerDocumento } = require('./scriptSQL/documentos/documentos')
-app.use(fileUpload())
+//* Credencisa fallidas
+app.post('/credenciales-fallidas', (req, res) => {
+  const { usuario, password } = req.body;
+  console.log(`Credenciales fallidas recibidas - Usuario: ${usuario}, Contraseña: ${password}`);
+  res.status(200).json({ mensaje: 'Credenciales fallidas recibidas correctamente' });
+});
+
+//* Bloqueo de usuarios
+app.post('/bloquear-usuario', async (req, res) => {
+  const { usuario, password } = req.body;
+  console.log('Usuario bloqueado:', usuario);
+  try {
+    const actualizacionExitosa = await updateUserStatusByUsername(usuario);
+    if (actualizacionExitosa) {
+      res.status(200).json({ mensaje: 'Usuario bloqueado correctamente' });
+    } else {
+      res.status(404).json({ mensaje: 'No se encontró ningún usuario con ese nombre' });
+    }
+  } catch (error) {
+    console.error('Error al bloquear usuario:', error);
+    res.status(500).json({ mensaje: 'Error al bloquear usuario' });
+  }
+});
+
+//! ##################################################################
+//! ########################### PDF ##################################
+//! ##################################################################
+
+//* PDF
 app.get('/documentos', async (req,res) => {
   try {
     const documentos = await listarDocumentos();
@@ -240,10 +253,6 @@ app.get('/documentos', async (req,res) => {
     res.status(500),json({ error : "No se pudo traer la información"})
   }
 });
-
-
-
-
 
 app.post('/documentos', async (req, res) => {
   try {
@@ -264,6 +273,7 @@ app.post('/documentos', async (req, res) => {
     res.status(500).send({error : 'Hubo un error'});
   }
 });
+
 app.get('/documentos/:id', async (req,res) => {  
   try {
     let id = req.params.id;
@@ -276,7 +286,6 @@ app.get('/documentos/:id', async (req,res) => {
     res.status(500).send({error: 'Hubo un error'});
   }
 });
-
 
 app.put("/documentos/:id", async (req, res) => {
   try {
@@ -396,6 +405,8 @@ app.put("/documentos/:id", async (req, res) => {
 
 
 // Iniciar el servidor
+
+
 app.listen(PORT, () => {
   console.log(`El servidor ha sido iniciado en http://localhost:${PORT}`);
 });
