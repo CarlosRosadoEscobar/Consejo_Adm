@@ -8,7 +8,7 @@ const updateUserStatusByUsername = async (username) => {
             await pool.request()
                 .input('username', mssql.NVarChar, username) // Parámetro del usuario
                 .query('UPDATE Users SET estatus = 2 WHERE Usuario = @username');
-            console.log(`Estado del usuario ${username} actualizado correctamente.`);
+            console.log(`Estado del usuario ${username} actualizado correctamente. Bloqueo`);
         } else {
             console.error('Error: Objeto pool no devuelto');
         }
