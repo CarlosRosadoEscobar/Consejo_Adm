@@ -3,7 +3,7 @@
   <div class="container text-center dashboardTitleContainer">
     <div class="row">
       <div class="card mt-5 tabla">
-        <div class="card-body mt- text-center">
+        <div class="card-body mt-5 text-center">
           <span>Documentos</span>
           <button class="btn btn-success float-end" [routerLink]="['/importar']" routerLinkActive="router-link-active">Agregar</button>
           <div class="spinner-container" *ngIf="isLoading">
@@ -46,11 +46,12 @@
                       [showStampEditor]="false"
                       [showTextEditor]="false"
                       [showSpreadButton]="false"
-                      [showHandToolButton]="true"
-                      
-                      
+                      [showHandToolButton]="false"
+                      [showRotateButton]="false"
+                      [showInfiniteScrollButton]="false"
+                      [contextMenuAllowed]="false"
                     ></ngx-extended-pdf-viewer>
-                    <button class="btn btn-primary" (click)="export(documento.id)">Guardar firma</button>
+                    <button class="btn btn-primary mt-5" (click)="export(documento.id)">Guardar firma</button>
 
                     <!-- descargar -->
                     <!-- <button (click)="export()">Export to Blob</button> -->
