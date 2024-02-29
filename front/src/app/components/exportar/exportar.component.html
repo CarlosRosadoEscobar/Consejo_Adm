@@ -38,7 +38,7 @@
                       [src]="documento.documento.toString()"
                       
                       [showDrawEditor]="true"
-                      [showDownloadButton]="true"
+                      [showDownloadButton]="false"
                       [showZoomButtons]="false"
                       [showPagingButtons]="false"
                       [showOpenFileButton]="false"
@@ -50,10 +50,13 @@
                       
                       
                     ></ngx-extended-pdf-viewer>
-                    <button (click)="export()">Export to Blob</button>
-                    <button (click)="downloadBlob()">Download Blob</button>
+                    <button class="btn btn-primary" (click)="export(documento.id)">Guardar firma</button>
 
-                    <div *ngIf="blob">PDF exportado con éxito como Blob.</div>
+                    <!-- descargar -->
+                    <!-- <button (click)="export()">Export to Blob</button> -->
+                    <!-- <button (click)="downloadBlob()">Download Blob</button> -->
+
+                    <!-- <div *ngIf="blob">PDF exportado con éxito como Blob.</div> -->
 
 
                     <!-- <ngx-extended-pdf-viewer #pdfViewer [src]="documento.documento.toString()" (beforePrint)="onBeforePrint()" (afterPrint)="onAfterPrint()"></ngx-extended-pdf-viewer> -->
