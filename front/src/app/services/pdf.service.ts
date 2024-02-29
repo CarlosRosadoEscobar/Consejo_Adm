@@ -27,8 +27,8 @@ export class PdfService {
   }
  
   
-  getCurrentDocumentAsBlob(){
-
+  firmarDocumento(id:number, documento:Documentos): Observable<any> {
+    return this.http.put(this.url + id, documento);
   }
 
 

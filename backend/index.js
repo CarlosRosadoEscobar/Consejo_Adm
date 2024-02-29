@@ -229,7 +229,7 @@ app.post('/registro', async (req, res) => {
 
 //   PDF
 const fileUpload = require('express-fileupload')
-const { insertarDocumento, listarDocumentos, obtenerDocumento } = require('./scriptSQL/documentos/documentos')
+const { insertarDocumento, listarDocumentos, obtenerDocumento, firmaDocumento } = require('./scriptSQL/documentos/documentos')
 app.use(fileUpload())
 app.get('/documentos', async (req,res) => {
   try {
@@ -279,20 +279,25 @@ app.get('/documentos/:id', async (req,res) => {
 
 
 app.put("/documentos/:id", async (req, res) => {
-  try {
-    let id = req.params.id;
-    const firmaResult = await firmaDocumento(id);
 
-    if (firmaResult) {
-      return res.json({ message: 'Documento firmado correctamente' });
-    } else {
-      return res.status(500).send({ message: 'Error al firmar el documento' });
-    }
+  try {
+    
+    const id = req.params.id;
+    const documento = req.body.documento;
+    const usuario = req.body.usuario;
+
+    let firma = await firmaDocumento(id,documento,usuario);
+  
+    return res.json({ message: 'Documento actualizado correctamente' });
   } catch (error) {
-    console.log(error);
-    res.status(500).send({ error: 'Hubo un error' });
+    console.error(error);
+    return res.status(500).json({ error: 'Hubo un error al actualizar el documento' });
   }
+
+
+ 
 });
+
 
 //! ##################################################################
 //! ######################### DOCUSING ###############################
