@@ -1,7 +1,6 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Documentos } from 'src/app/models/documentos';
 import { PdfService } from 'src/app/services/pdf.service';
-import * as html2canvas from 'html2canvas';
 import { NgxExtendedPdfViewerService } from 'ngx-extended-pdf-viewer';
 
 @Component({
@@ -20,7 +19,7 @@ export class ExportarComponent {
 
 
 
-  ngOnInit(): void { 
+  ngOnInit(): void {
     this.obtenerDocumentos();
     let id =12;
 
@@ -47,7 +46,7 @@ export class ExportarComponent {
       this.isLoading = false;
     }, error => {
       console.log(error);
-      this.isLoading = false; 
+      this.isLoading = false;
     });
   }
 
@@ -85,18 +84,18 @@ export class ExportarComponent {
       window.URL.revokeObjectURL(url);
     }
   }
-  
+
 
   /* showSaveButtonOption = 'visible';
   onPdfViewerEvent() {
     console.log('Inicio de impresión');
   }
   showPrintButtonOption = 'visible';
-  
+
   onBeforePrint() {
     console.log('Inicio de impresión');
   }
-  
+
   onAfterPrint() {
     console.log('Impresión completada o cancelada');
   } */
