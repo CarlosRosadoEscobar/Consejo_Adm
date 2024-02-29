@@ -241,19 +241,12 @@ app.get('/documentos', async (req,res) => {
   }
 });
 
-
-
-
-
 app.post('/documentos', async (req, res) => {
   try {
     let base64Data = req.body.documento;
     let usuario =  req.body.usuario;
     const fecha = new Date().toISOString().slice(0, 19).replace("T", " ");
     const insertResult = await insertarDocumento(base64Data,fecha,usuario);
-
-    console.log(usuario);
-
     if (insertResult) {
       return res.json(insertResult);
     } else {
@@ -267,35 +260,25 @@ app.post('/documentos', async (req, res) => {
 app.get('/documentos/:id', async (req,res) => {  
   try {
     let id = req.params.id;
-    
     let documento = await obtenerDocumento(id)
     return res.json(documento);
-        
   } catch (error) {
     console.log(error);
     res.status(500).send({error: 'Hubo un error'});
   }
 });
-
-
 app.put("/documentos/:id", async (req, res) => {
-
   try {
-    
     const id = req.params.id;
     const documento = req.body.documento;
     const usuario = req.body.usuario;
-
-    let firma = await firmaDocumento(id,documento,usuario);
-  
+    const fecha = new Date().toISOString().slice(0, 19).replace("T", " ");
+    let firma = await firmaDocumento(id,documento,usuario,fecha);
     return res.json({ message: 'Documento actualizado correctamente' });
   } catch (error) {
     console.error(error);
     return res.status(500).json({ error: 'Hubo un error al actualizar el documento' });
   }
-
-
- 
 });
 
 
