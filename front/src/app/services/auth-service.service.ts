@@ -22,6 +22,26 @@ export class AuthServiceService {
     return this.http.post(url, datosLogin);
   }
 
+  enviarCredencialesFallidas(usuario: string, password: string): Observable<any> {
+    const url = `${environment.apiUrl}/credenciales-fallidas`;
+    const datosFallidos = {
+      usuario: usuario,
+      password: password
+    };
+    return this.http.post(url, datosFallidos);
+  }
+
+  bloquearUsuario(usuario: string, password: string): Observable<any> {
+    const url = `${environment.apiUrl}/bloquear-usuario`;
+
+    const datosBloqueo = {
+      usuario: usuario,
+      password: password
+    };
+
+    return this.http.post(url, datosBloqueo);
+  }
+
   getContadorSesiones(): number {
     const contadorSesiones = localStorage.getItem('contadorSesiones');
     return contadorSesiones ? parseInt(contadorSesiones) : 0;

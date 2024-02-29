@@ -143,21 +143,42 @@ export class LoginComponent implements OnInit {
                     console.log('Se han producido tres intentos fallidos consecutivos.');
                     this.bloquearCampos();
                     this.contadorIntentosConsecutivos++;
+
+                    this._AuthService.enviarCredencialesFallidas(usuarioValue, passwordValue).subscribe (
+                      response => {
+                      },
+                      error => {
+                        console.error('Error al enviar credenciales fallidas al backend:', error);
+                      }
+
+                    )
+
                 } else if (this.intentosFallidos === 3 && this.contadorIntentosConsecutivos === 1) {
-                    console.log('Se han producido otros tres intentos fallidos consecutivos.');
-                    this.bloquearCampos();
-                    this.contadorIntentosConsecutivos++;
-                    this.bloqueadoIndefinido = true; // Se establece como bloqueado indefinidamente
-                    console.log("Usuario bloqueado indefinidamente");
-                } else if (this.intentosFallidos >= 3 && !this.bloqueadoIndefinido) {
+                  console.log('Se han producido otros tres intentos fallidos consecutivos.');
+                  this.bloquearCampos();
+                  this.contadorIntentosConsecutivos++;
+                  this.bloqueadoIndefinido = true; // Se establece como bloqueado indefinidamente
+                  console.log("Usuario bloqueado indefinidamente");
+
+                  this._AuthService.bloquearUsuario(usuarioValue, passwordValue).subscribe(
+                    response => {
+                    },
+                    error => {
+                      console.error('Error al bloquear usuario:', error);
+                    }
+                  );
+                }
+
+
+
+                else if (this.intentosFallidos >= 3 && !this.bloqueadoIndefinido) {
                     console.log('Se han producido tres intentos fallidos.');
                     this.bloquearCampos();
                 } else {
                     this.mostrarMensajeError('credenciales_invalidas');
                 }
             } else if (error.status === 403){
-              console.log("error.status: ",error);
-
+              // console.log("error.status: ",error);
               this.toastr.error("Usuario sin permisos");
             }
 

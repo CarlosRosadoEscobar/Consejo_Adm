@@ -13,11 +13,13 @@ const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
 const bcrypt = require('bcrypt');
+const bodyParser = require('body-parser');
 const { body, validationResult } = require('express-validator');
 const { json } = require('body-parser');
 const app = express();
 app.use(express.json({limit: '500mb'}));
 app.use(express.urlencoded({limit: '500mb'}, extended=true)); 
+const PORT = 3000;
 
 //* Middleware para permitir solicitudes
 const corsOptions = {
@@ -48,6 +50,7 @@ app.use((req, res, next) => {
 app.use(morgan('dev'))
 app.use(express.json())
 app.use(cors(corsOptions));
+app.use(bodyParser.json());
 
 
 //* ASSET
@@ -75,14 +78,12 @@ app.post('/usuario',
     try {
       const { usuario, password } = req.body;
 
-      // Realizar la autenticación del usuario
       const usuarios = await getUsuarios();
       const usuarioValido = usuarios.find(u => u.usuario === usuario && u.decrypted_contraseña === password);
 
       if (usuarioValido) {
 
-                if (usuarioValido.estatus === "1") {
-          // Validar el rol del usuario si el usuario está activo
+        if (usuarioValido.estatus === "1") {
           const rolesPermitidos = ['asistente_de_direccion', 'direccion_general', 'miembros_del_consejo', 'admin'];
           if (!rolesPermitidos.includes(usuarioValido.role)) {
             return res.status(403).json({ mensaje: 'Usuario sin permisos adecuados', codigo: 403 });
@@ -90,9 +91,7 @@ app.post('/usuario',
         } else {
           return res.status(403).json({ mensaje: 'Usuario inactivo o bloqueado', codigo: 403 });
         }
-        
 
-        // Si la autenticación es exitosa y el estado y rol del usuario son válidos, devolver datos de usuario
         const datosUsuario = {
           id_colaborador: usuarioValido.id_colaborador,
           Nombre: usuarioValido.Nombre,
@@ -107,16 +106,29 @@ app.post('/usuario',
         return res.status(200).json({ mensaje: 'Autenticación exitosa', usuario: datosUsuario });
         
       } else {
-        // Si las credenciales son incorrectas, devolver un mensaje de error con código 401 (No autorizado)
         return res.status(401).json({ mensaje: 'Usuario o contraseña incorrectos', codigo: 401 });
       }
     } catch (error) {
-      // Si ocurre un error durante el proceso de autenticación o en el servidor, devolver un mensaje de error genérico con código 500 (Error del servidor)
       console.error(error);
       return res.status(500).json({ mensaje: 'Error al procesar la solicitud', codigo: 500 });
     }
   }
 );
+
+//* Credencisa fallidas
+app.post('/credenciales-fallidas', (req, res) => {
+  const { usuario, password } = req.body;
+  console.log(`Credenciales fallidas recibidas - Usuario: ${usuario}, Contraseña: ${password}`);
+  res.status(200).json({ mensaje: 'Credenciales fallidas recibidas correctamente' });
+
+});
+
+//* Usuario Bloqueado
+app.post('/bloquear-usuario', (req, res) => {
+  const { usuario, password } = req.body;
+  console.log('Usuario bloqueado:', usuario);
+  res.status(200).json({ mensaje: 'Usuario bloqueado correctamente' });
+});
 
 //! ##################################################################
 //! ######################### Comercial ##############################
@@ -140,6 +152,7 @@ app.get('/prospectos', async (req,res) => {
     res.status(500).json({error:"No se pudo traer la información de prospectos"});
   }
 });
+
 //! ##################################################################
 //! ########################## RRHH ##################################
 //! ##################################################################
@@ -382,6 +395,7 @@ app.put("/documentos/:id", async (req, res) => {
 // })
 
 
-app.listen(3000, () => {
-    console.log('El servidor ha sido iniciado en http://localhost:3000');
-})
+// Iniciar el servidor
+app.listen(PORT, () => {
+  console.log(`El servidor ha sido iniciado en http://localhost:${PORT}`);
+});
