@@ -1,7 +1,10 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Documentos } from 'src/app/models/documentos';
 import { PdfService } from 'src/app/services/pdf.service';
+<<<<<<< HEAD
+=======
 import { ToastrService } from 'ngx-toastr';
+>>>>>>> 8ffe15fda9c23c0fee828047060afc6fe5c21d2f
 import { NgxExtendedPdfViewerService } from 'ngx-extended-pdf-viewer';
 import { ToastrModule } from 'ngx-toastr';
 import { Router } from '@angular/router';
@@ -22,7 +25,7 @@ export class ExportarComponent {
 
 
 
-  ngOnInit(): void { 
+  ngOnInit(): void {
     this.obtenerDocumentos();
     let id =12;
 
@@ -49,7 +52,7 @@ export class ExportarComponent {
       this.isLoading = false;
     }, error => {
       console.log(error);
-      this.isLoading = false; 
+      this.isLoading = false;
     });
   }
 
@@ -131,6 +134,8 @@ export class ExportarComponent {
       console.error('Error al exportar el PDF como Blob:', error);
     }
   }
+<<<<<<< HEAD
+=======
   
   private async blobToBase64(blob: Blob): Promise<string> {
     return new Promise((resolve, reject) => {
@@ -152,6 +157,7 @@ export class ExportarComponent {
 
   
   
+>>>>>>> 8ffe15fda9c23c0fee828047060afc6fe5c21d2f
 
 
   /* showSaveButtonOption = 'visible';
@@ -159,11 +165,11 @@ export class ExportarComponent {
     console.log('Inicio de impresión');
   }
   showPrintButtonOption = 'visible';
-  
+
   onBeforePrint() {
     console.log('Inicio de impresión');
   }
-  
+
   onAfterPrint() {
     console.log('Impresión completada o cancelada');
   } */
