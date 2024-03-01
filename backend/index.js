@@ -14,7 +14,7 @@ const { insertarAlertaLogin, credencialesFallidas, registroInicioDeSesion } = re
 const { body, validationResult } = require('express-validator');
 const { json } = require('body-parser');
 const fileUpload = require('express-fileupload');
-const { insertarDocumento, listarDocumentos, obtenerDocumento } = require('./scriptSQL/documentos/documentos');
+const { insertarDocumento, listarDocumentos, obtenerDocumento,firmaDocumento } = require('./scriptSQL/documentos/documentos');
 
 const express     = require('express');
 const cors        = require('cors');
@@ -283,11 +283,9 @@ app.post('/bloquear-usuario', async (req, res) => {
 //! ##################################################################
 //! ########################### PDF ##################################
 //! ##################################################################
-//* PDF
+
 //   PDF
-const fileUpload = require('express-fileupload')
-const { insertarDocumento, listarDocumentos, obtenerDocumento, firmaDocumento } = require('./scriptSQL/documentos/documentos')
-app.use(fileUpload())
+
 app.get('/documentos', async (req,res) => {
   try {
     const documentos = await listarDocumentos();
