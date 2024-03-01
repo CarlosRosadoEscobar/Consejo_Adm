@@ -1,7 +1,13 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Documentos } from 'src/app/models/documentos';
 import { PdfService } from 'src/app/services/pdf.service';
+<<<<<<< HEAD
+=======
+import { ToastrService } from 'ngx-toastr';
+>>>>>>> 8ffe15fda9c23c0fee828047060afc6fe5c21d2f
 import { NgxExtendedPdfViewerService } from 'ngx-extended-pdf-viewer';
+import { ToastrModule } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-exportar',
@@ -14,7 +20,7 @@ export class ExportarComponent {
   isLoading: boolean = true; // Variable para indicar si la carga está en curso
 
 
-  constructor(private _documentoService: PdfService, private pdfViewerService: NgxExtendedPdfViewerService) {
+  constructor(private _documentoService: PdfService,  private router : Router , private pdfViewerService: NgxExtendedPdfViewerService, private toastr: ToastrService) {
   }
 
 
@@ -25,10 +31,10 @@ export class ExportarComponent {
 
     this._documentoService.obtenerDocumento(id).subscribe(
       (response) => {
-        console.log('Raw Response:', response);
+        // console.log('Raw Response:', response);
         try {
           const parsedResponse = JSON.parse(response);
-          console.log('Parsed Response:', parsedResponse);
+          // console.log('Parsed Response:', parsedResponse);
         } catch (parseError) {
           console.error('Error parsing JSON:', parseError);
         }
@@ -63,7 +69,8 @@ export class ExportarComponent {
 
   public blob: Blob | undefined;
 
-  public async export(): Promise<void> {
+  // DEscargar
+  /* public async export(): Promise<void> {
     try {
       this.blob = await this.pdfViewerService.getCurrentDocumentAsBlob();
       console.log('PDF exportado como Blob exitosamente.');
@@ -83,7 +90,74 @@ export class ExportarComponent {
       document.body.removeChild(a);
       window.URL.revokeObjectURL(url);
     }
+  } */
+  
+
+  public async export(id: number): Promise<void> {
+    try {
+      this.blob = await this.pdfViewerService.getCurrentDocumentAsBlob();
+      const base64String = await this.blobToBase64(this.blob);
+      const usuarioS = localStorage.getItem('usuario');
+
+      // console.log(base64String);
+      
+  
+      if (usuarioS) {
+        const usuario = JSON.parse(usuarioS);
+        const nombre = usuario.Nombre;
+  
+        const DOCUMENTOS : Documentos = {
+          id:id,
+          documento:base64String,
+          fecha:'',
+          usuario:nombre
+        }
+        
+  
+        this._documentoService.firmarDocumento(id,DOCUMENTOS).subscribe(
+          (respuesta) => {
+            // Lógica para manejar la respuesta del servicio
+            // console.log('Respuesta del servicio:', respuesta);
+            this.toastr.success('El documento ha sido firmado correctamente','Documento firmado');
+            this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+              this.router.navigate(['/exportar']);
+            });
+          },
+          (error) => {
+            console.error('Error en la suscripción al servicio:', error);
+          }
+        );
+      } else {
+        console.error('No se encontró información de usuario en el almacenamiento local.');
+      }
+    } catch (error) {
+      console.error('Error al exportar el PDF como Blob:', error);
+    }
   }
+<<<<<<< HEAD
+=======
+  
+  private async blobToBase64(blob: Blob): Promise<string> {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        if (typeof reader.result === 'string') {
+          resolve(reader.result);
+        } else {
+          reject(new Error('Error al leer el Blob como Base64.'));
+        }
+      };
+      reader.onerror = () => {
+        reject(new Error('Error al leer el Blob como Base64.'));
+      };
+      reader.readAsDataURL(blob);
+    });
+  }
+  
+
+  
+  
+>>>>>>> 8ffe15fda9c23c0fee828047060afc6fe5c21d2f
 
 
   /* showSaveButtonOption = 'visible';

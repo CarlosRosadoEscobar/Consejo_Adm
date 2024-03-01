@@ -226,6 +226,7 @@ app.post('/registro', async (req, res) => {
   }
 });
 
+<<<<<<< HEAD
 
 //* Credencisa fallidas
 app.post('/credenciales-fallidas', async (req, res) => {
@@ -284,6 +285,12 @@ app.post('/bloquear-usuario', async (req, res) => {
 //! ########################### PDF ##################################
 //! ##################################################################
 //* PDF
+=======
+//   PDF
+const fileUpload = require('express-fileupload')
+const { insertarDocumento, listarDocumentos, obtenerDocumento, firmaDocumento } = require('./scriptSQL/documentos/documentos')
+app.use(fileUpload())
+>>>>>>> 8ffe15fda9c23c0fee828047060afc6fe5c21d2f
 app.get('/documentos', async (req,res) => {
   try {
     const documentos = await listarDocumentos();
@@ -300,9 +307,6 @@ app.post('/documentos', async (req, res) => {
     let usuario =  req.body.usuario;
     const fecha = new Date().toISOString().slice(0, 19).replace("T", " ");
     const insertResult = await insertarDocumento(base64Data,fecha,usuario);
-
-    console.log(usuario);
-
     if (insertResult) {
       return res.json(insertResult);
     } else {
@@ -317,31 +321,31 @@ app.post('/documentos', async (req, res) => {
 app.get('/documentos/:id', async (req,res) => {  
   try {
     let id = req.params.id;
-    
     let documento = await obtenerDocumento(id)
     return res.json(documento);
-        
   } catch (error) {
     console.log(error);
     res.status(500).send({error: 'Hubo un error'});
   }
 });
+<<<<<<< HEAD
 
+=======
+>>>>>>> 8ffe15fda9c23c0fee828047060afc6fe5c21d2f
 app.put("/documentos/:id", async (req, res) => {
   try {
-    let id = req.params.id;
-    const firmaResult = await firmaDocumento(id);
-
-    if (firmaResult) {
-      return res.json({ message: 'Documento firmado correctamente' });
-    } else {
-      return res.status(500).send({ message: 'Error al firmar el documento' });
-    }
+    const id = req.params.id;
+    const documento = req.body.documento;
+    const usuario = req.body.usuario;
+    const fecha = new Date().toISOString().slice(0, 19).replace("T", " ");
+    let firma = await firmaDocumento(id,documento,usuario,fecha);
+    return res.json({ message: 'Documento actualizado correctamente' });
   } catch (error) {
-    console.log(error);
-    res.status(500).send({ error: 'Hubo un error' });
+    console.error(error);
+    return res.status(500).json({ error: 'Hubo un error al actualizar el documento' });
   }
 });
+
 
 //! ##################################################################
 //! ######################### DOCUSING ###############################

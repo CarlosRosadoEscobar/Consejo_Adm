@@ -3,7 +3,7 @@
   <div class="container text-center dashboardTitleContainer">
     <div class="row">
       <div class="card mt-5 tabla">
-        <div class="card-body mt- text-center">
+        <div class="card-body mt-5 text-center">
           <span>Documentos</span>
           <button class="btn btn-success float-end" [routerLink]="['/importar']" routerLinkActive="router-link-active">Agregar</button>
           <div class="spinner-container" *ngIf="isLoading">
@@ -38,7 +38,7 @@
                       [src]="documento.documento.toString()"
                       
                       [showDrawEditor]="true"
-                      [showDownloadButton]="true"
+                      [showDownloadButton]="false"
                       [showZoomButtons]="false"
                       [showPagingButtons]="false"
                       [showOpenFileButton]="false"
@@ -46,14 +46,18 @@
                       [showStampEditor]="false"
                       [showTextEditor]="false"
                       [showSpreadButton]="false"
-                      [showHandToolButton]="true"
-                      
-                      
+                      [showHandToolButton]="false"
+                      [showRotateButton]="false"
+                      [showInfiniteScrollButton]="false"
+                      [contextMenuAllowed]="false"
                     ></ngx-extended-pdf-viewer>
-                    <button (click)="export()">Export to Blob</button>
-                    <button (click)="downloadBlob()">Download Blob</button>
+                    <button class="btn btn-primary mt-5" (click)="export(documento.id)">Guardar firma</button>
 
-                    <div *ngIf="blob">PDF exportado con éxito como Blob.</div>
+                    <!-- descargar -->
+                    <!-- <button (click)="export()">Export to Blob</button> -->
+                    <!-- <button (click)="downloadBlob()">Download Blob</button> -->
+
+                    <!-- <div *ngIf="blob">PDF exportado con éxito como Blob.</div> -->
 
 
                     <!-- <ngx-extended-pdf-viewer #pdfViewer [src]="documento.documento.toString()" (beforePrint)="onBeforePrint()" (afterPrint)="onAfterPrint()"></ngx-extended-pdf-viewer> -->
