@@ -226,7 +226,6 @@ app.post('/registro', async (req, res) => {
   }
 });
 
-<<<<<<< HEAD
 
 //* Credencisa fallidas
 app.post('/credenciales-fallidas', async (req, res) => {
@@ -285,12 +284,10 @@ app.post('/bloquear-usuario', async (req, res) => {
 //! ########################### PDF ##################################
 //! ##################################################################
 //* PDF
-=======
 //   PDF
 const fileUpload = require('express-fileupload')
 const { insertarDocumento, listarDocumentos, obtenerDocumento, firmaDocumento } = require('./scriptSQL/documentos/documentos')
 app.use(fileUpload())
->>>>>>> 8ffe15fda9c23c0fee828047060afc6fe5c21d2f
 app.get('/documentos', async (req,res) => {
   try {
     const documentos = await listarDocumentos();
@@ -328,10 +325,6 @@ app.get('/documentos/:id', async (req,res) => {
     res.status(500).send({error: 'Hubo un error'});
   }
 });
-<<<<<<< HEAD
-
-=======
->>>>>>> 8ffe15fda9c23c0fee828047060afc6fe5c21d2f
 app.put("/documentos/:id", async (req, res) => {
   try {
     const id = req.params.id;
