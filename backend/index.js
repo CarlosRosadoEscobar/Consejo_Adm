@@ -1,5 +1,5 @@
 //* DATA BD
-const { getUsuarios } = require('./scriptSQL/Users/Users');
+const { getUsuarios, getloginExitoso } = require('./scriptSQL/Users/Users');
 const { crecimiento_servicios } = require('./scriptSQL/comercial/crecimiento_servicios');
 const { getProspectos } = require('./scriptSQL/comercial/seguimiento_prospectos');
 const { getVacantes } = require('./scriptSQL/rrhh/vacante');
@@ -8,7 +8,7 @@ const {getUsuariosConsulta} = require('./scriptSQL/juridico_normativo/proceso_ar
 const {getUsuariosInscripcion} = require('./scriptSQL/juridico_normativo/proceso_armado/inscripcion');
 const { getUsuariosCredencializacion } = require('./scriptSQL/juridico_normativo/proceso_armado/credencializacion');
 const { updateUserStatusByUsername } = require('./scriptSQL/Users/UserBloqueo')
-const { insertarAlertaLogin, credencialesFallidas, registroInicioDeSesion } = require('./scriptSQL/Users/RegistroLogin')
+const { insertarAlertaLogin, credencialesFallidas, registroInicioDeSesion, cambioEstatus } = require('./scriptSQL/Users/RegistroLogin')
 
 //* SERVER
 const { body, validationResult } = require('express-validator');
@@ -21,6 +21,7 @@ const cors        = require('cors');
 const morgan      = require('morgan');
 const bcrypt      = require('bcrypt');
 const bodyParser  = require('body-parser');
+const chalk       = require('chalk');
 
 const app = express();
 const PORT = process.env.PORT;
@@ -82,7 +83,12 @@ app.post('/usuario',
     try {
       const { usuario, password } = req.body;
 
+      const fechaHoraActual = new Date();
+      const fecha = fechaHoraActual.toISOString().split('T')[0];
+      const hora = fechaHoraActual.toTimeString().split(' ')[0];
+      
       const usuarios = await getUsuarios();
+      
       const usuarioValido = usuarios.find(u => u.usuario === usuario && u.decrypted_contraseña === password);
 
       if (usuarioValido) {
@@ -90,11 +96,21 @@ app.post('/usuario',
         if (usuarioValido.estatus === "1") {
           const rolesPermitidos = [process.env.ROLE1, process.env.ROLE2,process.env.ROLE3, process.env.ROLE4];
           if (!rolesPermitidos.includes(usuarioValido.role)) {
+            console.log(chalk.inverse.green('Usuario con status 1'));
             return res.status(403).json({ mensaje: 'Usuario sin permisos adecuados', codigo: 403 });
           }
         } else {
-          return res.status(403).json({ mensaje: 'Usuario inactivo o bloqueado', codigo: 403 });
-        }
+          if (usuarioValido.estatus === "0") {
+              console.log(chalk.inverse.yellow('Usuario con status 0'));
+              return res.status(200).json({ mensaje: 'Usuario0' });
+          } else {
+              console.log(chalk.inverse.red('Usuario con status 2'));
+              return res.status(403).json({ mensaje: 'Usuario  bloqueado', codigo: 403 });
+          }
+      }
+
+        const usernamer = usuarioValido.usuario
+        await registroInicioDeSesion(usernamer, fecha, hora );
 
         const datosUsuario = {
           id_colaborador: usuarioValido.id_colaborador,
@@ -107,6 +123,57 @@ app.post('/usuario',
           estado: usuarioValido.estado,
           role: usuarioValido.role
         };
+
+        const registros = await getloginExitoso();
+        const registrosUsuario = registros.filter(registro => registro.usuario === usernamer);
+        
+        registrosUsuario.sort((a, b) => {
+            if (a.fecha_login === b.fecha_login) {
+                return b.hora.localeCompare(a.hora);
+            } else {
+                return b.fecha_login.localeCompare(a.fecha_login);
+            }
+        });
+            
+
+        if (registrosUsuario.length >= 20) {
+          const penultimoRegistro = registrosUsuario[1]; 
+          const fechaHoraPenultimoRegistro = new Date(penultimoRegistro.fecha_login + ' ' + penultimoRegistro.hora);
+          const diferenciaTiempo = fechaHoraActual - fechaHoraPenultimoRegistro;
+          const minutosDiferencia = Math.floor(diferenciaTiempo / (1000 * 60));
+
+          if (minutosDiferencia > 5) {
+              console.log(`El usuario ${usuarioValido.usuario} ha excedido el límite de tiempo.`);
+              await cambioEstatus(usuario);
+              return res.status(200).json({ mensaje: `user0` });
+          }
+      } else {
+          console.log(chalk.yellow('No hay suficientes registros para obtener el penúltimo para el usuario', usernamer));
+          // console.log('No hay suficientes registros para obtener el penúltimo para el usuario', usernamer);
+      }
+
+
+      // if (registrosUsuario.length >= 2) {
+      //     const penultimoRegistro = registrosUsuario[1]; 
+
+      //     const fechaHoraPenultimoRegistro = new Date(penultimoRegistro.fecha_login + ' ' + penultimoRegistro.hora);
+
+      //     const diferenciaTiempo = Math.floor((fechaHoraActual - fechaHoraPenultimoRegistro) / (1000 * 60 * 60 * 24));
+
+      //     if (diferenciaTiempo > 7) { 
+      //       console.log(chalk.inverse.green(`El usuario ${usuarioValido.usuario} ha excedido el límite de una semana.`));
+      //       // console.log(`El usuario ${usuarioValido.usuario} ha excedido el límite de una semana.`);
+
+      //         return res.status(200).json({ mensaje: `El usuario ${usuarioValido.usuario} ha excedido el límite de una semana.` });
+
+      //     }
+      // } else {
+      //   console.log(chalk.inverse.yellow('No hay suficientes registros para obtener el penúltimo para el usuario', usernamer));
+      //   // console.log('No hay suficientes registros para obtener el penúltimo para el usuario', usernamer);
+
+      // }
+
+        console.log('Fecha y hora de login exitoso:', fecha, hora);
         return res.status(200).json({ mensaje: 'Autenticación exitosa', usuario: datosUsuario });
 
       } else {
@@ -215,10 +282,10 @@ app.post('/registro', async (req, res) => {
   const fecha = fechaHoraActual.toISOString().split('T')[0];
   const hora = fechaHoraActual.toTimeString().split(' ')[0];
 
-  console.log('Fecha y hora de recepción:', fecha, hora);
+  // console.log('Fecha y hora de recepción:', fecha, hora);
 
   try {
-    console.log('Historial de inicio de sesión recibido:', historialInicioSesion);
+    // console.log('Historial de inicio de sesión recibido:', historialInicioSesion);
     res.status(200).send({ mensaje: 'Datos de historial de inicio de sesión recibidos correctamente' });
   } catch (error) {
     console.error('Error al procesar los datos del historial de inicio de sesión:', error);
@@ -235,7 +302,7 @@ app.post('/credenciales-fallidas', async (req, res) => {
   const fecha = fechaHoraActual.toISOString().split('T')[0];
   const hora = fechaHoraActual.toTimeString().split(' ')[0];
 
-  console.log('Fecha y hora de recepción:', fecha, hora);
+  // console.log('Fecha y hora de recepción:', fecha, hora);
 
   try {
     const consultaExitosa = await credencialesFallidas(usuario, password , fecha, hora );
@@ -262,7 +329,7 @@ app.post('/bloquear-usuario', async (req, res) => {
   const fecha = fechaHoraActual.toISOString().split('T')[0];
   const hora = fechaHoraActual.toTimeString().split(' ')[0];
 
-  console.log('Fecha y hora de recepción:', fecha, hora);
+  // console.log('Fecha y hora de recepción:', fecha, hora);
 
   try {
 
@@ -283,8 +350,6 @@ app.post('/bloquear-usuario', async (req, res) => {
 //! ##################################################################
 //! ########################### PDF ##################################
 //! ##################################################################
-
-//   PDF
 
 app.get('/documentos', async (req,res) => {
   try {
