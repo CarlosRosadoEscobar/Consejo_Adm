@@ -50,8 +50,8 @@ const registroInicioDeSesion = async (usuario, fecha, hora) => {
                 .input('username', mssql.NVarChar, usuario)
                 .input('fecha', mssql.NVarChar, fecha)
                 .input('hora', mssql.NVarChar, hora)
-                .query('INSERT INTO user_inicio_sesion (usuario, fecha, hora) VALUES (@username, @fecha , @hora)');
-            console.log(`Estado del usuario ${username} actualizado correctamente. Bloqueo`);
+                .query('INSERT INTO user_inicio_sesion (usuario, fecha_login, hora) VALUES (@username, @fecha , @hora)');
+            console.log(`Estado del usuario ${usuario} actualizado correctamente. Bloqueo`);
         } else {
             console.error('Error: Objeto pool no devuelto');
         }
@@ -60,4 +60,23 @@ const registroInicioDeSesion = async (usuario, fecha, hora) => {
     }
 }
 
-module.exports = { insertarAlertaLogin, credencialesFallidas, registroInicioDeSesion };
+const cambioEstatus = async (usuario) => {
+    try {
+        const pool = await getConnection();
+        if (pool) {
+            console.log('Conexión a la base de datos exitosa');
+            await pool.request()
+                .input('username', mssql.NVarChar, usuario)
+                .query('UPDATE Users SET estatus = 0 WHERE Usuario = @username');
+                // UPDATE Users SET estatus = 0 WHERE Usuario = @username;
+
+            console.log(`Estado del usuario ${usuario} actualizado correctamente. Bloqueo`);
+        } else {
+            console.error('Error: Objeto pool no devuelto');
+        }
+    } catch (error) {
+        console.error('Error al actualizar el estado del usuario:', error);
+    }
+}
+
+module.exports = { insertarAlertaLogin, credencialesFallidas, registroInicioDeSesion, cambioEstatus };
