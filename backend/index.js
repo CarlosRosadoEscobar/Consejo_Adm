@@ -14,7 +14,7 @@ const { insertarAlertaLogin, credencialesFallidas, registroInicioDeSesion, cambi
 const { body, validationResult } = require('express-validator');
 const { json } = require('body-parser');
 const fileUpload = require('express-fileupload');
-const { insertarDocumento, listarDocumentos, obtenerDocumento,firmaDocumento } = require('./scriptSQL/documentos/documentos');
+const { insertarDocumento, listarDocumentos, obtenerDocumento,firmaDocumento, UsuariosListar } = require('./scriptSQL/documentos/documentos');
 
 const express     = require('express');
 const cors        = require('cors');
@@ -53,8 +53,8 @@ app.use(morgan('dev'))
 app.use(express.json())
 app.use(cors(corsOptions));
 app.use(bodyParser.json());
-app.use(express.json({limit: '500mb'}));
-app.use(express.urlencoded({limit: '500mb'}, extended=true)); 
+app.use(express.json({ limit: '50mb' }));
+app.use(express.urlencoded({ limit: '50mb', extended: true }));
 app.use(fileUpload())
 
 
@@ -402,6 +402,15 @@ app.put("/documentos/:id", async (req, res) => {
   }
 });
 
+app.get('/usuarios', async (req, res) =>{
+  try {
+    const  socios = await UsuariosListar();
+    return res.json(socios);
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ error: 'Hubo un error al obtener los usuarios'});
+  }
+});
 
 //! ##################################################################
 //! ######################### DOCUSING ###############################
