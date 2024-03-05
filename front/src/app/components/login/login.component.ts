@@ -126,6 +126,11 @@ export class LoginComponent implements OnInit {
                 localStorage.setItem('contadorSesiones', contadorSesiones);
                 this.router.navigate(['inicio']);
             }
+            else if(response.mensaje === 'Usuario0'){
+
+              console.log("usuario 0");
+              
+            }
         },
         error => {
             if (error.status === 401) {
