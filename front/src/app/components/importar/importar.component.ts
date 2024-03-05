@@ -1,9 +1,12 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Documentos } from 'src/app/models/documentos';
 import { PdfService } from 'src/app/services/pdf.service';
+import { UsuariosService } from 'src/app/services/usuarios.service';
+import { Socios } from 'src/app/models/socios';
+import { error } from 'pdf-lib';
 
 
 @Component({
@@ -13,16 +16,20 @@ import { PdfService } from 'src/app/services/pdf.service';
 })
 export class ImportarComponent {
 
+  listSocios : Socios[] = [];
+
   documentoForm : FormGroup;
 
   constructor(
     private fb : FormBuilder,
     private router : Router,
     private toastr : ToastrService,
-    private _documentoService : PdfService
+    private _documentoService : PdfService,
+    private _usuarioService : UsuariosService
   ){
     this.documentoForm = this.fb.group({
-      documento : ['', Validators.required]
+      documento : ['', Validators.required],
+      colaboradores: this.fb.array([]),
     });
   }
 
@@ -43,9 +50,92 @@ export class ImportarComponent {
     const allowedTypes = ['application/pdf'];
     return allowedTypes.includes(file.type);
   }
+
   
 
+  ngOnInit(){
+    this.obtenerUsuarios();
+  }
+  
+  obtenerUsuarios():void{
+    this._usuarioService.obtenerUsuario().subscribe(data => {
+      this.listSocios = data;
+      console.log(data);      
+    },error=>{
+      console.log(error);
+    })
+  }
 
+  selectedColaborador: string | null = null;
+  
+
+  getColaboradorName(id: string | null): string {
+    if (!id) {
+      return 'Ninguno';
+    }
+  
+    const socio = this.listSocios.find(s => s.id_colaborador === id);
+    return socio ? socio.Nombre : 'Ninguno';
+  }
+
+  /* getColaboradorName(id: string | null): string {
+    const socio = this.listSocios.find(s => s.id_colaborador === id);
+    return socio ? socio.Nombre : 'Ninguno';
+  } */
+
+  /* agregarColaborador(event: any): void {
+    const colaboradorId = event.target.value;
+    const colaboradoresArray = this.documentoForm.get('colaboradores') as FormArray;
+    colaboradoresArray.push(this.fb.control(colaboradorId,));
+    console.log('Colaboradores seleccionados:', colaboradoresArray.value);
+  } */
+
+  agregarColaborador(event: any): void {
+    const colaboradorId = event.target.value;
+    const colaboradorNombre = event.target.options[event.target.selectedIndex].text;
+    const colaboradoresArray = this.documentoForm.get('colaboradores') as FormArray;
+    // Verificar si el colaborador ya fue seleccionado
+    if (colaboradoresArray.value.some((colaborador: { id: string }) => colaborador.id === colaboradorId)) {
+      // El colaborador ya ha sido seleccionado, puedes mostrar un mensaje o realizar alguna acción adicional si lo deseas.
+      console.log('Colaborador ya seleccionado.');
+      return;
+    }
+    colaboradoresArray.push(this.fb.group({
+      id: colaboradorId,
+      nombre: colaboradorNombre,
+      firma:'No'
+    }));
+  
+    // Deshabilitar la opción seleccionada
+    const colaboradoresOptions = this.listSocios.map(socio => socio.id_colaborador);
+    colaboradoresOptions.forEach((optionId: string) => {
+      const optionElement = document.getElementById(`option-${optionId}`) as HTMLSelectElement;
+      if (optionElement) {
+        optionElement.disabled = true;
+      }
+    });
+  
+    // Restablecer el valor seleccionado del select
+    event.target.value = 'disabled';
+  
+    // Imprimir el arreglo en la consola
+    console.log('Colaboradores seleccionados:', colaboradoresArray.value);
+  }
+  
+  
+
+  quitarColaborador(index: number): void {
+    const colaboradoresArray = this.documentoForm.get('colaboradores') as FormArray;
+  
+    // Eliminar el colaborador en la posición 'index'
+    colaboradoresArray.removeAt(index);
+    
+    // Imprimir el arreglo actualizado en la consola
+    console.log('Colaboradores seleccionados:', colaboradoresArray.value);
+
+    // this.guardarDocumento(colaboradoresArray.value);
+
+  }
 
 
 
@@ -73,12 +163,16 @@ export class ImportarComponent {
     const reader = new FileReader();
     reader.onloadend = () => {
       const base64String = reader.result as string;
+
+      // console.log(base64String);
+      
   
       const DOCUMENTO: Documentos = {
         id: 0,
         documento: base64String,
         fecha: '',
         usuario: nombre,
+        socios_firmas:''
       };
   
       console.log(DOCUMENTO);

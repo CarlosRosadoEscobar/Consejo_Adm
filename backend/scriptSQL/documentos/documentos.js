@@ -84,4 +84,21 @@ const firmaDocumento = async (id, documento, usuario,fecha) => {
     return false;
   }
 };
-module.exports = { insertarDocumento, listarDocumentos, obtenerDocumento, firmaDocumento };
+
+const UsuariosListar = async () => {
+  try {
+    let pool = await getConnection();
+    if (pool) {
+      let result = await pool.request().query(`select Nombre,id_colaborador from Users`);
+      return result.recordset;
+    } else {
+      console.error(error);
+      return false;
+    }
+  } catch (error) {
+    console.error(error);
+    return false;
+  }
+}
+
+module.exports = { insertarDocumento, listarDocumentos, obtenerDocumento, firmaDocumento, UsuariosListar };

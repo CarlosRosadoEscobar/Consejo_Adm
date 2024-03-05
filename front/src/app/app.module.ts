@@ -17,7 +17,7 @@ import { AppComponent } from './app.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { LoginComponent } from './components/login/login.component';
 import { MenuComponent } from './components/menu/menu.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ModulosComponent } from './components/modulos/modulos.component';
 import { PaneldashboardComponent } from './components/paneldashboard/paneldashboard.component';
 import { ComercialComponent } from './components/comercial/comercial.component';
@@ -82,6 +82,7 @@ import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
     HttpClientModule,
     NgxChartsModule,
     NgxExtendedPdfViewerModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -106,7 +106,8 @@ export class ExportarComponent {
           id:id,
           documento:base64String,
           fecha:'',
-          usuario:nombre
+          usuario:nombre,
+          socios_firmas:''
         }
         
   
