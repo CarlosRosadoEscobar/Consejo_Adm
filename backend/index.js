@@ -387,8 +387,9 @@ app.post('/documentos', async (req, res) => {
   try {
     let base64Data = req.body.documento;
     let usuario =  req.body.usuario;
+    let socios =  req.body.socios_firmas;
     const fecha = new Date().toISOString().slice(0, 19).replace("T", " ");
-    const insertResult = await insertarDocumento(base64Data,fecha,usuario);
+    const insertResult = await insertarDocumento(base64Data,fecha,usuario,socios);
     if (insertResult) {
       return res.json(insertResult);
     } else {

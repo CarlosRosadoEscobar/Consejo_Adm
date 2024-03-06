@@ -1,13 +1,13 @@
 const { getConnection } = require('../../database/conexionSqlServer');
 
-const insertarDocumento = async (base64Data, fecha, usuario) => {
+const insertarDocumento = async (base64Data, fecha, usuario,socios) => {
   try {
     let pool = await getConnection();
     if (pool) {
       let result1 = await pool.request().query(`
-        INSERT INTO direccion_general_documentos (documento, fecha, usuario)
+        INSERT INTO direccion_general_documentos (documento, fecha, usuario,socios_firmas)
         OUTPUT INSERTED.id -- Retrieve the generated ID
-        VALUES ('${base64Data}', '${fecha}', '${usuario}')
+        VALUES ('${base64Data}', '${fecha}', '${usuario}','${socios}')
       `);
       if (result1.rowsAffected > 0) {
         const generatedId = result1.recordset[0].id;
@@ -28,6 +28,7 @@ const insertarDocumento = async (base64Data, fecha, usuario) => {
     return false;
   }
 }
+
 
 const listarDocumentos = async () => {
   try {
