@@ -6,8 +6,6 @@ import { Documentos } from 'src/app/models/documentos';
 import { PdfService } from 'src/app/services/pdf.service';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 import { Socios } from 'src/app/models/socios';
-import { error } from 'pdf-lib';
-
 
 @Component({
   selector: 'app-importar',
@@ -15,11 +13,9 @@ import { error } from 'pdf-lib';
   styleUrls: ['./importar.component.css']
 })
 export class ImportarComponent {
-
   listSocios : Socios[] = [];
-
   documentoForm : FormGroup;
-
+  
   constructor(
     private fb : FormBuilder,
     private router : Router,
@@ -32,7 +28,7 @@ export class ImportarComponent {
       colaboradores: this.fb.array([]),
     });
   }
-
+  
   onFileChange(event: any): void {
     const fileInput = event.target;
     if (fileInput.files.length > 0) {
@@ -69,13 +65,15 @@ export class ImportarComponent {
   selectedColaborador: string | null = null;
   
 
-  getColaboradorName(id: string | null): string {
-    if (!id) {
+  getColaboradorName(id_colaborador: string | null): string {
+    const colaboradorId = this.selectedColaborador;
+    if (!id_colaborador) {
       return 'Ninguno';
     }
   
-    const socio = this.listSocios.find(s => s.id_colaborador === id);
+    const socio = this.listSocios.find(s => s.id_colaborador === id_colaborador);
     return socio ? socio.Nombre : 'Ninguno';
+    this.selectedColaborador = '';
   }
 
   /* getColaboradorName(id: string | null): string {
@@ -94,48 +92,39 @@ export class ImportarComponent {
     const colaboradorId = event.target.value;
     const colaboradorNombre = event.target.options[event.target.selectedIndex].text;
     const colaboradoresArray = this.documentoForm.get('colaboradores') as FormArray;
+
     // Verificar si el colaborador ya fue seleccionado
-    if (colaboradoresArray.value.some((colaborador: { id: string }) => colaborador.id === colaboradorId)) {
+    if (colaboradoresArray.value.some((colaborador: { id_colaborador: string }) => colaborador.id_colaborador === colaboradorId)) {
       // El colaborador ya ha sido seleccionado, puedes mostrar un mensaje o realizar alguna acción adicional si lo deseas.
       console.log('Colaborador ya seleccionado.');
       return;
     }
+
     colaboradoresArray.push(this.fb.group({
-      id: colaboradorId,
+      id_colaborador: colaboradorId,
       nombre: colaboradorNombre,
-      firma:'No'
+      firma: 'No',      
     }));
-  
-    // Deshabilitar la opción seleccionada
-    const colaboradoresOptions = this.listSocios.map(socio => socio.id_colaborador);
-    colaboradoresOptions.forEach((optionId: string) => {
-      const optionElement = document.getElementById(`option-${optionId}`) as HTMLSelectElement;
-      if (optionElement) {
-        optionElement.disabled = true;
-      }
-    });
-  
-    // Restablecer el valor seleccionado del select
-    event.target.value = 'disabled';
-  
+
     // Imprimir el arreglo en la consola
     console.log('Colaboradores seleccionados:', colaboradoresArray.value);
   }
-  
-  
 
   quitarColaborador(index: number): void {
     const colaboradoresArray = this.documentoForm.get('colaboradores') as FormArray;
-  
+
+    // Habilitar la opción correspondiente
+    colaboradoresArray.at(index).get('disabled')?.setValue(false);
+
     // Eliminar el colaborador en la posición 'index'
     colaboradoresArray.removeAt(index);
-    
+
     // Imprimir el arreglo actualizado en la consola
     console.log('Colaboradores seleccionados:', colaboradoresArray.value);
 
     // this.guardarDocumento(colaboradoresArray.value);
-
   }
+
 
 
 
@@ -143,6 +132,19 @@ export class ImportarComponent {
     const fileInput = document.getElementById('documento') as HTMLInputElement;
     const file = fileInput.files![0];
     const usuarioS = localStorage.getItem('usuario');
+
+    const colaboradoresArray = this.documentoForm.get('colaboradores') as FormArray;
+    const colaboradores = colaboradoresArray.value;
+    const colaboradoresString = JSON.stringify(colaboradores);
+
+    // console.log('Arreglo de colaboradores:', colaboradores);
+
+     // Validar que haya al menos un colaborador seleccionado
+    if (colaboradores.length === 0) {
+      this.toastr.error('Seleccione al menos un colaborador antes de guardar.');
+      return;
+    }
+
   
     if (!this.isValidFileType(file)) {
       this.toastr.error('Por favor, seleccione un archivo PDF.');
@@ -164,7 +166,7 @@ export class ImportarComponent {
     reader.onloadend = () => {
       const base64String = reader.result as string;
 
-      // console.log(base64String);
+      console.log(base64String);
       
   
       const DOCUMENTO: Documentos = {
@@ -172,7 +174,7 @@ export class ImportarComponent {
         documento: base64String,
         fecha: '',
         usuario: nombre,
-        socios_firmas:''
+        socios_firmas:colaboradoresString
       };
   
       console.log(DOCUMENTO);
