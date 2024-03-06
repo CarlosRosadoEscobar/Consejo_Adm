@@ -23,7 +23,7 @@ export class PdfService {
   }
 
   obtenerDocumento(id: number): Observable<any> {
-    return this.http.get(this.url + id, { responseType: 'text' });
+    return this.http.get(this.url + id);
   }
  
   

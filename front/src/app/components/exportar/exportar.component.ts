@@ -4,6 +4,7 @@ import { PdfService } from 'src/app/services/pdf.service';
 import { ToastrService } from 'ngx-toastr';
 import { NgxExtendedPdfViewerService } from 'ngx-extended-pdf-viewer';
 import { Router } from '@angular/router';
+import { Usuarios } from 'src/app/models/usuarios';
 
 @Component({
   selector: 'app-exportar',
@@ -14,6 +15,7 @@ export class ExportarComponent {
   listDocumentos: Documentos[] = [];
   subfilaVisible: { [key: number]: boolean } = {};
   isLoading: boolean = true; // Variable para indicar si la carga está en curso
+  mostrarBotonFirma: boolean = false; // Nueva propiedad
 
 
   constructor(private _documentoService: PdfService,  private router : Router , private pdfViewerService: NgxExtendedPdfViewerService, private toastr: ToastrService) {
@@ -23,21 +25,6 @@ export class ExportarComponent {
 
   ngOnInit(): void {
     this.obtenerDocumentos();
-    let id =12;
-
-    this._documentoService.obtenerDocumento(id).subscribe(
-      (response) => {
-        // console.log('Raw Response:', response);
-        try {
-          const parsedResponse = JSON.parse(response);
-          // console.log('Parsed Response:', parsedResponse);
-        } catch (parseError) {
-          console.error('Error parsing JSON:', parseError);
-        }
-      },(error) => {
-        console.error('Error:', error);
-      }
-    );
   }
 
   obtenerDocumentos() {
@@ -52,10 +39,50 @@ export class ExportarComponent {
     });
   }
 
+  idcolaborador: string | null = null;
+  
+
   obtenerDocumento(id: number): void {
+    const usuarioString = localStorage.getItem('usuario');
+    // Verificar si usuarioString no es nulo antes de intentar analizarlo
+    if (usuarioString !== null) {
+      // Convertir la cadena JSON a un objeto JavaScript
+      const usuario = JSON.parse(usuarioString);
+      // Acceder a la propiedad 'id_colaborador'
+      this.idcolaborador = usuario.id_colaborador;
+    } else {
+      console.error('El valor almacenado en localStorage es nulo.');
+    }
+
+    this._documentoService.obtenerDocumento(id).subscribe(data => {
+      console.log(JSON.stringify(data));      
+
+      for (const objeto of data) {
+        const sociosFirmas = JSON.parse(objeto.socios_firmas);
+
+        // Buscar el objeto con id_colaborador coincidente
+        const socioEncontrado = sociosFirmas.find((socio: { id_colaborador: string; nombre: string; firma: string }) => socio.id_colaborador === this.idcolaborador);
+
+        if (socioEncontrado) {
+          console.log('Socio encontrado:', socioEncontrado);
+
+          // Setear la propiedad mostrarBotonFirma a true
+          this.mostrarBotonFirma = true;
+        } else {
+          console.log('No se encontró ningún socio con el id_colaborador del usuario.');
+
+          // Setear la propiedad mostrarBotonFirma a false
+          this.mostrarBotonFirma = false;
+        }
+        
+      }
+
+    });
+    
+
     if (this.subfilaVisible[id]) {
       this.subfilaVisible[id] = false;
-    }else{
+    } else {
       Object.keys(this.subfilaVisible).forEach((key: string) => {
         this.subfilaVisible[+key] = false;
       });
