@@ -6,7 +6,6 @@ import { Documentos } from 'src/app/models/documentos';
 import { PdfService } from 'src/app/services/pdf.service';
 import { UsuariosService } from 'src/app/services/usuarios.service';
 import { Socios } from 'src/app/models/socios';
-import { error } from 'pdf-lib';
 
 
 @Component({
@@ -38,7 +37,7 @@ export class ImportarComponent {
     if (fileInput.files.length > 0) {
       const file = fileInput.files[0];
       const isValidFileType = this.isValidFileType(file);
-      
+
       if (!isValidFileType) {
         this.toastr.error('Por favor, seleccione un archivo PDF.');
         this.documentoForm.get('documento')?.setValue('');
@@ -51,29 +50,29 @@ export class ImportarComponent {
     return allowedTypes.includes(file.type);
   }
 
-  
+
 
   ngOnInit(){
     this.obtenerUsuarios();
   }
-  
+
   obtenerUsuarios():void{
     this._usuarioService.obtenerUsuario().subscribe(data => {
       this.listSocios = data;
-      console.log(data);      
+      console.log(data);
     },error=>{
       console.log(error);
     })
   }
 
   selectedColaborador: string | null = null;
-  
+
 
   getColaboradorName(id: string | null): string {
     if (!id) {
       return 'Ninguno';
     }
-  
+
     const socio = this.listSocios.find(s => s.id_colaborador === id);
     return socio ? socio.Nombre : 'Ninguno';
   }
@@ -105,7 +104,7 @@ export class ImportarComponent {
       nombre: colaboradorNombre,
       firma:'No'
     }));
-  
+
     // Deshabilitar la opción seleccionada
     const colaboradoresOptions = this.listSocios.map(socio => socio.id_colaborador);
     colaboradoresOptions.forEach((optionId: string) => {
@@ -114,22 +113,22 @@ export class ImportarComponent {
         optionElement.disabled = true;
       }
     });
-  
+
     // Restablecer el valor seleccionado del select
     event.target.value = 'disabled';
-  
+
     // Imprimir el arreglo en la consola
     console.log('Colaboradores seleccionados:', colaboradoresArray.value);
   }
-  
-  
+
+
 
   quitarColaborador(index: number): void {
     const colaboradoresArray = this.documentoForm.get('colaboradores') as FormArray;
-  
+
     // Eliminar el colaborador en la posición 'index'
     colaboradoresArray.removeAt(index);
-    
+
     // Imprimir el arreglo actualizado en la consola
     console.log('Colaboradores seleccionados:', colaboradoresArray.value);
 
@@ -143,7 +142,7 @@ export class ImportarComponent {
     const fileInput = document.getElementById('documento') as HTMLInputElement;
     const file = fileInput.files![0];
     const usuarioS = localStorage.getItem('usuario');
-  
+
     if (!this.isValidFileType(file)) {
       this.toastr.error('Por favor, seleccione un archivo PDF.');
       return;
@@ -158,15 +157,15 @@ export class ImportarComponent {
     const usuario = JSON.parse(usuarioS);
 
     const nombre = usuario.Nombre;
- 
-    
+
+
     const reader = new FileReader();
     reader.onloadend = () => {
       const base64String = reader.result as string;
 
       // console.log(base64String);
-      
-  
+
+
       const DOCUMENTO: Documentos = {
         id: 0,
         documento: base64String,
@@ -174,9 +173,9 @@ export class ImportarComponent {
         usuario: nombre,
         socios_firmas:''
       };
-  
+
       console.log(DOCUMENTO);
-  
+
       this._documentoService.guardarDocumento(DOCUMENTO).subscribe(data => {
         this.toastr.success('El producto ha sido guardado correctamente');
         this.router.navigate(['/exportar'], { state: { doc: DOCUMENTO } });
@@ -184,7 +183,7 @@ export class ImportarComponent {
     };
     reader.readAsDataURL(file);
   }
-  
 
-  
+
+
 }
