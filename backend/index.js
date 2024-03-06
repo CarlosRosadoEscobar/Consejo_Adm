@@ -10,6 +10,9 @@ const { getUsuariosCredencializacion } = require('./scriptSQL/juridico_normativo
 const { updateUserStatusByUsername } = require('./scriptSQL/Users/UserBloqueo')
 const { insertarAlertaLogin, credencialesFallidas, registroInicioDeSesion, cambioEstatus } = require('./scriptSQL/Users/RegistroLogin')
 
+//*MFA
+const { enviarSMS } = require('./twilio/mandarSms');
+
 //* SERVER
 const { body, validationResult } = require('express-validator');
 const { json } = require('body-parser');
@@ -86,28 +89,47 @@ app.post('/usuario',
       const fechaHoraActual = new Date();
       const fecha = fechaHoraActual.toISOString().split('T')[0];
       const hora = fechaHoraActual.toTimeString().split(' ')[0];
-      
+
+      function generarCodigo() {
+          const codigo = Math.floor(100000 + Math.random() * 900000);
+          return codigo;
+      }
+
       const usuarios = await getUsuarios();
       
       const usuarioValido = usuarios.find(u => u.usuario === usuario && u.decrypted_contraseña === password);
 
       if (usuarioValido) {
 
-        if (usuarioValido.estatus === "1") {
-          const rolesPermitidos = [process.env.ROLE1, process.env.ROLE2,process.env.ROLE3, process.env.ROLE4];
+        if (usuarioValido.estatus === "1" || usuarioValido.estatus === "0") {
+          const rolesPermitidos = [process.env.ROLE1, process.env.ROLE2, process.env.ROLE3, process.env.ROLE4];
+
           if (!rolesPermitidos.includes(usuarioValido.role)) {
-            console.log(chalk.inverse.green('Usuario con status 1'));
-            return res.status(403).json({ mensaje: 'Usuario sin permisos adecuados', codigo: 403 });
-          }
-        } else {
-          if (usuarioValido.estatus === "0") {
-              console.log(chalk.inverse.yellow('Usuario con status 0'));
-              return res.status(200).json({ mensaje: 'Usuario0' });
+              console.log(chalk.inverse.red(`Usuario con status ${usuarioValido.estatus} sin permisos`));
+              return res.status(403).json({ mensaje: 'Usuario sin permisos adecuados', codigo: 403 });
           } else {
+              if (usuarioValido.estatus === "0") {
+                console.log(chalk.inverse.yellow(`Usuario con status ${usuarioValido.estatus}`));
+                console.log(chalk.inverse.blue(`Usuario : ${usuarioValido.usuario}, telefono: ${usuarioValido.Telefono}`));
+                
+                const codigoSms = generarCodigo();
+                console.log("Código sms:", codigoSms);
+
+                await enviarSMS(usuarioValido.Nombre, usuarioValido.Telefono, codigoSms);
+                
+                return res.status(200).json({ mensaje: 'Usuario0' });
+            }
+          }
+          /*
+          
+          
+          */
+
+
+        } else {
               console.log(chalk.inverse.red('Usuario con status 2'));
               return res.status(403).json({ mensaje: 'Usuario  bloqueado', codigo: 403 });
-          }
-      }
+        }
 
         const usernamer = usuarioValido.usuario
         await registroInicioDeSesion(usernamer, fecha, hora );
@@ -147,10 +169,10 @@ app.post('/usuario',
               await cambioEstatus(usuario);
               return res.status(200).json({ mensaje: `user0` });
           }
-      } else {
-          console.log(chalk.yellow('No hay suficientes registros para obtener el penúltimo para el usuario', usernamer));
-          // console.log('No hay suficientes registros para obtener el penúltimo para el usuario', usernamer);
-      }
+        } else {
+              console.log(chalk.yellow('No hay suficientes registros para obtener el penúltimo para el usuario', usernamer));
+              // console.log('No hay suficientes registros para obtener el penúltimo para el usuario', usernamer);
+        }
 
 
       // if (registrosUsuario.length >= 2) {

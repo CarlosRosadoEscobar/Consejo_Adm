@@ -127,9 +127,8 @@ export class LoginComponent implements OnInit {
                 this.router.navigate(['inicio']);
             }
             else if(response.mensaje === 'Usuario0'){
-
               console.log("usuario 0");
-              
+              this.router.navigate(['verificacion']);
             }
         },
         error => {
