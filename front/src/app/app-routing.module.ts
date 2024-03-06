@@ -44,7 +44,7 @@ const routes: Routes = [
   {path: 'exportarr', component: ExportarComponent },
   {path: 'firma', component: FirmaComponent },
   {path: 'importar', component:ImportarComponent},
-  {path:'exportar', component:ExportarComponent},
+  {path: 'exportar', component:PanelexportarComponent},
 
 
 
