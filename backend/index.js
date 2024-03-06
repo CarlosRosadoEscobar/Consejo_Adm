@@ -16,6 +16,7 @@ const { enviarSMS } = require('./twilio/mandarSms');
 //* SERVER
 const { body, validationResult } = require('express-validator');
 const { json } = require('body-parser');
+const fileUpload = require('express-fileupload');
 const { insertarDocumento, listarDocumentos, obtenerDocumento,firmaDocumento, UsuariosListar } = require('./scriptSQL/documentos/documentos');
 
 const express     = require('express');
@@ -55,11 +56,9 @@ app.use(morgan('dev'))
 app.use(express.json())
 app.use(cors(corsOptions));
 app.use(bodyParser.json());
-// var bodyParser = require('body-parser');
-app.use(bodyParser.json({limit: '50mb'}));
-app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
-const fileUpload = require('express-fileupload');
-app.use(fileUpload());
+app.use(express.json({ limit: '50mb' }));
+app.use(express.urlencoded({ limit: '50mb', extended: true }));
+app.use(fileUpload())
 
 
 //* ASSET
@@ -388,9 +387,8 @@ app.post('/documentos', async (req, res) => {
   try {
     let base64Data = req.body.documento;
     let usuario =  req.body.usuario;
-    let socios =  req.body.socios_firmas;
     const fecha = new Date().toISOString().slice(0, 19).replace("T", " ");
-    const insertResult = await insertarDocumento(base64Data,fecha,usuario,socios);
+    const insertResult = await insertarDocumento(base64Data,fecha,usuario);
     if (insertResult) {
       return res.json(insertResult);
     } else {
