@@ -8,7 +8,7 @@ const {getUsuariosConsulta} = require('./scriptSQL/juridico_normativo/proceso_ar
 const {getUsuariosInscripcion} = require('./scriptSQL/juridico_normativo/proceso_armado/inscripcion');
 const { getUsuariosCredencializacion } = require('./scriptSQL/juridico_normativo/proceso_armado/credencializacion');
 const { updateUserStatusByUsername } = require('./scriptSQL/Users/UserBloqueo')
-const { insertarAlertaLogin, credencialesFallidas, registroInicioDeSesion, cambioEstatus } = require('./scriptSQL/Users/RegistroLogin')
+const { insertarAlertaLogin, credencialesFallidas, registroInicioDeSesion, cambioEstatus, verifiacionSms } = require('./scriptSQL/Users/RegistroLogin')
 
 //*MFA
 const { enviarSMS } = require('./twilio/mandarSms');
@@ -121,8 +121,7 @@ app.post('/usuario',
             }
           }
           /*
-          
-          
+                        await verifiacionSms(usuario, fecha, hora, codigosms);
           */
 
 
@@ -368,6 +367,16 @@ app.post('/bloquear-usuario', async (req, res) => {
     res.status(500).json({ mensaje: 'Error al bloquear usuario' });
   }
 });
+
+app.post('/mfa-sms', (req, res) => {
+  const codigo = req.body.codigo;
+  console.log(chalk.greenBright("Código recibido:", codigo));
+  res.status(200).send("Datos recibidos correctamente");
+});
+
+/* 
+
+*/
 
 //! ##################################################################
 //! ########################### PDF ##################################
