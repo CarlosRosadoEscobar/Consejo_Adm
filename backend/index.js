@@ -37,10 +37,10 @@ const usuariosBloqueados = {};
 const corsOptions = {
   origin: process.env.ORIGIN,
   optionsSuccessStatus: 200, // 204,
-  origin: true, 
-  credentials: true, 
-  methods: 'POST,GET,PUT,OPTIONS,DELETE' 
+  credentials: true,
+  methods: 'POST,GET,PUT,OPTIONS,DELETE'
 };
+
 
 
 //* IP REMOTE
@@ -54,10 +54,11 @@ app.use((req, res, next) => {
 //* MIDDLEWARE
 app.use(morgan('dev'))
 app.use(express.json())
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
+app.use(cors());
 app.use(bodyParser.json());
-app.use(express.json({ limit: '50mb' }));
-app.use(express.urlencoded({ limit: '50mb', extended: true }));
+app.use(express.json({ limit: '1024mb' }));
+app.use(express.urlencoded({ limit: '1024mb', extended: true }));
 app.use(fileUpload())
 
 
@@ -425,8 +426,12 @@ app.put("/documentos/:id", async (req, res) => {
     const id = req.params.id;
     const documento = req.body.documento;
     const usuario = req.body.usuario;
+    const socios_firmas =  req.body.socios_firmas;
+
+    console.log(socios_firmas);
+
     const fecha = new Date().toISOString().slice(0, 19).replace("T", " ");
-    let firma = await firmaDocumento(id,documento,usuario,fecha);
+    let firma = await firmaDocumento(id,documento,usuario,fecha,socios_firmas);
     return res.json({ message: 'Documento actualizado correctamente' });
   } catch (error) {
     console.error(error);

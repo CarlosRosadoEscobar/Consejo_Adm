@@ -51,28 +51,7 @@
                       [showInfiniteScrollButton]="false"
                       [contextMenuAllowed]="false"
                     ></ngx-extended-pdf-viewer>
-                    <button class="btn btn-primary mt-5" (click)="export(documento.id)">Guardar firma</button>
-
-                    <!-- descargar -->
-                    <!-- <button (click)="export()">Export to Blob</button> -->
-                    <!-- <button (click)="downloadBlob()">Download Blob</button> -->
-
-                    <!-- <div *ngIf="blob">PDF exportado con éxito como Blob.</div> -->
-
-
-                    <!-- <ngx-extended-pdf-viewer #pdfViewer [src]="documento.documento.toString()" (beforePrint)="onBeforePrint()" (afterPrint)="onAfterPrint()"></ngx-extended-pdf-viewer> -->
-                    
-                    
-
-                    
-
-                    <!-- <ngx-extended-pdf-viewer [src]="documento.documento.toString()"  (pdfSidebarButtonEvent)="onPdfViewerEvent()"></ngx-extended-pdf-viewer> -->
-
-
-
-
-                    <!-- <button (click)="exportPdf()">Export PDF</button> -->
-
+                    <button class="btn btn-primary mt-5" (click)="export(documento.id)" *ngIf="mostrarBotonFirma">Guardar firma</button>        
                   </td>
                 </tr>
               </ng-container>
