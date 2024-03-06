@@ -1,3 +1,4 @@
+import { NotFoundComponent } from './components/not-found/not-found.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './components/login/login.component';
@@ -19,6 +20,8 @@ import { ImportarComponent } from './components/importar/importar.component';
 import { VisualizarComponent } from './components/visualizar/visualizar.component';
 import { PanelexportarComponent } from './components/panelexportar/panelexportar.component';
 import { RegistroUsuarioComponent } from './components/registro-usuario/registro-usuario.component';
+import { MfaComponent } from './components/mfa/mfa.component';
+import { authGuard } from './guards/auth.guard';
 
 const routes: Routes = [
   {path:'',component:LoginComponent},
@@ -26,6 +29,14 @@ const routes: Routes = [
 
   {path:'inicio',component:DashboardComponent},
   {path:'login', component:LoginComponent},
+  {path:'verificacion', component:MfaComponent},
+
+  {path:'login',
+   canMatch:[authGuard],
+   loadComponent: () => import('./components/login/login.component').then(comp => comp.LoginComponent)},
+  {path:'**', loadComponent: () => import('./components/not-found/not-found.component').then(comp => comp.NotFoundComponent)},
+
+
   {path: 'modulos/:moduloUrl', component: ModulosComponent },
   {path: 'modulos', component: ModulosComponent },
   {path: 'graficas', component:  GraficasComponent },
@@ -43,15 +54,8 @@ const routes: Routes = [
   {path: 'pp',component: PpComponent},
   {path: 'rrhh',component: RrhhComponent},
   {path: 'ti',component: TiComponent},
-
-
   {path: 'visualizar/:id', component:VisualizarComponent},
 
-  {path:'exportar', component:PanelexportarComponent},
-
-
-
-  // {path:'**',redirectTo:'',pathMatch:'full'}
 ];
 
 @NgModule({
@@ -60,6 +64,3 @@ const routes: Routes = [
 })
 export class AppRoutingModule { }
 
-
-/*
-*/
