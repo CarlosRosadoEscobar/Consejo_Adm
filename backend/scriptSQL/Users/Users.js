@@ -5,7 +5,7 @@ const getUsuarios = async () => {
         const pool = await getConnection();
         if (pool) {
             console.log('Data Usuarios devuelto correctamente');
-            const result = await pool.request().query("SELECT id_colaborador, Nombre, Apellido, usuario, Area, Puesto, estatus, prv, estado, role, CONVERT(VARCHAR(MAX), DECRYPTBYPASSPHRASE('password', contraseña)) AS decrypted_contraseña FROM Users");
+            const result = await pool.request().query("SELECT id_colaborador, Nombre, Apellido, usuario, Area, Puesto, estatus, prv, estado, Telefono, role, CONVERT(VARCHAR(MAX), DECRYPTBYPASSPHRASE('password', contraseña)) AS decrypted_contraseña FROM Users");
             return result.recordset;
         } else {
             console.error('Error: Objeto pool no devuelto');

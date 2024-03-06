@@ -1,0 +1,233 @@
+.background-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* background-image: radial-gradient(circle, #beaa76, #c0ac7b, #c2af81, #c3b186, #c5b48c, #c1b08a, #bcad88, #b8a986, #ad9f7d, #a19473, #968a6a, #8b8061); */
+  background-image: radial-gradient(circle, #1a1a1a, #171717, #131313, #0e0e0e, #080808, #080808, #080808, #080808, #0e0e0e, #131313, #171717, #1a1a1a);
+  z-index: -1;
+}
+
+
+.conCentralnMfa{
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+}
+
+.containerMfa{
+  /* background-color:#E8DAB2; */
+  background-color: rgba(255,255,255,0.13);
+  margin-top: 100px;
+  margin-bottom: 100px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+}
+
+.conTitle, .conBody, .confooter{
+  margin-top: 10px;
+  font-family: "Gill Sans", sans-serif;}
+
+.conTitle{
+  font-size: large;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  flex-wrap: nowrap;
+}
+
+.conBody{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.confooter{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+  color: white;
+}
+
+.conTitle h3{
+  font-size: xx-large;
+  color: white;
+  margin-bottom: 10px;
+}
+
+.conTitle span{
+  font-size: 15px;
+  color: white;
+  padding-left: 25px;
+  padding-right: 25px;
+  text-align: center;
+}
+
+.confooter span{
+  margin-bottom: 5px;
+}
+
+/* ########################## */
+
+.input-container {
+  position: relative;
+  width: 260PX;
+  margin: 15px auto;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    background-color: transparent;
+    transition: all 0.3s ease;
+    color: #ccc;
+}
+
+input:focus {
+    border-color:#198754;
+    outline: none;
+}
+
+label {
+    position: absolute;
+    left: 0;
+    bottom: 7px;
+    color: #888;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    pointer-events: none;
+}
+
+input:focus + label,
+input:not(:placeholder-shown) + label {
+    bottom: 30px;
+    font-size: 12px;
+    color: white;
+}
+
+/* ########################## */
+
+
+.btn-1 {
+  font-family: Hack, monospace;
+  background: #2b2bff;
+  color: #ffffff;
+  cursor: pointer;
+  font-size: 15px;
+  padding: 20px;
+  border: 0;
+  transition: all 0.5s;
+  border-radius: 28px;
+  width: auto;
+  position: relative;
+
+    &::after {
+        content: "\f054";
+        font-family: "Font Awesome 5 Pro";
+        font-weight: 400;
+        position: absolute;
+        left: 85%;
+        top: 31%;
+        right: 5%;
+        bottom: 0;
+        opacity: 0;
+
+    }
+
+    &:hover {
+      background: var(--bs-success-text-emphasis);
+      transition: all 0.5s;
+        border-radius: 10px;
+        box-shadow: 0px 6px 15px #00ff8461;
+        padding: 1.0rem 3.0rem 1.0rem 1.0rem;
+        &::after {
+            opacity: 0;
+            transition: all 0.5s;
+
+        }
+    }
+
+
+}
+
+/* ########################## */
+
+
+/* celular */
+@media (max-width: 767.98px) {
+
+  .containerMfa{
+    background-color: rgba(255,255,255,0.13);
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+
+  .conTitle h3{
+    font-size: xx-large;
+    color: white;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+
+  .confooter span{
+    margin-bottom: 15px;
+  }
+
+
+}
+
+/* tablets */
+@media (max-width: 991.98px) {
+
+  .containerMfa{
+    background-color: rgba(255,255,255,0.13);
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+
+  .conTitle h3{
+    font-size: xx-large;
+    color: white;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+
+  .confooter span{
+    margin-bottom: 15px;
+  }
+}
