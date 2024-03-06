@@ -31,6 +31,7 @@ const routes: Routes = [
   {path:'login', component:LoginComponent},
   {path:'verificacion', component:MfaComponent},
 
+  //token
   // {path:'login',
   //  canMatch:[authGuard],
   //  loadComponent: () => import('./components/login/login.component').then(comp => comp.LoginComponent)},
