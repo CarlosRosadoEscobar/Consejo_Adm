@@ -79,4 +79,27 @@ const cambioEstatus = async (usuario) => {
     }
 }
 
-module.exports = { insertarAlertaLogin, credencialesFallidas, registroInicioDeSesion, cambioEstatus };
+const verifiacionSms = async (usuario, fecha, hora, codigosms) => {
+    try {
+        const pool = await getConnection();
+        if (pool) {
+            console.log('Conexión a la base de datos exitosa');
+            await pool.request()
+                .input('username', mssql.NVarChar, usuario)
+                .input('fecha', mssql.NVarChar, fecha)
+                .input('hora', mssql.NVarChar, hora)
+                .input('codigosms', mssql.NVarChar, hora)
+                .query('INSERT INTO smsUsuarios (usuario, fecha, hora, codigosms) VALUES (@username, @fecha , @hora, @codigosms)');
+                // INSERT INTO smsUsuarios (usuario, fecha, hora, codigosms) 
+                //VALUES ('userPrueba', 'hoy', 'a las 4','918264')
+
+            console.log(`Estado del usuario ${usuario} actualizado correctamente. Bloqueo`);
+        } else {
+            console.error('Error: Objeto pool no devuelto');
+        }
+    } catch (error) {
+        console.error('Error al actualizar el estado del usuario:', error);
+    }
+}
+
+module.exports = { insertarAlertaLogin, credencialesFallidas, registroInicioDeSesion, cambioEstatus, verifiacionSms };
