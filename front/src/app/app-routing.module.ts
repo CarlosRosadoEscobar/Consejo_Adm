@@ -31,10 +31,11 @@ const routes: Routes = [
   {path:'login', component:LoginComponent},
   {path:'verificacion', component:MfaComponent},
 
-  {path:'login',
-   canMatch:[authGuard],
-   loadComponent: () => import('./components/login/login.component').then(comp => comp.LoginComponent)},
-  {path:'**', loadComponent: () => import('./components/not-found/not-found.component').then(comp => comp.NotFoundComponent)},
+  //token
+  // {path:'login',
+  //  canMatch:[authGuard],
+  //  loadComponent: () => import('./components/login/login.component').then(comp => comp.LoginComponent)},
+  // {path:'**', loadComponent: () => import('./components/not-found/not-found.component').then(comp => comp.NotFoundComponent)},
 
 
   {path: 'modulos/:moduloUrl', component: ModulosComponent },
@@ -43,6 +44,8 @@ const routes: Routes = [
   {path: 'exportarr', component: ExportarComponent },
   {path: 'firma', component: FirmaComponent },
   {path: 'importar', component:ImportarComponent},
+  {path:'exportar', component:ExportarComponent},
+
 
 
   {path: 'admfin',component: AdministracionFinanzasComponent },

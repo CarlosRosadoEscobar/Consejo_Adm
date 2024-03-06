@@ -13,7 +13,7 @@
                     </div>
 
                     <div class="mt-5">
-                      <!-- <label for="colaboradorSelect">Selecciona colaboradores:</label>
+                      <label for="colaboradorSelect">Selecciona colaboradores:</label>
                       <select id="colaboradorSelect" (change)="agregarColaborador($event)">
                         <option value="disabled" selected></option>
                         <option *ngFor="let socio of listSocios" [value]="socio.id_colaborador">
@@ -22,30 +22,11 @@
                       </select>
                      
                       <div *ngFor="let colaborador of documentoForm.get('colaboradores')?.value || []; let i = index">
-                        <p>Has seleccionado a: {{ getColaboradorName(colaborador?.id_colaborador) }}</p>
+                        <p>Has seleccionado a: {{ getColaboradorName(colaborador?.id) }}</p>
                         <button class="btn btn-danger" (click)="quitarColaborador(i)">Quitar</button>
-                      </div> -->
-
-                      <label for="colaboradorSelect">Selecciona colaboradores:</label>
-<select id="colaboradorSelect" (change)="agregarColaborador($event)">
-  <option value="" selected></option>
-  <option *ngFor="let socio of listSocios" [value]="socio.id_colaborador">
-    {{ socio.Nombre }}
-  </option>
-</select>
-
-<div *ngFor="let colaborador of documentoForm.get('colaboradores')?.value || []; let i = index">
-  <p>Has seleccionado a: {{ getColaboradorName(colaborador?.id_colaborador) }}</p>
-  <button class="btn btn-danger" (click)="quitarColaborador(i)">Quitar</button>
-</div>
-
-
+                      </div>
 
                     </div>
-
-                    
-                    
-
 
                     <div class="mt-5">
                       <button class="btn btn-success" [disabled]="documentoForm.invalid">Guardar</button>
