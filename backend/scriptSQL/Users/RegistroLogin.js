@@ -105,7 +105,7 @@ const cambioEstatusSms = async (usuario) => {
             await pool.request()
                 .input('username', mssql.NVarChar, usuario)
                 .query('UPDATE Users SET estatus = 1 WHERE Usuario = @username');
-            console.log(`Estado del usuario ${usuario} actualizado correctamente. Bloqueo`);
+            console.log(`Estado del usuario ${usuario} actualizado correctamente. Sms`);
         } else {
             console.error('Error: Objeto pool no devuelto');
         }
