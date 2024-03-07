@@ -16,12 +16,13 @@ import { TiComponent } from './components/ti/ti.component';
 import { GraficasComponent } from './components/graficas/graficas.component';
 import { ExportarComponent } from './components/exportar/exportar.component';
 import { FirmaComponent } from './components/firma/firma.component';
-import { ImportarComponent } from './components/importar/importar.component';
+// import { ImportarComponent } from './components/importar/importar.component';
 import { VisualizarComponent } from './components/visualizar/visualizar.component';
 import { PanelexportarComponent } from './components/panelexportar/panelexportar.component';
 import { RegistroUsuarioComponent } from './components/registro-usuario/registro-usuario.component';
 import { MfaComponent } from './components/mfa/mfa.component';
 import { authGuard } from './guards/auth.guard';
+import { PanelimportarComponent } from './components/panelimportar/panelimportar.component';
 
 const routes: Routes = [
   {path:'',component:LoginComponent},
@@ -43,8 +44,13 @@ const routes: Routes = [
   {path: 'graficas', component:  GraficasComponent },
   {path: 'exportarr', component: ExportarComponent },
   {path: 'firma', component: FirmaComponent },
+<<<<<<< HEAD
   {path: 'importar', component:ImportarComponent},
   {path: 'exportar', component:PanelexportarComponent},
+=======
+  {path: 'importar', component:PanelimportarComponent},
+  {path:'exportar', component:PanelexportarComponent},
+>>>>>>> d7319ad07b1d8b32e1ab0b864d441188ab873645
 
 
 
