@@ -41,6 +41,9 @@ import { ImportarComponent } from './components/importar/importar.component';
 import { VisualizarComponent } from './components/visualizar/visualizar.component';
 
 import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
+import { PanelimportarComponent } from './components/panelimportar/panelimportar.component';
+
+
 
 
 
@@ -71,6 +74,7 @@ import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
     PanelfirmaComponent,
     ImportarComponent,
     VisualizarComponent,
+    PanelimportarComponent
   ],
   imports: [
     BrowserModule,
