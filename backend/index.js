@@ -14,32 +14,43 @@ const { insertarAlertaLogin, credencialesFallidas, registroInicioDeSesion, cambi
 const { enviarSMS } = require('./twilio/mandarSms');
 
 //* SERVER
-const { body, validationResult } = require('express-validator');
-const { json } = require('body-parser');
-const fileUpload = require('express-fileupload');
-const { insertarDocumento, listarDocumentos, obtenerDocumento,firmaDocumento, UsuariosListar } = require('./scriptSQL/documentos/documentos');
-
 const express     = require('express');
 const cors        = require('cors');
 const morgan      = require('morgan');
 const bcrypt      = require('bcrypt');
 const bodyParser  = require('body-parser');
-const chalk       = require('chalk');
-
+const { body, validationResult } = require('express-validator');
+const { json } = require('body-parser');
 const app = express();
+app.use(express.json({ limit: '1024mb' }));
+app.use(express.urlencoded({ limit: '1024mb', extended: true }));
 const PORT = process.env.PORT;
-
-//* VARIABLES
-const usuariosBloqueados = {};
-
 
 //* OPCIONES CORS
 const corsOptions = {
   origin: process.env.ORIGIN,
   optionsSuccessStatus: 200, // 204,
+  origin: true,
   credentials: true,
   methods: 'POST,GET,PUT,OPTIONS,DELETE'
 };
+
+
+
+const chalk       = require('chalk');
+
+
+
+const { insertarDocumento, listarDocumentos, obtenerDocumento,firmaDocumento, UsuariosListar } = require('./scriptSQL/documentos/documentos');
+
+
+
+
+//* VARIABLES
+const usuariosBloqueados = {};
+
+
+
 
 
 
@@ -54,12 +65,8 @@ app.use((req, res, next) => {
 //* MIDDLEWARE
 app.use(morgan('dev'))
 app.use(express.json())
-// app.use(cors(corsOptions));
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(bodyParser.json());
-app.use(express.json({ limit: '1024mb' }));
-app.use(express.urlencoded({ limit: '1024mb', extended: true }));
-app.use(fileUpload())
 
 
 //* ASSET
@@ -407,6 +414,7 @@ app.post('/mfa-sms', async (req, res) => {
 //! ########################### PDF ##################################
 //! ##################################################################
 
+const fileUpload = require('express-fileupload');
 app.get('/documentos', async (req,res) => {
   try {
     const documentos = await listarDocumentos();
