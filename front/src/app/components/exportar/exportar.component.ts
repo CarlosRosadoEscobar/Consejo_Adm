@@ -65,7 +65,7 @@ export class ExportarComponent {
         } else {
           console.log('No se encontró ningún socio con el id_colaborador del usuario.');
           // Si no se encontró el socio, mostrar el botón
-          this.mostrarBotonFirma = true;
+          this.mostrarBotonFirma = false;
         }
       }
     });
