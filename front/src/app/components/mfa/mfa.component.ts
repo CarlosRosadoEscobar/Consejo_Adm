@@ -84,15 +84,28 @@ export class MfaComponent {
 
     console.log("Valor del input:", this.inputValue);
 
-        this._MfaService.enviarCodigo(this.inputValue).subscribe(
-          respuesta => {
-            console.log("Respuesta del backend:", respuesta);
-          },
-          error => {
-            console.error("Error al enviar el código al backend:", error);
-          }
-        );
-
+    this._MfaService.enviarCodigo(this.inputValue).subscribe(
+      respuesta => {
+        console.log("Respuesta del backend:", respuesta)
+        if (respuesta.status === 200) {
+          this.router.navigate(['login']);
+        } else {
+        }
+      },
+      error => {
+        if (error.status === 404) {
+          console.log("No se encontraron coincidencias:", error.error.message);
+        } else if (error.status === 200){
+          console.log("Operación exitosa. Mensaje recibido del servidor:");
+          this.router.navigate(['login']);
+        }else if (error.status === 400){
+          console.log("Se termino el tiempo");
+          this.router.navigate(['login']);
+        } else {
+          console.log("Error desconocido:", error.error.message);
+        }
+      }
+    );
 
     this.intentosExitosos++;
     if (this.intentosExitosos >= this.maximoIntentosExitosos) {
@@ -100,7 +113,7 @@ export class MfaComponent {
       this.router.navigate(['login']);
     }
 
-    // this.contadorReinicios = 0; // Reiniciar el contador de reinicios al verificar
+    // this.contadorReinicios = 0;
   }
 
   renviar() {
