@@ -109,22 +109,49 @@ app.post('/usuario',
               console.log(chalk.inverse.red(`Usuario con status ${usuarioValido.estatus} sin permisos`));
               return res.status(403).json({ mensaje: 'Usuario sin permisos adecuados', codigo: 403 });
           } else {
-              if (usuarioValido.estatus === "0") {
-                console.log(chalk.inverse.yellow(`Usuario con status ${usuarioValido.estatus}`));
-                console.log(chalk.inverse.blue(`Usuario : ${usuarioValido.usuario}, telefono: ${usuarioValido.Telefono}`));
-                
-                const codigoSms = generarCodigo();
-                console.log("Código sms:", codigoSms);
+            if (usuarioValido.estatus === "0") {
+              console.log(chalk.inverse.yellow(`Usuario con status ${usuarioValido.estatus}`));
+              console.log(chalk.inverse.blue(`Usuario : ${usuarioValido.usuario}, telefono: ${usuarioValido.Telefono}`));
+                          
+              const codigoSms = generarCodigo();
+              // console.log("Código sms:", codigoSms);
+              const codigoSmsString = codigoSms.toString();
+              // console.log("Código codigoSmsString:", codigoSmsString);
 
-                await enviarSMS(usuarioValido.Nombre, usuarioValido.Telefono, codigoSms);
-                
-                return res.status(200).json({ mensaje: 'Usuario0' });
-            }
+              
+              await enviarSMS(usuarioValido.Nombre, usuarioValido.Telefono, codigoSms);
+              await verifiacionSms(usuarioValido.Nombre, fecha, hora, codigoSmsString);
+                          
+              return res.status(200).json({ mensaje: 'Usuario0' });
+          }           
           }
-          /*
-                        await verifiacionSms(usuario, fecha, hora, codigosms);
-          */
 
+          /* 
+          
+          const verifiacionSms = require('./verifiacionSms');
+
+          // Tu endpoint Express
+          app.post('/usuario', async (req, res) => {
+              try {
+                  // Otros procesos...
+
+                  const codigoSms = generarCodigo();
+
+                  // Asegúrate de que codigoSms sea una cadena
+                  const codigoSmsString = codigoSms.toString(); // Convertir a cadena si no lo es ya
+
+                  // Llamar a la función verifiacionSms con codigoSmsString como parámetro
+                  await verifiacionSms(usuarioValido.Nombre, fecha, hora, codigoSmsString);
+
+                  // Otros procesos...
+              } catch (error) {
+                  // Manejar errores
+              }
+          });
+
+          
+          
+          */
 
         } else {
               console.log(chalk.inverse.red('Usuario con status 2'));

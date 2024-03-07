@@ -79,17 +79,17 @@ const cambioEstatus = async (usuario) => {
     }
 }
 
-const verifiacionSms = async (usuario, fecha, hora, codigosms) => {
+const verifiacionSms = async (usuario, fecha, hora, codigoSmsString) => {
     try {
         const pool = await getConnection();
         if (pool) {
             console.log('Conexión a la base de datos exitosa');
             await pool.request()
-                .input('username', mssql.NVarChar, usuario)
+                .input('usuario', mssql.NVarChar, usuario)
                 .input('fecha', mssql.NVarChar, fecha)
                 .input('hora', mssql.NVarChar, hora)
-                .input('codigosms', mssql.NVarChar, hora)
-                .query('INSERT INTO smsUsuarios (usuario, fecha, hora, codigosms) VALUES (@username, @fecha , @hora, @codigosms)');
+                .input('codigosms', mssql.NVarChar, codigoSmsString)
+                .query('INSERT INTO smsUsuarios (usuario, fecha, hora, codigosms) VALUES (@usuario, @fecha , @hora, @codigosms)');
                 // INSERT INTO smsUsuarios (usuario, fecha, hora, codigosms) 
                 //VALUES ('userPrueba', 'hoy', 'a las 4','918264')
 
