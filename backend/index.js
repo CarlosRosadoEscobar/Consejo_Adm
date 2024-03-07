@@ -8,7 +8,7 @@ const {getUsuariosConsulta} = require('./scriptSQL/juridico_normativo/proceso_ar
 const {getUsuariosInscripcion} = require('./scriptSQL/juridico_normativo/proceso_armado/inscripcion');
 const { getUsuariosCredencializacion } = require('./scriptSQL/juridico_normativo/proceso_armado/credencializacion');
 const { updateUserStatusByUsername } = require('./scriptSQL/Users/UserBloqueo')
-const { insertarAlertaLogin, credencialesFallidas, registroInicioDeSesion, cambioEstatus, verifiacionSms, setcodigosms } = require('./scriptSQL/Users/RegistroLogin')
+const { insertarAlertaLogin, credencialesFallidas, registroInicioDeSesion, cambioEstatus, verifiacionSms, cambioEstatusSms } = require('./scriptSQL/Users/RegistroLogin')
 
 //*MFA
 const { enviarSMS } = require('./twilio/mandarSms');
@@ -114,18 +114,17 @@ app.post('/usuario',
               console.log(chalk.inverse.blue(`Usuario : ${usuarioValido.usuario}, telefono: ${usuarioValido.Telefono}`));
                           
               const codigoSms = generarCodigo();
-              // console.log("Código sms:", codigoSms);
+              console.log("Código sms:", codigoSms);
               const codigoSmsString = codigoSms.toString();
               // console.log("Código codigoSmsString:", codigoSmsString);
 
               
               await enviarSMS(usuarioValido.Nombre, usuarioValido.Telefono, codigoSms);
-              await verifiacionSms(usuarioValido.Nombre, fecha, hora,codigoSmsString);
+              await verifiacionSms(usuarioValido.usuario, fecha, hora,codigoSmsString);
                           
               return res.status(200).json({ mensaje: 'Usuario0' });
-          }           
+            }           
           }
-
         } else {
               console.log(chalk.inverse.red('Usuario con status 2'));
               return res.status(403).json({ mensaje: 'Usuario  bloqueado', codigo: 403 });
@@ -315,7 +314,6 @@ app.post('/registro', async (req, res) => {
   }
 });
 
-
 //* Credencisa fallidas
 app.post('/credenciales-fallidas', async (req, res) => {
   const { usuario, password } = req.body;
@@ -371,54 +369,39 @@ app.post('/bloquear-usuario', async (req, res) => {
 
 //* SMS
 app.post('/mfa-sms', async (req, res) => {
-  const codigoSms = req.body.codigo;
-  console.log(chalk.greenBright("Código recibido:", codigoSms));
-  
-  const resultadoConsulta = await setcodigosms(codigoSms);
-  
-  console.log("Resultado de la consulta:", resultadoConsulta);
-  
-  res.status(200).send("Datos recibidos correctamente");
-});
+  const codigoSmsfront = req.body.codigo;
+  const smsBd = await getSms();
 
+  const fechaHoraActual = new Date();
+  const fecha = fechaHoraActual.toISOString().split('T')[0];
+  const hora = fechaHoraActual.toTimeString().split(' ')[0];
 
+  console.log(chalk.greenBright("Código recibido:", codigoSmsfront));
+  const codigoCoincidente = smsBd.find(sms => sms.codigosms === codigoSmsfront);
 
+  if (codigoCoincidente) {
+    console.log("coincidencia:", codigoCoincidente.codigosms,"Usuario:", codigoCoincidente.usuario, "hora:",codigoCoincidente.hora );
 
-/* 
+    const horaCoincidenteCompleta = new Date(fecha + ' ' + codigoCoincidente.hora);
 
-mira tenog esta otra consulta:
-const setcodigosms = async (codigoSms) => {
-    try {
-        const pool = await getConnection();
-        if (pool) {
-            console.log('Conexión a la base de datos exitosa');
-            await pool.request()
-                .input('cosigoSms', mssql.NVarChar, codigoSms)
-                .query('SELECT * FROM smsUsuarios WHERE codigosms = @cosigoSms');
-                // SELECT * FROM smsUsuarios WHERE codigosms = '18:23:08'
-                console.log(`Estado del usuario ${usuario} actualizado correctamente. SMS`);
-        } else {
-            console.error('Error: Objeto pool no devuelto');
-        }
-    } catch (error) {
-        console.error('Error al actualizar el estado del usuario:', error);
+    const horaActual = fechaHoraActual.getTime();
+    const horaCoincidente = horaCoincidenteCompleta.getTime();
+    const diferenciaMinutos = Math.abs((horaActual - horaCoincidente) / (1000 * 60));
+
+    console.log("diferenciaMinutos", diferenciaMinutos);
+
+    if (diferenciaMinutos <= 5) {
+      await cambioEstatusSms(codigoCoincidente.usuario);
+      res.status(200).send("Número con coincidencia encontrado para el usuario: " + codigoCoincidente.usuario);
+    } else {
+      res.status(400).send("Tiempo terminado");
     }
-}
-
-y quiero obtener el resultado y verlo en mi endponit:
-
-app.post('/mfa-sms', async (req, res) => {
-  const codigoSms = req.body.codigo;
-  console.log(chalk.greenBright("Código recibido:", codigoSms));
-  await setcodigosms(codigoSms)
-
-  res.status(200).send("Datos recibidos correctamente");
+  } else {
+    console.log("No se encontraron coincidencias");
+    res.status(404).send("No se encontraron coincidencias");
+  }
 });
 
-
-
-
-*/
 
 //! ##################################################################
 //! ########################### PDF ##################################
@@ -462,6 +445,7 @@ app.get('/documentos/:id', async (req,res) => {
     res.status(500).send({error: 'Hubo un error'});
   }
 });
+
 app.put("/documentos/:id", async (req, res) => {
   try {
     const id = req.params.id;

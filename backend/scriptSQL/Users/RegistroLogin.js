@@ -12,7 +12,7 @@ const insertarAlertaLogin = async (usuario, password, fecha, hora) => {
                 .input('fecha', mssql.NVarChar, fecha)
                 .input('hora', mssql.NVarChar, hora)
                 .query('INSERT INTO usuarios_bloqueados (usuario, password, fecha, hora) VALUES (@username, @password, @fecha , @hora)');
-            console.log(`Estado del usuario ${username} actualizado correctamente. Bloqueo`);
+            console.log(`Estado del usuario ${usuario} actualizado correctamente. Bloqueo`);
         } else {
             console.error('Error: Objeto pool no devuelto');
         }
@@ -32,7 +32,7 @@ const credencialesFallidas = async (usuario, password, fecha, hora) => {
                 .input('fecha', mssql.NVarChar, fecha)
                 .input('hora', mssql.NVarChar, hora)
                 .query('INSERT INTO credencialesFallidas (usuario, password, fecha, hora) VALUES (@username, @password, @fecha , @hora)');
-            console.log(`Estado del usuario ${username} actualizado correctamente. Bloqueo`);
+            console.log(`Estado del usuario ${usuario} actualizado correctamente. Bloqueo`);
         } else {
             console.error('Error: Objeto pool no devuelto');
         }
@@ -68,8 +68,6 @@ const cambioEstatus = async (usuario) => {
             await pool.request()
                 .input('username', mssql.NVarChar, usuario)
                 .query('UPDATE Users SET estatus = 0 WHERE Usuario = @username');
-                // UPDATE Users SET estatus = 0 WHERE Usuario = @username;
-
             console.log(`Estado del usuario ${usuario} actualizado correctamente. Bloqueo`);
         } else {
             console.error('Error: Objeto pool no devuelto');
@@ -88,7 +86,7 @@ const verifiacionSms = async (usuario, fecha, hora, codigoSmsString) => {
                 .input('usuario', mssql.NVarChar, usuario)
                 .input('fecha', mssql.NVarChar, fecha)
                 .input('hora', mssql.NVarChar, hora)
-                .input('codigosms', mssql.NVarChar, hora)
+                .input('codigosms', mssql.NVarChar, codigoSmsString)
                 .query('INSERT INTO smsUsuarios (usuario, fecha, hora, codigosms) VALUES (@usuario, @fecha , @hora, @codigosms)');
             console.log(`Estado del usuario ${usuario} actualizado correctamente. SMS`);
         } else {
@@ -99,26 +97,6 @@ const verifiacionSms = async (usuario, fecha, hora, codigoSmsString) => {
     }
 }
 
-const setcodigosms = async (codigoSms) => {
-    try {
-        const pool = await getConnection();
-        if (pool) {
-            console.log('Conexión a la base de datos exitosa');
-            const result = await pool.request()
-                .input('codigoSms', mssql.NVarChar, codigoSms)
-                .query('SELECT * FROM smsUsuarios WHERE codigosms = @codigoSms');
-            console.log(`Estado del usuario actualizado correctamente. SMS`);
-            return result.recordset; 
-        } else {
-            console.error('Error: Objeto pool no devuelto');
-            return [];
-        }
-    } catch (error) {
-        console.error('Error al actualizar el estado del usuario:', error);
-        return [];
-    }
-}
-
 const cambioEstatusSms = async (usuario) => {
     try {
         const pool = await getConnection();
@@ -126,9 +104,7 @@ const cambioEstatusSms = async (usuario) => {
             console.log('Conexión a la base de datos exitosa');
             await pool.request()
                 .input('username', mssql.NVarChar, usuario)
-                .query('UPDATE Users SET estatus = 0 WHERE Usuario = @username');
-                // UPDATE Users SET estatus = 0 WHERE Usuario = @username;
-
+                .query('UPDATE Users SET estatus = 1 WHERE Usuario = @username');
             console.log(`Estado del usuario ${usuario} actualizado correctamente. Bloqueo`);
         } else {
             console.error('Error: Objeto pool no devuelto');
@@ -138,23 +114,4 @@ const cambioEstatusSms = async (usuario) => {
     }
 }
 
-module.exports = { insertarAlertaLogin, credencialesFallidas, registroInicioDeSesion, cambioEstatus, verifiacionSms, setcodigosms };
-
-
-/* 
-
-SELECT smsUsuarios.*, Users.*
-FROM smsUsuarios
-INNER JOIN Users ON smsUsuarios.usuario = Users.usuario
-WHERE smsUsuarios.codigosms = '123456';
-
-UPDATE Users
-SET estatus = 0
-WHERE usuario IN (
-    SELECT usuario
-    FROM smsUsuarios
-    WHERE codigosms = '123456'
-);
-
-
-*/
+module.exports = { insertarAlertaLogin, credencialesFallidas, registroInicioDeSesion, cambioEstatus, verifiacionSms, cambioEstatusSms };
