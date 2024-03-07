@@ -54,6 +54,7 @@
     flex-wrap: nowrap;
     justify-content: space-evenly;
     align-items: center;
+    color: white;
 }
 
 .confooter{
@@ -83,6 +84,10 @@
 
 .confooter span{
   margin-bottom: 5px;
+}
+
+.conTime{
+  margin-bottom: 15px;
 }
 
 /* ########################## */
@@ -171,6 +176,24 @@ input:not(:placeholder-shown) + label {
 
 }
 
+
+.btn-1:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background-color: #ccc;
+  color: #666;
+}
+
+
+.btn-renviar:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background-color: #ccc;
+  color: #666;
+}
+
+
+
 /* ########################## */
 
 
@@ -230,4 +253,9 @@ input:not(:placeholder-shown) + label {
   .confooter span{
     margin-bottom: 15px;
   }
+
+  .conTime{
+    margin-bottom: 0px;
+  }
+
 }

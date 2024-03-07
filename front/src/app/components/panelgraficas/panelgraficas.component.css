@@ -1,5 +1,5 @@
 .panelModulo{
-  background-color: seagreen;
+  background-image: radial-gradient(circle, #1a1a1a, #171717, #131313, #0e0e0e, #080808, #080808, #080808, #080808, #0e0e0e, #131313, #171717, #1a1a1a);
   width: 100%;
   padding-bottom: 20px;
 }

@@ -34,4 +34,21 @@ const getloginExitoso = async () => {
     }
 }
 
-module.exports = { getUsuarios, getloginExitoso };  
+const getSms = async () => {
+    try {
+        const pool = await getConnection();
+        if (pool) {
+            console.log('Data Usuarios devuelto correctamente');
+            const result = await pool.request().query("SELECT * FROM smsUsuarios");
+            return result.recordset;
+        } else {
+            console.error('Error: Objeto pool no devuelto');
+            return [];
+        }
+    } catch (error) {
+        console.log(error);
+        return []; 
+    }
+}
+
+module.exports = { getUsuarios, getloginExitoso, getSms };  
