@@ -88,10 +88,46 @@ const verifiacionSms = async (usuario, fecha, hora, codigoSmsString) => {
                 .input('usuario', mssql.NVarChar, usuario)
                 .input('fecha', mssql.NVarChar, fecha)
                 .input('hora', mssql.NVarChar, hora)
-                .input('codigosms', mssql.NVarChar, codigoSmsString)
+                .input('codigosms', mssql.NVarChar, hora)
                 .query('INSERT INTO smsUsuarios (usuario, fecha, hora, codigosms) VALUES (@usuario, @fecha , @hora, @codigosms)');
-                // INSERT INTO smsUsuarios (usuario, fecha, hora, codigosms) 
-                //VALUES ('userPrueba', 'hoy', 'a las 4','918264')
+            console.log(`Estado del usuario ${usuario} actualizado correctamente. SMS`);
+        } else {
+            console.error('Error: Objeto pool no devuelto');
+        }
+    } catch (error) {
+        console.error('Error al actualizar el estado del usuario:', error);
+    }
+}
+
+const setcodigosms = async (codigoSms) => {
+    try {
+        const pool = await getConnection();
+        if (pool) {
+            console.log('Conexión a la base de datos exitosa');
+            const result = await pool.request()
+                .input('codigoSms', mssql.NVarChar, codigoSms)
+                .query('SELECT * FROM smsUsuarios WHERE codigosms = @codigoSms');
+            console.log(`Estado del usuario actualizado correctamente. SMS`);
+            return result.recordset; 
+        } else {
+            console.error('Error: Objeto pool no devuelto');
+            return [];
+        }
+    } catch (error) {
+        console.error('Error al actualizar el estado del usuario:', error);
+        return [];
+    }
+}
+
+const cambioEstatusSms = async (usuario) => {
+    try {
+        const pool = await getConnection();
+        if (pool) {
+            console.log('Conexión a la base de datos exitosa');
+            await pool.request()
+                .input('username', mssql.NVarChar, usuario)
+                .query('UPDATE Users SET estatus = 0 WHERE Usuario = @username');
+                // UPDATE Users SET estatus = 0 WHERE Usuario = @username;
 
             console.log(`Estado del usuario ${usuario} actualizado correctamente. Bloqueo`);
         } else {
@@ -102,4 +138,23 @@ const verifiacionSms = async (usuario, fecha, hora, codigoSmsString) => {
     }
 }
 
-module.exports = { insertarAlertaLogin, credencialesFallidas, registroInicioDeSesion, cambioEstatus, verifiacionSms };
+module.exports = { insertarAlertaLogin, credencialesFallidas, registroInicioDeSesion, cambioEstatus, verifiacionSms, setcodigosms };
+
+
+/* 
+
+SELECT smsUsuarios.*, Users.*
+FROM smsUsuarios
+INNER JOIN Users ON smsUsuarios.usuario = Users.usuario
+WHERE smsUsuarios.codigosms = '123456';
+
+UPDATE Users
+SET estatus = 0
+WHERE usuario IN (
+    SELECT usuario
+    FROM smsUsuarios
+    WHERE codigosms = '123456'
+);
+
+
+*/
