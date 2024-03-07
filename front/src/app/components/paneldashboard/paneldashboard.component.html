@@ -1,10 +1,10 @@
 <div class="panelModulo">
   <!-- TOP MENU -->
-  <div class="container-fluid menutamaño"></div>
+  <div class="menutamaño"></div>
 
   <!-- MENU TITLE -->
-  <div class="container text-center dashboardTitleContainer">
-    <ngx-charts-advanced-pie-chart
+  <div class="dashboardTitleContainer">
+    <!-- <ngx-charts-advanced-pie-chart
     [view]="view"
     scheme="neons"
     [results]="single"
@@ -13,7 +13,7 @@
     (activate)="onActivate($event)"
     (deactivate)="onDeactivate($event)"
     >
-  </ngx-charts-advanced-pie-chart>
+  </ngx-charts-advanced-pie-chart> -->
 
     <!-- <div class="container ">
       <span>panel 1</span>
@@ -34,8 +34,516 @@
 
   </div>
 
+  <div class="TItleCon">
+    <div class="titleCon">
+      <div class="text-center text-5xl font-extrabold leading-none tracking-tight">
+        <span class="bg-clip-text text-transparent bg-gradient-to-r from-teal-400 to-blue-500">
+          Dashboard
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="InfoCon">
+
+    <div class="datosInfo">
+
+      <nav class="level is-mobile">
+        <div class="level-item has-text-centered itemUser">
+          <div>
+            <p class="heading">Total de usuarios</p>
+            <p class="title">456</p>
+          </div>
+        </div>
+        <div class="level-item has-text-centered itemUser">
+          <div>
+            <p class="heading">Activos</p>
+            <p class="title">123</p>
+          </div>
+        </div>
+        <div class="level-item has-text-centered itemUser">
+          <div>
+            <p class="heading">Reportes</p>
+            <p class="title">456</p>
+          </div>
+        </div>
+        <div class="level-item has-text-centered itemUser">
+          <div>
+            <p class="heading">Archivos</p>
+            <p class="title">100</p>
+          </div>
+        </div>
+      </nav>
+
+    </div>
+
+
+  </div>
+
+  <div class="graficasConAdvancedpie">
+
+    <ngx-charts-advanced-pie-chart
+      [view]="view"
+      scheme="neons"
+      [results]="single"
+      [gradient]="gradient"
+      (select)="onSelect($event)"
+      (activate)="onActivate($event)"
+      (deactivate)="onDeactivate($event)"
+      >
+    </ngx-charts-advanced-pie-chart>
+
+
+  </div>
+
+  <div class="tableCon">
+
+    <div class="tablesInfo">
+
+      <div class="titleUser">
+        <span>Actividad Usuarios</span>
+      </div>
+
+      <div class="tableUser">
+        <table class="table table-hover table-dark">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Usuario</th>
+              <th scope="col">hora</th>
+              <th scope="col">fecha</th>
+
+            </tr>
+          </thead>
+
+          <tbody>
+
+            <tr>
+              <th scope="row">1</th>
+              <td>Angel Gonzalez</td>
+              <td>11:58:01</td>
+              <td>07/03/2024</td>
+            </tr>
+
+            <tr>
+              <th scope="row">2</th>
+              <td>Alexis Morales</td>
+              <td>13:59:06</td>
+              <td>01/02/204</td>
+            </tr>
+
+            <tr>
+              <th scope="row">3</th>
+              <td>Carlos Rosado</td>
+              <td>18:05:01</td>
+              <td>05/01/2023</td>
+            </tr>
+
+            <tr>
+              <th scope="row">1</th>
+              <td>Angel Gonzalez</td>
+              <td>11:58:01</td>
+              <td>07/03/2024</td>
+            </tr>
+
+            <tr>
+              <th scope="row">2</th>
+              <td>Alexis Morales</td>
+              <td>13:59:06</td>
+              <td>01/02/204</td>
+            </tr>
+
+            <tr>
+              <th scope="row">3</th>
+              <td>Carlos Rosado</td>
+              <td>18:05:01</td>
+              <td>05/01/2023</td>
+            </tr>
+
+            <tr>
+              <th scope="row">1</th>
+              <td>Angel Gonzalez</td>
+              <td>11:58:01</td>
+              <td>07/03/2024</td>
+            </tr>
+
+            <tr>
+              <th scope="row">2</th>
+              <td>Alexis Morales</td>
+              <td>13:59:06</td>
+              <td>01/02/204</td>
+            </tr>
+
+            <tr>
+              <th scope="row">3</th>
+              <td>Carlos Rosado</td>
+              <td>18:05:01</td>
+              <td>05/01/2023</td>
+            </tr>
+
+            <tr>
+              <th scope="row">1</th>
+              <td>Angel Gonzalez</td>
+              <td>11:58:01</td>
+              <td>07/03/2024</td>
+            </tr>
+
+            <tr>
+              <th scope="row">2</th>
+              <td>Alexis Morales</td>
+              <td>13:59:06</td>
+              <td>01/02/204</td>
+            </tr>
+
+            <tr>
+              <th scope="row">3</th>
+              <td>Carlos Rosado</td>
+              <td>18:05:01</td>
+              <td>05/01/2023</td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+
+  </div>
+
+  <div class="userCon">
+
+    <div class="titleUser">
+      <h1 class="text-3xl font-bold underline">
+        Usuarios
+      </h1>
+
+    </div>
+
+    <div class="conInfoUser">
+
+
+      <div class="userInfoCon">
+        <article class="media">
+          <figure class="media-left">
+            <p class="image is-64x64">
+              <img src="https://bulma.io/images/placeholders/128x128.png">
+            </p>
+          </figure>
+          <div class="media-content">
+            <div class="content">
+              <p>
+                <strong>Angel Gonzalez</strong> <small>...Analista Desarollador</small>
+                <br>
+                Area: Tecnologias de la Informacion
+              </p>
+            </div>
+            <nav class="level is-mobile">
+              <div class="level-left">
+                <a class="level-item">
+                  <span class="icon is-small"><i class="fas fa-reply"></i></span>
+                </a>
+                <a class="level-item">
+                  <span class="icon is-small"><i class="fas fa-retweet"></i></span>
+                </a>
+                <a class="level-item">
+                  <span class="icon is-small"><i class="fas fa-heart"></i></span>
+                </a>
+              </div>
+            </nav>
+          </div>
+          <div class="media-right">
+            <button class="delete"></button>
+          </div>
+        </article>
+      </div>
+
+      <div class="userInfoCon">
+        <article class="media">
+          <figure class="media-left">
+            <p class="image is-64x64">
+              <img src="https://bulma.io/images/placeholders/128x128.png">
+            </p>
+          </figure>
+          <div class="media-content">
+            <div class="content">
+              <p>
+                <strong>Angel Gonzalez</strong> <small>...Analista Desarollador</small>
+                <br>
+                Area: Tecnologias de la Informacion
+              </p>
+            </div>
+            <nav class="level is-mobile">
+              <div class="level-left">
+                <a class="level-item">
+                  <span class="icon is-small"><i class="fas fa-reply"></i></span>
+                </a>
+                <a class="level-item">
+                  <span class="icon is-small"><i class="fas fa-retweet"></i></span>
+                </a>
+                <a class="level-item">
+                  <span class="icon is-small"><i class="fas fa-heart"></i></span>
+                </a>
+              </div>
+            </nav>
+          </div>
+          <div class="media-right">
+            <button class="delete"></button>
+          </div>
+        </article>
+      </div>
+
+      <div class="userInfoCon">
+        <article class="media">
+          <figure class="media-left">
+            <p class="image is-64x64">
+              <img src="https://bulma.io/images/placeholders/128x128.png">
+            </p>
+          </figure>
+          <div class="media-content">
+            <div class="content">
+              <p>
+                <strong>Angel Gonzalez</strong> <small>...Analista Desarollador</small>
+                <br>
+                Area: Tecnologias de la Informacion
+              </p>
+            </div>
+            <nav class="level is-mobile">
+              <div class="level-left">
+                <a class="level-item">
+                  <span class="icon is-small"><i class="fas fa-reply"></i></span>
+                </a>
+                <a class="level-item">
+                  <span class="icon is-small"><i class="fas fa-retweet"></i></span>
+                </a>
+                <a class="level-item">
+                  <span class="icon is-small"><i class="fas fa-heart"></i></span>
+                </a>
+              </div>
+            </nav>
+          </div>
+          <div class="media-right">
+            <button class="delete"></button>
+          </div>
+        </article>
+      </div>
+
+      <div class="userInfoCon">
+        <article class="media">
+          <figure class="media-left">
+            <p class="image is-64x64">
+              <img src="https://bulma.io/images/placeholders/128x128.png">
+            </p>
+          </figure>
+          <div class="media-content">
+            <div class="content">
+              <p>
+                <strong>Angel Gonzalez</strong> <small>...Analista Desarollador</small>
+                <br>
+                Area: Tecnologias de la Informacion
+              </p>
+            </div>
+            <nav class="level is-mobile">
+              <div class="level-left">
+                <a class="level-item">
+                  <span class="icon is-small"><i class="fas fa-reply"></i></span>
+                </a>
+                <a class="level-item">
+                  <span class="icon is-small"><i class="fas fa-retweet"></i></span>
+                </a>
+                <a class="level-item">
+                  <span class="icon is-small"><i class="fas fa-heart"></i></span>
+                </a>
+              </div>
+            </nav>
+          </div>
+          <div class="media-right">
+            <button class="delete"></button>
+          </div>
+        </article>
+      </div>
+
+      <div class="userInfoCon">
+        <article class="media">
+          <figure class="media-left">
+            <p class="image is-64x64">
+              <img src="https://bulma.io/images/placeholders/128x128.png">
+            </p>
+          </figure>
+          <div class="media-content">
+            <div class="content">
+              <p>
+                <strong>Angel Gonzalez</strong> <small>...Analista Desarollador</small>
+                <br>
+                Area: Tecnologias de la Informacion
+              </p>
+            </div>
+            <nav class="level is-mobile">
+              <div class="level-left">
+                <a class="level-item">
+                  <span class="icon is-small"><i class="fas fa-reply"></i></span>
+                </a>
+                <a class="level-item">
+                  <span class="icon is-small"><i class="fas fa-retweet"></i></span>
+                </a>
+                <a class="level-item">
+                  <span class="icon is-small"><i class="fas fa-heart"></i></span>
+                </a>
+              </div>
+            </nav>
+          </div>
+          <div class="media-right">
+            <button class="delete"></button>
+          </div>
+        </article>
+      </div>
+
+      <div class="userInfoCon">
+        <article class="media">
+          <figure class="media-left">
+            <p class="image is-64x64">
+              <img src="https://bulma.io/images/placeholders/128x128.png">
+            </p>
+          </figure>
+          <div class="media-content">
+            <div class="content">
+              <p>
+                <strong>Angel Gonzalez</strong> <small>...Analista Desarollador</small>
+                <br>
+                Area: Tecnologias de la Informacion
+              </p>
+            </div>
+            <nav class="level is-mobile">
+              <div class="level-left">
+                <a class="level-item">
+                  <span class="icon is-small"><i class="fas fa-reply"></i></span>
+                </a>
+                <a class="level-item">
+                  <span class="icon is-small"><i class="fas fa-retweet"></i></span>
+                </a>
+                <a class="level-item">
+                  <span class="icon is-small"><i class="fas fa-heart"></i></span>
+                </a>
+              </div>
+            </nav>
+          </div>
+          <div class="media-right">
+            <button class="delete"></button>
+          </div>
+        </article>
+      </div>
+
+      <div class="userInfoCon">
+        <article class="media">
+          <figure class="media-left">
+            <p class="image is-64x64">
+              <img src="https://bulma.io/images/placeholders/128x128.png">
+            </p>
+          </figure>
+          <div class="media-content">
+            <div class="content">
+              <p>
+                <strong>Angel Gonzalez</strong> <small>...Analista Desarollador</small>
+                <br>
+                Area: Tecnologias de la Informacion
+              </p>
+            </div>
+            <nav class="level is-mobile">
+              <div class="level-left">
+                <a class="level-item">
+                  <span class="icon is-small"><i class="fas fa-reply"></i></span>
+                </a>
+                <a class="level-item">
+                  <span class="icon is-small"><i class="fas fa-retweet"></i></span>
+                </a>
+                <a class="level-item">
+                  <span class="icon is-small"><i class="fas fa-heart"></i></span>
+                </a>
+              </div>
+            </nav>
+          </div>
+          <div class="media-right">
+            <button class="delete"></button>
+          </div>
+        </article>
+      </div>
+
+      <div class="userInfoCon">
+        <article class="media">
+          <figure class="media-left">
+            <p class="image is-64x64">
+              <img src="https://bulma.io/images/placeholders/128x128.png">
+            </p>
+          </figure>
+          <div class="media-content">
+            <div class="content">
+              <p>
+                <strong>Angel Gonzalez</strong> <small>...Analista Desarollador</small>
+                <br>
+                Area: Tecnologias de la Informacion
+              </p>
+            </div>
+            <nav class="level is-mobile">
+              <div class="level-left">
+                <a class="level-item">
+                  <span class="icon is-small"><i class="fas fa-reply"></i></span>
+                </a>
+                <a class="level-item">
+                  <span class="icon is-small"><i class="fas fa-retweet"></i></span>
+                </a>
+                <a class="level-item">
+                  <span class="icon is-small"><i class="fas fa-heart"></i></span>
+                </a>
+              </div>
+            </nav>
+          </div>
+          <div class="media-right">
+            <button class="delete"></button>
+          </div>
+        </article>
+      </div>
+
+      <div class="userInfoCon">
+        <article class="media">
+          <figure class="media-left">
+            <p class="image is-64x64">
+              <img src="https://bulma.io/images/placeholders/128x128.png">
+            </p>
+          </figure>
+          <div class="media-content">
+            <div class="content">
+              <p>
+                <strong>Angel Gonzalez</strong> <small>...Analista Desarollador</small>
+                <br>
+                Area: Tecnologias de la Informacion
+              </p>
+            </div>
+            <nav class="level is-mobile">
+              <div class="level-left">
+                <a class="level-item">
+                  <span class="icon is-small"><i class="fas fa-reply"></i></span>
+                </a>
+                <a class="level-item">
+                  <span class="icon is-small"><i class="fas fa-retweet"></i></span>
+                </a>
+                <a class="level-item">
+                  <span class="icon is-small"><i class="fas fa-heart"></i></span>
+                </a>
+              </div>
+            </nav>
+          </div>
+          <div class="media-right">
+            <button class="delete"></button>
+          </div>
+        </article>
+      </div>
+
+
+    </div>
+
+  </div>
+
   <!-- DASHBOARD -->
-  <div class="container text-center dashboardContainer">
+  <!-- <div class="container text-center dashboardContainer">
     <ngx-charts-area-chart-stacked
     [view]="view_multi"
     scheme="fire"
@@ -49,9 +557,9 @@
     [timeline]="timeline"
     [results]="multi"
     (select)="onSelect($event)">
-  </ngx-charts-area-chart-stacked>
+    </ngx-charts-area-chart-stacked>
 
-  </div>
+  </div> -->
 
   <!-- GRAFICAS -->
   <!-- <div class="container text-center graficasContainer">
@@ -79,12 +587,12 @@
   <!-- TABLA -->
   <div class="container text-center tablaContainer">
 
-    <ngx-charts-pie-grid
+    <!-- <ngx-charts-pie-grid
       [view]="views_a"
       scheme="neons"
       [results]="paises"
       (select)="onSelect($event)">
-    </ngx-charts-pie-grid>
+    </ngx-charts-pie-grid> -->
   </div>
 
 

@@ -1,5 +1,5 @@
 //* DATA BD
-const { getUsuarios, getloginExitoso } = require('./scriptSQL/Users/Users');
+const { getUsuarios, getloginExitoso, getSms } = require('./scriptSQL/Users/Users');
 const { crecimiento_servicios } = require('./scriptSQL/comercial/crecimiento_servicios');
 const { getProspectos } = require('./scriptSQL/comercial/seguimiento_prospectos');
 const { getVacantes } = require('./scriptSQL/rrhh/vacante');
@@ -8,7 +8,7 @@ const {getUsuariosConsulta} = require('./scriptSQL/juridico_normativo/proceso_ar
 const {getUsuariosInscripcion} = require('./scriptSQL/juridico_normativo/proceso_armado/inscripcion');
 const { getUsuariosCredencializacion } = require('./scriptSQL/juridico_normativo/proceso_armado/credencializacion');
 const { updateUserStatusByUsername } = require('./scriptSQL/Users/UserBloqueo')
-const { insertarAlertaLogin, credencialesFallidas, registroInicioDeSesion, cambioEstatus } = require('./scriptSQL/Users/RegistroLogin')
+const { insertarAlertaLogin, credencialesFallidas, registroInicioDeSesion, cambioEstatus, verifiacionSms, cambioEstatusSms } = require('./scriptSQL/Users/RegistroLogin')
 
 //*MFA
 const { enviarSMS } = require('./twilio/mandarSms');
@@ -109,24 +109,22 @@ app.post('/usuario',
               console.log(chalk.inverse.red(`Usuario con status ${usuarioValido.estatus} sin permisos`));
               return res.status(403).json({ mensaje: 'Usuario sin permisos adecuados', codigo: 403 });
           } else {
-              if (usuarioValido.estatus === "0") {
-                console.log(chalk.inverse.yellow(`Usuario con status ${usuarioValido.estatus}`));
-                console.log(chalk.inverse.blue(`Usuario : ${usuarioValido.usuario}, telefono: ${usuarioValido.Telefono}`));
-                
-                const codigoSms = generarCodigo();
-                console.log("Código sms:", codigoSms);
+            if (usuarioValido.estatus === "0") {
+              console.log(chalk.inverse.yellow(`Usuario con status ${usuarioValido.estatus}`));
+              console.log(chalk.inverse.blue(`Usuario : ${usuarioValido.usuario}, telefono: ${usuarioValido.Telefono}`));
+                          
+              const codigoSms = generarCodigo();
+              console.log("Código sms:", codigoSms);
+              const codigoSmsString = codigoSms.toString();
+              // console.log("Código codigoSmsString:", codigoSmsString);
 
-                await enviarSMS(usuarioValido.Nombre, usuarioValido.Telefono, codigoSms);
-                
-                return res.status(200).json({ mensaje: 'Usuario0' });
-            }
+              
+              await enviarSMS(usuarioValido.Nombre, usuarioValido.Telefono, codigoSms);
+              await verifiacionSms(usuarioValido.usuario, fecha, hora,codigoSmsString);
+                          
+              return res.status(200).json({ mensaje: 'Usuario0' });
+            }           
           }
-          /*
-          
-          
-          */
-
-
         } else {
               console.log(chalk.inverse.red('Usuario con status 2'));
               return res.status(403).json({ mensaje: 'Usuario  bloqueado', codigo: 403 });
@@ -316,7 +314,6 @@ app.post('/registro', async (req, res) => {
   }
 });
 
-
 //* Credencisa fallidas
 app.post('/credenciales-fallidas', async (req, res) => {
   const { usuario, password } = req.body;
@@ -370,6 +367,42 @@ app.post('/bloquear-usuario', async (req, res) => {
   }
 });
 
+//* SMS
+app.post('/mfa-sms', async (req, res) => {
+  const codigoSmsfront = req.body.codigo;
+  const smsBd = await getSms();
+
+  const fechaHoraActual = new Date();
+  const fecha = fechaHoraActual.toISOString().split('T')[0];
+  const hora = fechaHoraActual.toTimeString().split(' ')[0];
+
+  console.log(chalk.greenBright("Código recibido:", codigoSmsfront));
+  const codigoCoincidente = smsBd.find(sms => sms.codigosms === codigoSmsfront);
+
+  if (codigoCoincidente) {
+    console.log("coincidencia:", codigoCoincidente.codigosms,"Usuario:", codigoCoincidente.usuario, "hora:",codigoCoincidente.hora );
+
+    const horaCoincidenteCompleta = new Date(fecha + ' ' + codigoCoincidente.hora);
+
+    const horaActual = fechaHoraActual.getTime();
+    const horaCoincidente = horaCoincidenteCompleta.getTime();
+    const diferenciaMinutos = Math.abs((horaActual - horaCoincidente) / (1000 * 60));
+
+    console.log("diferenciaMinutos", diferenciaMinutos);
+
+    if (diferenciaMinutos <= 5) {
+      await cambioEstatusSms(codigoCoincidente.usuario);
+      res.status(200).send("Número con coincidencia encontrado para el usuario: " + codigoCoincidente.usuario);
+    } else {
+      res.status(400).send("Tiempo terminado");
+    }
+  } else {
+    console.log("No se encontraron coincidencias");
+    res.status(404).send("No se encontraron coincidencias");
+  }
+});
+
+
 //! ##################################################################
 //! ########################### PDF ##################################
 //! ##################################################################
@@ -412,6 +445,7 @@ app.get('/documentos/:id', async (req,res) => {
     res.status(500).send({error: 'Hubo un error'});
   }
 });
+
 app.put("/documentos/:id", async (req, res) => {
   try {
     const id = req.params.id;
