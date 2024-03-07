@@ -1,5 +1,5 @@
 //* DATA BD
-const { getUsuarios, getloginExitoso } = require('./scriptSQL/Users/Users');
+const { getUsuarios, getloginExitoso, getSms } = require('./scriptSQL/Users/Users');
 const { crecimiento_servicios } = require('./scriptSQL/comercial/crecimiento_servicios');
 const { getProspectos } = require('./scriptSQL/comercial/seguimiento_prospectos');
 const { getVacantes } = require('./scriptSQL/rrhh/vacante');
@@ -8,7 +8,7 @@ const {getUsuariosConsulta} = require('./scriptSQL/juridico_normativo/proceso_ar
 const {getUsuariosInscripcion} = require('./scriptSQL/juridico_normativo/proceso_armado/inscripcion');
 const { getUsuariosCredencializacion } = require('./scriptSQL/juridico_normativo/proceso_armado/credencializacion');
 const { updateUserStatusByUsername } = require('./scriptSQL/Users/UserBloqueo')
-const { insertarAlertaLogin, credencialesFallidas, registroInicioDeSesion, cambioEstatus, verifiacionSms } = require('./scriptSQL/Users/RegistroLogin')
+const { insertarAlertaLogin, credencialesFallidas, registroInicioDeSesion, cambioEstatus, verifiacionSms, setcodigosms } = require('./scriptSQL/Users/RegistroLogin')
 
 //*MFA
 const { enviarSMS } = require('./twilio/mandarSms');
@@ -120,38 +120,11 @@ app.post('/usuario',
 
               
               await enviarSMS(usuarioValido.Nombre, usuarioValido.Telefono, codigoSms);
-              await verifiacionSms(usuarioValido.Nombre, fecha, hora, codigoSmsString);
+              await verifiacionSms(usuarioValido.Nombre, fecha, hora,codigoSmsString);
                           
               return res.status(200).json({ mensaje: 'Usuario0' });
           }           
           }
-
-          /* 
-          
-          const verifiacionSms = require('./verifiacionSms');
-
-          // Tu endpoint Express
-          app.post('/usuario', async (req, res) => {
-              try {
-                  // Otros procesos...
-
-                  const codigoSms = generarCodigo();
-
-                  // Asegúrate de que codigoSms sea una cadena
-                  const codigoSmsString = codigoSms.toString(); // Convertir a cadena si no lo es ya
-
-                  // Llamar a la función verifiacionSms con codigoSmsString como parámetro
-                  await verifiacionSms(usuarioValido.Nombre, fecha, hora, codigoSmsString);
-
-                  // Otros procesos...
-              } catch (error) {
-                  // Manejar errores
-              }
-          });
-
-          
-          
-          */
 
         } else {
               console.log(chalk.inverse.red('Usuario con status 2'));
@@ -396,13 +369,54 @@ app.post('/bloquear-usuario', async (req, res) => {
   }
 });
 
-app.post('/mfa-sms', (req, res) => {
-  const codigo = req.body.codigo;
-  console.log(chalk.greenBright("Código recibido:", codigo));
+//* SMS
+app.post('/mfa-sms', async (req, res) => {
+  const codigoSms = req.body.codigo;
+  console.log(chalk.greenBright("Código recibido:", codigoSms));
+  
+  const resultadoConsulta = await setcodigosms(codigoSms);
+  
+  console.log("Resultado de la consulta:", resultadoConsulta);
+  
   res.status(200).send("Datos recibidos correctamente");
 });
 
+
+
+
 /* 
+
+mira tenog esta otra consulta:
+const setcodigosms = async (codigoSms) => {
+    try {
+        const pool = await getConnection();
+        if (pool) {
+            console.log('Conexión a la base de datos exitosa');
+            await pool.request()
+                .input('cosigoSms', mssql.NVarChar, codigoSms)
+                .query('SELECT * FROM smsUsuarios WHERE codigosms = @cosigoSms');
+                // SELECT * FROM smsUsuarios WHERE codigosms = '18:23:08'
+                console.log(`Estado del usuario ${usuario} actualizado correctamente. SMS`);
+        } else {
+            console.error('Error: Objeto pool no devuelto');
+        }
+    } catch (error) {
+        console.error('Error al actualizar el estado del usuario:', error);
+    }
+}
+
+y quiero obtener el resultado y verlo en mi endponit:
+
+app.post('/mfa-sms', async (req, res) => {
+  const codigoSms = req.body.codigo;
+  console.log(chalk.greenBright("Código recibido:", codigoSms));
+  await setcodigosms(codigoSms)
+
+  res.status(200).send("Datos recibidos correctamente");
+});
+
+
+
 
 */
 
