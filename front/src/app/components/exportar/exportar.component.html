@@ -33,13 +33,13 @@
                   </td>
                 </tr>
                 <tr *ngIf="subfilaVisible[documento.id]">
-                  <td colspan="3">
+                  <td colspan="3"  class="text-center">
                     <ngx-extended-pdf-viewer #pdfViewer 
                       [src]="documento.documento.toString()"
                       
                       [showDrawEditor]="true"
                       [showDownloadButton]="false"
-                      [showZoomButtons]="false"
+                      [showPresentationModeButton]="true"
                       [showPagingButtons]="false"
                       [showOpenFileButton]="false"
                       [showSidebarButton]="false"
@@ -50,7 +50,11 @@
                       [showRotateButton]="false"
                       [showInfiniteScrollButton]="false"
                       [contextMenuAllowed]="false"
-                    ></ngx-extended-pdf-viewer>
+                      style="height:520px; width:100%"
+                    >
+                    </ngx-extended-pdf-viewer>
+
+
                     <button class="btn btn-primary mt-5" (click)="export(documento.id)" *ngIf="mostrarBotonFirma">Guardar firma</button>        
                   </td>
                 </tr>
