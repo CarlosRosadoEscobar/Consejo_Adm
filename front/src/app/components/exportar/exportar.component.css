@@ -5,7 +5,7 @@
 
 
 .panelModulo{
-    background-color: seagreen;
+    background-color: #11101D;
     width: 100%;
     padding-bottom: 20px;
   }
@@ -17,7 +17,11 @@
   }
   
   /* MENU TITLE */
-  
+  .dashboardTitleContainer{
+    background-color: #11101D;
+    height: 100vh;
+  }
+
 
   .lds-ring {
     display: inline-block;
