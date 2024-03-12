@@ -22,7 +22,21 @@ export class ExportarComponent {
     this.obtenerDocumentos();
   }
   
+  
+  rolcolaborador: string | null = null;
+
   obtenerDocumentos() {
+    const usuariorol = localStorage.getItem('usuario');
+    if (usuariorol !== null) {
+      // Convertir la cadena JSON a un objeto JavaScript
+      const usuario = JSON.parse(usuariorol);
+      // Acceder a la propiedad 'id_colaborador'
+      this.rolcolaborador = usuario.rol;
+      
+    } else {
+      console.error('El valor almacenado en localStorage es nulo.');
+    }
+
     this.isLoading = true; // Inicia el spinner
     this._documentoService.obtenerDocumentos().subscribe(data => {
       this.listDocumentos = data;
@@ -239,4 +253,8 @@ export class ExportarComponent {
     });
   }
 
+
+  
+
+  
 }
