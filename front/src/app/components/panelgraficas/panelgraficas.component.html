@@ -5,7 +5,69 @@
   <!-- MENU TITLE -->
   <div class="container text-center dashboardTitleContainer">
 
-    <div class="container ">
+
+    <!-- Contenedor de la primera gráfica -->
+    <div class="container text-center dashboardTitleContainer">
+      <div class="chart-container">
+        <apx-chart
+          [series]="chartOptions.series!"
+          [chart]="chartOptions.chart!"
+          [xaxis]="chartOptions.xaxis!"
+          [title]="chartOptions.title!"
+        ></apx-chart>
+      </div>
+    </div>
+
+    <div class="container text-center dashboardTitleContainer">
+      <div style="text-align:center">
+        <apx-chart
+          [series]="splineChartOptions.series!"
+          [chart]="splineChartOptions.chart!"
+          [xaxis]="splineChartOptions.xaxis!"
+          [title]="splineChartOptions.title!"
+        ></apx-chart>
+      </div>
+    </div>
+
+    <div class="container text-center dashboardTitleContainer">
+        <!-- Gráfico de Área Polar -->
+        <div style="text-align:center">
+          <apx-chart
+          [series]="polarAreaChartOptions.series!"
+          [chart]="polarAreaChartOptions.chart!"
+          [xaxis]="polarAreaChartOptions.xaxis!"
+          [title]="polarAreaChartOptions.title!"
+        ></apx-chart>
+        </div>
+    </div>
+
+    <div class="container text-center dashboardTitleContainer">
+      <div style="text-align:center">
+        <apx-chart
+          [series]="horizontalBarChartOptions.series!"
+          [chart]="horizontalBarChartOptions.chart!"
+          [xaxis]="horizontalBarChartOptions.xaxis!"
+          [title]="horizontalBarChartOptions.title!"
+        ></apx-chart>
+      </div>
+    </div>
+
+    <div class="container text-center dashboardTitleContainer">
+      <!-- Gráfico de Pastel -->
+      <div style="text-align:center">
+        <apx-chart
+          [series]="pieChartOptiosns?.series!"
+          [chart]="pieChartOptiosns?.chart!"
+          [title]="pieChartOptiosns?.title!"
+        ></apx-chart>
+      </div>
+    </div>
+
+
+
+
+
+    <!-- <div class="container ">
       <span>panel 1</span>
     </div>
 
@@ -19,13 +81,13 @@
 
     <div class="container ">
       <span>panel 4</span>
-    </div>
+    </div> -->
 
 
   </div>
 
   <!-- DASHBOARD -->
-  <div class="container text-center dashboardContainer">
+  <!-- <div class="container text-center dashboardContainer">
 
     <div class="container dashConInfo">
 
@@ -58,10 +120,10 @@
 
     </div>
 
-  </div>
+  </div> -->
 
   <!-- GRAFICAS -->
-  <div class="container text-center graficasContainer">
+  <!-- <div class="container text-center graficasContainer">
 
     <div class="container graficasConInfo">
 
@@ -81,10 +143,10 @@
       </div>
     </div>
 
-  </div>
+  </div> -->
 
   <!-- TABLA -->
-  <div class="container text-center tablaContainer">
+  <!-- <div class="container text-center tablaContainer">
 
     <div class="container ">
       <span>panel 1</span>
@@ -94,12 +156,12 @@
       <span>panel 2</span>
     </div>
 
-  </div>
+  </div> -->
 
-  <div class="contianer text-center usuariosGraficas">
+  <!-- <div class="contianer text-center usuariosGraficas">
 
 
-  </div>
+  </div> -->
 
 </div>
 
