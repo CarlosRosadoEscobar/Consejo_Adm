@@ -91,8 +91,8 @@ const firmaDocumento = async (id, documento, usuario, fecha, socios_firmas) => {
     let pool = await getConnection();
     if (pool) {
       // Actualizar la tabla direccion_general_documentos
-      const updateQuery = `UPDATE direccion_general_documentos SET documento = @documento, usuario = @usuario, socios_firmas=@socios_firmas WHERE id = @id;`;
-      const resultUpdate = await pool.request().input('id', id).input('documento', documento).input('usuario', usuario).input('socios_firmas', socios_firmas).query(updateQuery);
+      const updateQuery = `UPDATE direccion_general_documentos SET documento = @documento, socios_firmas=@socios_firmas WHERE id = @id;`;
+      const resultUpdate = await pool.request().input('id', id).input('documento', documento).input('socios_firmas', socios_firmas).query(updateQuery);
 
       // Verificar si la actualización fue exitosa
       if (resultUpdate.rowsAffected > 0) {
