@@ -1,8 +1,44 @@
 .panelModulo{
-  /* background: #780206;
-  background: -webkit-linear-gradient(to right, #061161, #780206);
-  background: linear-gradient(to right, #061161, #780206);  */
-  background-image: radial-gradient(circle, #1a1a1a, #171717, #131313, #0e0e0e, #080808, #080808, #080808, #080808, #0e0e0e, #131313, #171717, #1a1a1a);
+
+  /* background-image: radial-gradient(circle, #1a1a1a, #171717, #131313, #0e0e0e, #080808, #080808, #080808, #080808, #0e0e0e, #131313, #171717, #1a1a1a); */
+
+    background: #000000;
+    --gap: 5em;
+    --line: 1px;
+    --color: rgba(255, 255, 255, 0.2);
+
+    background-image: linear-gradient(
+        -90deg,
+        transparent calc(var(--gap) - var(--line)),
+        var(--color) calc(var(--gap) - var(--line) + 1px),
+        var(--color) var(--gap)
+      ),
+      linear-gradient(
+        0deg,
+        transparent calc(var(--gap) - var(--line)),
+        var(--color) calc(var(--gap) - var(--line) + 1px),
+        var(--color) var(--gap)
+      );
+    background-size: var(--gap) var(--gap);
+
+      /* background-color: #111111;
+      background-image: linear-gradient(
+        32deg,
+        rgba(8, 8, 8, 0.74) 30px,
+        transparent
+      );
+      background-size: 60px 60px;
+      background-position: -5px -5px;
+ */
+
+
+
+
+
+
+
+
+
 
 
   color: white;
@@ -254,6 +290,7 @@
   flex-wrap: wrap;
   margin-top: 10px;
   margin-bottom: 10px;
+  justify-content: center;
 }
 
 .media {
@@ -340,9 +377,9 @@
     margin-top: 10px;
     margin-right: 10px;
     margin-left: 10px;
-    height: 260px;
+    height: 300px;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
     align-items: stretch;
     padding-top: 5px;
@@ -365,11 +402,58 @@
     margin-top: 10px;
     margin-right: 10px;
     margin-left: 10px;
-    height: 900px;
+    height: 10px;
+    display: none;
+  }
+
+  .dashboardTitleContainer {
+    background-color: rgba(255, 255, 255, 0.13);
+    width: 100%;
+    height: auto;
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
+  .TItleCon{
+    background-color: rgba(255, 255, 255, 0.13);
+    margin-top: 10px;
+    margin-right: 10px;
+    margin-left: 10px;
+    height: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: stretch;
+    border-radius: 30px;
+  }
+
+  .titleCon{
+    text-align: center;
+    color: white;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 20px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    /* background-color: aqua; */
+    padding-bottom: 10px;
+
+  }
+
+  .conInfoUser{
+    /* background-color: #86b7fe; */
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    justify-content: center
+
   }
 
   ::ng-deep ngx-charts-advanced-pie-chart {
@@ -382,14 +466,210 @@
     flex-direction: row;
     background-color: yellow;
     display: none;
+  }
+
 }
 
+@media (max-width: 767.98px) {
+
+  .InfoCon{
+    background-color: rgba(255, 255, 255, 0.13);
+    margin-top: 10px;
+    margin-right: 10px;
+    margin-left: 10px;
+    height: 300px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: stretch;
+    padding-top: 5px;
+    padding-bottom: 10px;
+  }
+
+  .level.is-mobile{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+  }
+
+  .itemUser{
+    width: 100%;
+    margin-top: 5px;
+  }
+
+  .graficasConAdvancedpie{
+    background-color: rgba(255, 255, 255, 0.13);
+    margin-top: 10px;
+    margin-right: 10px;
+    margin-left: 10px;
+    height: 10px;
+    display: none;
+  }
+
+  .dashboardTitleContainer {
+    background-color: rgba(255, 255, 255, 0.13);
+    width: 100%;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
+  .TItleCon{
+    background-color: rgba(255, 255, 255, 0.13);
+    margin-top: 10px;
+    margin-right: 10px;
+    margin-left: 10px;
+    height: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: stretch;
+    border-radius: 30px;
+  }
+
+  .titleCon{
+    text-align: center;
+    color: white;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 20px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    /* background-color: aqua; */
+    padding-bottom: 10px;
+
+  }
+
+  .conInfoUser{
+    /* background-color: #86b7fe; */
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    justify-content: center
+
+  }
+
+  ::ng-deep ngx-charts-advanced-pie-chart {
+    width: 100%;
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    background-color: yellow;
+    display: none;
+  }
+
+}
+
+@media (max-width: 991.98px) {
+  .InfoCon{
+    background-color: rgba(255, 255, 255, 0.13);
+    margin-top: 10px;
+    margin-right: 10px;
+    margin-left: 10px;
+    height: 300px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: stretch;
+    padding-top: 5px;
+    padding-bottom: 10px;
+  }
+
+  .level.is-mobile{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+  }
+
+  .itemUser{
+    width: 100%;
+    margin-top: 5px;
+  }
+
+  .graficasConAdvancedpie{
+    background-color: rgba(255, 255, 255, 0.13);
+    margin-top: 10px;
+    margin-right: 10px;
+    margin-left: 10px;
+    height: 10px;
+    display: none;
+  }
+
+  .dashboardTitleContainer {
+    background-color: rgba(255, 255, 255, 0.13);
+    width: 100%;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
+  .TItleCon{
+    background-color: rgba(255, 255, 255, 0.13);
+    margin-top: 10px;
+    margin-right: 10px;
+    margin-left: 10px;
+    height: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: stretch;
+    border-radius: 30px;
+  }
+
+  .titleCon{
+    text-align: center;
+    color: white;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: 20px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    /* background-color: aqua; */
+    padding-bottom: 10px;
+
+  }
+
+  .conInfoUser{
+    /* background-color: #86b7fe; */
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    justify-content: center
+
+  }
+
+  ::ng-deep ngx-charts-advanced-pie-chart {
+    width: 100%;
+    height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    background-color: yellow;
+    display: none;
+  }
 
 
 
-
-
- }
+}
 
 
 

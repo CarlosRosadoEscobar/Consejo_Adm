@@ -88,7 +88,7 @@ const verifiacionSms = async (usuario, fecha, hora, codigoSmsString) => {
                 .input('hora', mssql.NVarChar, hora)
                 .input('codigosms', mssql.NVarChar, codigoSmsString)
                 .query('INSERT INTO smsUsuarios (usuario, fecha, hora, codigosms) VALUES (@usuario, @fecha , @hora, @codigosms)');
-            console.log(`Estado del usuario ${usuario} actualizado correctamente. SMS`);
+            console.log(`Estado del usuario ${usuario} actualizado correctamente. verifiacion Sms`);
         } else {
             console.error('Error: Objeto pool no devuelto');
         }
@@ -105,7 +105,7 @@ const cambioEstatusSms = async (usuario) => {
             await pool.request()
                 .input('username', mssql.NVarChar, usuario)
                 .query('UPDATE Users SET estatus = 1 WHERE Usuario = @username');
-            console.log(`Estado del usuario ${usuario} actualizado correctamente. Sms`);
+            console.log(`Estado del usuario ${usuario} actualizado correctamente. cambio Estatus Sms`);
         } else {
             console.error('Error: Objeto pool no devuelto');
         }

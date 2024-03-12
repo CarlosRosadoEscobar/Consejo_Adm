@@ -10,7 +10,7 @@ import { MfaService } from 'src/app/services/mfa.service';
   styleUrl: './mfa.component.css'
 })
 export class MfaComponent {
-  tiempoInicial: number = 5;
+  tiempoInicial: number = 300;
   tiempoRestante: number = this.tiempoInicial;
   intervalo: any;
   inputValue: string = '';
