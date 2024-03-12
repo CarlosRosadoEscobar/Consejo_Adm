@@ -28,12 +28,12 @@
               <div class="conTime">
                 Tiempo restante: {{ obtenerTiempoFormateado(tiempoRestante) }}
               </div>
-              
+
               <button class="btn-1" (click)="verificar()" [disabled]="inputValue === null || inputValue === undefined || inputValue.length === 0">Verificar</button>
 
             </div>
 
-            <div class="container confooter">
+            <div class="container confooter d-none">
               <span>¿no recibi el codigo de verificacion?</span>
               <button type="button" class="btn btn-light" (click)="renviar()" [disabled]="!mostrarBotonRenviar">Renviar código</button>
             </div>
