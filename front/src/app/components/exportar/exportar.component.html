@@ -5,7 +5,7 @@
       <div class="card mt-5 tabla">
         <div class="card-body mt-5 text-center">
           <span>Documentos</span>
-          <button class="btn btn-success float-end" [routerLink]="['/importar']" routerLinkActive="router-link-active">Agregar</button>
+          <button class="btn btn-success float-end" [routerLink]="['/importar']" routerLinkActive="router-link-active" *ngIf="rolcolaborador == 'admin' || rolcolaborador =='asistente_de_direccion'">Agregar</button>
           <div class="spinner-container" *ngIf="isLoading">
             <div class="lds-ring">
               <div></div>
@@ -37,8 +37,10 @@
                     <ngx-extended-pdf-viewer #pdfViewer 
                       [src]="documento.documento.toString()"
                       
+                     
                       [showDrawEditor]="true"
                       [showDownloadButton]="false"
+                      [showFindButton]="false"
                       [showPresentationModeButton]="true"
                       [showPagingButtons]="false"
                       [showOpenFileButton]="false"
@@ -50,7 +52,14 @@
                       [showRotateButton]="false"
                       [showInfiniteScrollButton]="false"
                       [contextMenuAllowed]="false"
-                      style="height:520px; width:100%"
+
+                      [mobileFriendlyZoom]="'100%'"
+                      [showSecondaryToolbarButton]="true"
+
+
+ 
+                      
+
                     >
                     </ngx-extended-pdf-viewer>
 

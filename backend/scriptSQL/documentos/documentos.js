@@ -122,7 +122,7 @@ const UsuariosListar = async () => {
   try {
     let pool = await getConnection();
     if (pool) {
-      let result = await pool.request().query(`select Nombre,id_colaborador from Users where id = 6302`);
+      let result = await pool.request().query(`select Nombre,id_colaborador from Users`);
       return result.recordset;
     } else {
       console.error(error);
