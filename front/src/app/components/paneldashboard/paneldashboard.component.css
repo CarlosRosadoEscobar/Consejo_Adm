@@ -456,6 +456,13 @@
 
   }
 
+  .titleUser{
+    color: white;
+    font-size: 25px;
+    margin-top: 10px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+  }
+
   ::ng-deep ngx-charts-advanced-pie-chart {
     width: 100%;
     height: 300px;
@@ -554,6 +561,13 @@
     margin-bottom: 10px;
     justify-content: center
 
+  }
+
+  .titleUser{
+    color: white;
+    font-size: 25px;
+    margin-top: 10px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
   }
 
   ::ng-deep ngx-charts-advanced-pie-chart {
@@ -655,6 +669,13 @@
 
   }
 
+  .titleUser{
+    color: white;
+    font-size: 25px;
+    margin-top: 10px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+  }
+
   ::ng-deep ngx-charts-advanced-pie-chart {
     width: 100%;
     height: 300px;
@@ -670,6 +691,11 @@
 
 
 }
+
+
+@media (max-width: 1199.98px) {}
+
+@media (max-width: 1399.98px) {}
 
 
 
