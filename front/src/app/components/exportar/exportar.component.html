@@ -2,77 +2,88 @@
   <div class="container-fluid menutamaño"></div>
   <div class="container text-center dashboardTitleContainer">
     <div class="row">
-      <div class="card mt-5 tabla">
-        <div class="card-body mt-5 text-center">
-          <span>Documentos</span>
-          <button class="btn btn-success float-end" [routerLink]="['/importar']" routerLinkActive="router-link-active" *ngIf="rolcolaborador == 'admin' || rolcolaborador =='asistente_de_direccion'">Agregar</button>
-          <div class="spinner-container" *ngIf="isLoading">
-            <div class="lds-ring">
-              <div></div>
-              <div></div>
-              <div></div>
-              <div></div>
-            </div>
-          </div>
-          <table class="table table-striped table-hover text-left" *ngIf="listDocumentos.length > 0">
-            <thead>
-              <tr>
-                <th scope="col">Fecha</th>
-                <th scope="col">Documento</th>
-                <th scope="col"></th>
-              </tr>
-            </thead>
-            <tbody>
-              <ng-container *ngFor="let documento of listDocumentos">
-                <tr>
-                  <td>{{documento.fecha | date: 'dd/MM/yyyy'}}</td>
-                  <td>DOCUMENTO</td>
-                  <td>
-                    <i class="fas fa-eye text-info" (click)="obtenerDocumento(documento.id)"></i>
-                    <a href="{{documento.documento}}" download><i class="fas fa-download text-warning"></i></a>
-                  </td>
-                </tr>
-                <tr *ngIf="subfilaVisible[documento.id]">
-                  <td colspan="3"  class="text-center">
-                    <ngx-extended-pdf-viewer #pdfViewer 
-                      [src]="documento.documento.toString()"
-                      
-                     
-                      [showDrawEditor]="true"
-                      [showDownloadButton]="false"
-                      [showFindButton]="false"
-                      [showPresentationModeButton]="true"
-                      [showPagingButtons]="false"
-                      [showOpenFileButton]="false"
-                      [showSidebarButton]="false"
-                      [showStampEditor]="false"
-                      [showTextEditor]="false"
-                      [showSpreadButton]="false"
-                      [showHandToolButton]="false"
-                      [showRotateButton]="false"
-                      [showInfiniteScrollButton]="false"
-                      [contextMenuAllowed]="false"
+<div class="col-sm-0 col-md-0  col-lg-0 "></div>
+  <div class="col-sm-12 col-md-12  col-lg-12 ">
 
-                      [mobileFriendlyZoom]="'100%'"
-                      [showSecondaryToolbarButton]="true"
-
-
- 
-                      
-
-                    >
-                    </ngx-extended-pdf-viewer>
-
-
-                    <button class="btn btn-primary mt-5" (click)="export(documento.id)" *ngIf="mostrarBotonFirma">Guardar firma</button>        
-                  </td>
-                </tr>
-              </ng-container>
-            </tbody>
-          </table>
-          <h5 style="text-align: start;" *ngIf="listDocumentos.length === 0 && !isLoading">No hay documentos para mostrar</h5>
-        </div>
+    <div class="container conTable">
+      <div class="container textTitle">
+        <span>Documentos</span>
       </div>
+      <div class="card-body  text-center">
+        <button class="btn btn-success float-end" [routerLink]="['/importar']" routerLinkActive="router-link-active" *ngIf="rolcolaborador == 'admin' || rolcolaborador =='asistente_de_direccion'">Agregar</button>
+        <div class="spinner-container" *ngIf="isLoading">
+          <div class="lds-ring">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+        </div>
+        <table class="table table-striped table-hover text-left" *ngIf="listDocumentos.length > 0">
+          <thead>
+            <tr>
+              <th scope="col">Fecha</th>
+              <th scope="col">Documento</th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <ng-container *ngFor="let documento of listDocumentos">
+              <tr>
+                <td>{{documento.fecha | date: 'dd/MM/yyyy'}}</td>
+                <td>DOCUMENTO</td>
+                <td>
+                  <i class="fas fa-eye text-info" (click)="obtenerDocumento(documento.id)"></i>
+                  <a href="{{documento.documento}}" download><i class="fas fa-download text-warning"></i></a>
+                </td>
+              </tr>
+              <tr *ngIf="subfilaVisible[documento.id]">
+                <td colspan="3"  class="text-center">
+                  <ngx-extended-pdf-viewer #pdfViewer 
+                    [src]="documento.documento.toString()"
+                    
+                  
+                    [showDrawEditor]="true"
+                    [showDownloadButton]="true"
+                    [showFindButton]="false"
+                    [showPresentationModeButton]="true"
+                    [showPagingButtons]="false"
+                    [showOpenFileButton]="false"
+                    [showSidebarButton]="false"
+                    [showStampEditor]="false"
+                    [showTextEditor]="false"
+                    [showSpreadButton]="false"
+                    [showHandToolButton]="false"
+                    [showRotateButton]="false"
+                    [showInfiniteScrollButton]="false"
+                    [contextMenuAllowed]="false"
+  
+                    [mobileFriendlyZoom]="'100%'"
+                    [showSecondaryToolbarButton]="true"
+  
+  
+  
+                    
+  
+                  >
+                  </ngx-extended-pdf-viewer>
+  
+  
+                  <button class="btn btn-primary mt-5" (click)="export(documento.id)" *ngIf="mostrarBotonFirma">Guardar firma</button>        
+                </td>
+              </tr>
+            </ng-container>
+          </tbody>
+        </table>
+        <h5 style="text-align: start;" *ngIf="listDocumentos.length === 0 && !isLoading">No hay documentos para mostrar</h5>
+      </div>
+
+    </div>
+
+
+
+  </div>
+<div class="col-sm-0 col-md-0  col-lg-0 "></div>
     </div>
   </div>
 </div>
