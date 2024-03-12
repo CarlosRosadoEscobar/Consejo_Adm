@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
 import { UserDataService } from '../../services/user-data.service';
 import { AuthServiceService } from '../../services/auth-service.service';
@@ -7,12 +7,34 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { single } from './data';
 
+import {
+  ChartComponent,
+  ApexAxisChartSeries,
+  ApexChart,
+  ApexXAxis,
+  ApexTitleSubtitle
+} from "ng-apexcharts";
+
+export type ChartOptions = {
+  series: ApexAxisChartSeries;
+  chart: ApexChart;
+  xaxis: ApexXAxis;
+  title: ApexTitleSubtitle;
+};
+
 @Component({
   selector: 'app-panelgraficas',
   templateUrl: './panelgraficas.component.html',
   styleUrls: ['./panelgraficas.component.css']
 })
 export class PanelgraficasComponent {
+  @ViewChild("chart") chart!: ChartComponent;
+  public chartOptions: Partial<ChartOptions>;
+  public splineChartOptions: Partial<ChartOptions>;
+  public polarAreaChartOptions: Partial<ChartOptions>;
+  public horizontalBarChartOptions: Partial<ChartOptions>;
+  public pieChartOptiosns?: Partial<ChartOptions>;
+
 
 
 
@@ -32,6 +54,99 @@ export class PanelgraficasComponent {
     private _authService: AuthServiceService,
     ) {
       Object.assign(this, { single });
+
+      this.chartOptions = {
+        series: [
+          {
+            name: "My-series",
+            data: [10, 41, 35, 51, 49, 62, 69, 91, 148]
+          }
+        ],
+        chart: {
+          height: 350,
+          type: "bar"
+        },
+        title: {
+          text: "GRAFICAS DE BARRAS"
+        },
+        xaxis: {
+          categories: ["Jan", "Feb",  "Mar",  "Apr",  "May",  "Jun",  "Jul",  "Aug", "Sep"]
+        }
+      };
+      this.splineChartOptions = {
+        series: [
+          {
+            name: "Series 1",
+            data: [30, 40, 35, 50, 49, 60, 70, 91, 125]
+          }
+        ],
+        chart: {
+          height: 350,
+          type: "line", // Tipo de gráfico: Spline es un tipo de línea en ApexCharts
+          zoom: {
+            enabled: false
+          }
+        },
+        title: {
+          text: "Gráfico de Spline"
+        },
+        xaxis: {
+          categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep"]
+        }
+      };
+      this.polarAreaChartOptions = {
+        series: [
+          {
+            name: 'Series 1',
+            data: [30, 40, 45, 50, 49, 60, 70, 91]
+          }
+        ],
+        chart: {
+          height: 350,
+          type: "polarArea"
+        },
+        title: {
+          text: "Gráfico de Área Polar"
+        },
+        xaxis: {
+          categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug"]
+        }
+      };
+      this.horizontalBarChartOptions = {
+        series: [
+          {
+            name: "Series 1",
+            data: [44, 55, 41, 67, 22, 43]
+          }
+        ],
+        chart: {
+          type: "bar",
+          height: 350
+        },
+        xaxis: {
+          categories: ['A', 'B', 'C', 'D', 'E', 'F']
+        },
+        title: {
+          text: 'Gráfico de Barras Horizontal'
+        }
+      };
+      this.pieChartOptiosns = {
+        series: [ // Aquí deberías tener un array de objetos
+          {
+            name: "Series 1", // Nombre de la serie
+            data: [44, 55, 13, 43, 22] // Datos de la serie
+          }
+        ],
+        chart: {
+          type: "pie",
+          height: 350
+        },
+        title: {
+          text: "Gráfico de Pastel"
+        }
+      };
+
+
     }
 
 

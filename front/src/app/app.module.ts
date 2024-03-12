@@ -7,6 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxChartsModule }from '@swimlane/ngx-charts';  // graficas
 import { ToastrModule } from 'ngx-toastr';
 import { PanelmodulosComponent } from './components/panelmodulos/panelmodulos.component';
+import { NgApexchartsModule } from 'ng-apexcharts'
 
 // services
 import { HttpClientModule } from '@angular/common/http';
@@ -86,7 +87,8 @@ import { PanelimportarComponent } from './components/panelimportar/panelimportar
     HttpClientModule,
     NgxChartsModule,
     NgxExtendedPdfViewerModule,
-    FormsModule
+    FormsModule,
+    NgApexchartsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

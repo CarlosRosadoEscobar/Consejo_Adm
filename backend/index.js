@@ -126,7 +126,7 @@ app.post('/usuario',
               // console.log("Código codigoSmsString:", codigoSmsString);
 
               
-              await enviarSMS(usuarioValido.Nombre, usuarioValido.Telefono, codigoSms);
+              // await enviarSMS(usuarioValido.Nombre, usuarioValido.Telefono, codigoSms);
               await verifiacionSms(usuarioValido.usuario, fecha, hora,codigoSmsString);
                           
               return res.status(200).json({ mensaje: 'Usuario0' });
@@ -395,9 +395,12 @@ app.post('/mfa-sms', async (req, res) => {
     const horaCoincidente = horaCoincidenteCompleta.getTime();
     const diferenciaMinutos = Math.abs((horaActual - horaCoincidente) / (1000 * 60));
 
+    console.log("horaActual: ",horaActual);
+    console.log("horaCoincidente: ", horaCoincidente);
     console.log("diferenciaMinutos", diferenciaMinutos);
 
     if (diferenciaMinutos <= 5) {
+      console.log("codigoCoincidente.usuario", codigoCoincidente.usuario);
       await cambioEstatusSms(codigoCoincidente.usuario);
       res.status(200).send("Número con coincidencia encontrado para el usuario: " + codigoCoincidente.usuario);
     } else {

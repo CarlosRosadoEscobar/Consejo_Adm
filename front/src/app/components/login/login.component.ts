@@ -111,25 +111,41 @@ export class LoginComponent implements OnInit {
                 this.intentosFallidos = 0;
                 localStorage.setItem('intentosFallidos', this.intentosFallidos.toString());
                 this._userDataService.setUsuario(response.usuario);
+
                 const timestampInicioSesion = new Date().getTime();
                 localStorage.setItem('timestampInicioSesion', timestampInicioSesion.toString());
+
                 let contadorSesiones = localStorage.getItem('contadorSesiones');
                 if (!contadorSesiones) {
                     contadorSesiones = '1';
                 } else {
                     contadorSesiones = (parseInt(contadorSesiones) + 1).toString();
                 }
+
                 const historialInicioSesion = JSON.parse(localStorage.getItem('historialInicioSesion') || '[]');
                 const usuario = response.usuario;
+
                 historialInicioSesion.push({ usuario, timestampInicioSesion });
+
                 localStorage.setItem('historialInicioSesion', JSON.stringify(historialInicioSesion));
                 localStorage.setItem('contadorSesiones', contadorSesiones);
+
                 this.router.navigate(['inicio']);
             }
             else if(response.mensaje === 'Usuario0'){
               console.log("usuario 0");
               this.router.navigate(['verificacion']);
             }
+
+            /*
+
+            mira tengo mi componente en angular
+            y quiero tengo
+
+            */
+
+
+
         },
         error => {
             if (error.status === 401) {
@@ -171,11 +187,7 @@ export class LoginComponent implements OnInit {
                       console.error('Error al bloquear usuario:', error);
                     }
                   );
-                }
-
-
-
-                else if (this.intentosFallidos >= 3 && !this.bloqueadoIndefinido) {
+                } else if (this.intentosFallidos >= 3 && !this.bloqueadoIndefinido) {
                     console.log('Se han producido tres intentos fallidos.');
                     this.bloquearCampos();
                 } else {
@@ -201,7 +213,7 @@ export class LoginComponent implements OnInit {
       this.bloqueoEjecutado = true;
       this.bloqueoActivo = true;
       this.usuarioForm.disable();
-      const tiempoTotal = 0.1 * 60;
+      const tiempoTotal = 5 * 60; //minutos de espera
       this.segundosRestantes = tiempoTotal;
       const intervalo = setInterval(() => {
         this.segundosRestantes--;
