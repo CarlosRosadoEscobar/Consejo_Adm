@@ -4,8 +4,42 @@
   left: 0;
   width: 100%;
   height: 100%;
-  /* background-image: radial-gradient(circle, #beaa76, #c0ac7b, #c2af81, #c3b186, #c5b48c, #c1b08a, #bcad88, #b8a986, #ad9f7d, #a19473, #968a6a, #8b8061); */
-  background-image: radial-gradient(circle, #1a1a1a, #171717, #131313, #0e0e0e, #080808, #080808, #080808, #080808, #0e0e0e, #131313, #171717, #1a1a1a);
+  /* background-image: radial-gradient(circle, #1a1a1a, #171717, #131313, #0e0e0e, #080808, #080808, #080808, #080808, #0e0e0e, #131313, #171717, #1a1a1a); */
+
+  /* background-color: #111111;
+  background-image: linear-gradient(
+    32deg,
+    rgba(8, 8, 8, 0.74) 30px,
+    transparent
+  );
+  background-size: 60px 60px;
+  background-position: -5px -5px;
+ */
+
+
+  background: #000000;
+  --gap: 5em;
+  --line: 1px;
+  --color: rgba(255, 255, 255, 0.2);
+
+  background-image: linear-gradient(
+      -90deg,
+      transparent calc(var(--gap) - var(--line)),
+      var(--color) calc(var(--gap) - var(--line) + 1px),
+      var(--color) var(--gap)
+    ),
+    linear-gradient(
+      0deg,
+      transparent calc(var(--gap) - var(--line)),
+      var(--color) calc(var(--gap) - var(--line) + 1px),
+      var(--color) var(--gap)
+    );
+  background-size: var(--gap) var(--gap);
+
+
+
+
+
   z-index: -1;
 }
 
