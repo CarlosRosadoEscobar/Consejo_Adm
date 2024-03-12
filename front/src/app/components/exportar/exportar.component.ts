@@ -30,7 +30,10 @@ export class ExportarComponent {
       // Convertir la cadena JSON a un objeto JavaScript
       const usuario = JSON.parse(usuariorol);
       // Acceder a la propiedad 'id_colaborador'
-      this.rolcolaborador = usuario.rol;
+      this.rolcolaborador = usuario.role;
+
+      console.log(this.rolcolaborador);
+      
       
     } else {
       console.error('El valor almacenado en localStorage es nulo.');

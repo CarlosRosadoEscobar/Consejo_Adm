@@ -6,7 +6,8 @@ export const environment = {
 };
 
 // environment.prod.ts
-// export const environment = {
-//   production: true,
-//   apiUrl: 'http://10.10.10.146:3000',
-// };
+/* export const environment = {
+  production: true,
+  apiUrl: 'http://10.10.10.52:3000',
+};
+ */
