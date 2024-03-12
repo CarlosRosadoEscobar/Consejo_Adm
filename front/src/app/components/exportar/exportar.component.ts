@@ -1,9 +1,11 @@
+import { UserDataService } from './../../services/user-data.service';
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Documentos } from 'src/app/models/documentos';
 import { PdfService } from 'src/app/services/pdf.service';
 import { ToastrService } from 'ngx-toastr';
 import { NgxExtendedPdfViewerService } from 'ngx-extended-pdf-viewer';
 import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-exportar',
   templateUrl: './exportar.component.html',
@@ -15,13 +17,19 @@ export class ExportarComponent {
   subfilaVisible: { [key: number]: boolean } = {};
   isLoading: boolean = true; // Variable para indicar si la carga está en curso
   mostrarBotonFirma: boolean = false; // Nueva propiedad
-  
-  constructor(private _documentoService: PdfService,  private router : Router , private pdfViewerService: NgxExtendedPdfViewerService, private toastr: ToastrService) {}
+
+  constructor(
+    private _documentoService: PdfService,
+    private router : Router ,
+    private pdfViewerService: NgxExtendedPdfViewerService,
+    private toastr: ToastrService,
+    private _obtenerRol: UserDataService,
+    ) {}
 
   ngOnInit(): void {
     this.obtenerDocumentos();
   }
-  
+
   obtenerDocumentos() {
     this.isLoading = true; // Inicia el spinner
     this._documentoService.obtenerDocumentos().subscribe(data => {
@@ -32,7 +40,7 @@ export class ExportarComponent {
       this.isLoading = false;
     });
   }
-  
+
   idcolaborador: string | null = null;
 
   obtenerDocumento(id: number): void {
@@ -69,7 +77,7 @@ export class ExportarComponent {
         }
       }
     });
-  
+
     if (this.subfilaVisible[id]) {
       this.subfilaVisible[id] = false;
     } else {
@@ -79,9 +87,9 @@ export class ExportarComponent {
       this.subfilaVisible[id] = true;
     }
   }
-  
 
-  
+
+
  /*  obtenerDocumento(id: number): void {
     const usuarioString = localStorage.getItem('usuario');
     // Verificar si usuarioString no es nulo antes de intentar analizarlo
@@ -93,7 +101,7 @@ export class ExportarComponent {
     } else {
       console.error('El valor almacenado en localStorage es nulo.');
     }
-    
+
     this._documentoService.obtenerDocumento(id).subscribe(data => {
       console.log(JSON.stringify(data));
       for (const objeto of data) {
@@ -122,7 +130,7 @@ export class ExportarComponent {
   } */
 
   public blob: Blob | undefined;
-  
+
   /* public async export(id: number): Promise<void> {
     try {
       this.blob = await this.pdfViewerService.getCurrentDocumentAsBlob();
@@ -162,11 +170,11 @@ export class ExportarComponent {
       this.blob = await this.pdfViewerService.getCurrentDocumentAsBlob();
       const base64String = await this.blobToBase64(this.blob);
       const usuarioS = localStorage.getItem('usuario');
-  
+
       if (usuarioS) {
         const usuario = JSON.parse(usuarioS);
         const nombre = usuario.Nombre;
-  
+
         const DOCUMENTOS: Documentos = {
           id: id,
           documento: base64String,
@@ -174,27 +182,27 @@ export class ExportarComponent {
           usuario: nombre,
           socios_firmas: '' // Debes actualizar esta propiedad con el JSON actualizado
         };
-  
+
         // Obtener el documento del servicio
         this._documentoService.obtenerDocumento(id).subscribe(data => {
           for (const objeto of data) {
             const sociosFirmas = JSON.parse(objeto.socios_firmas);
-  
+
             // Buscar el objeto con id_colaborador coincidente
             const socioEncontrado = sociosFirmas.find((socio: any) => socio.id_colaborador === this.idcolaborador);
-  
+
             if (socioEncontrado) {
               console.log('Socio encontrado:', socioEncontrado);
-  
+
               // Actualizar el estado de la firma en el JSON del socio
               socioEncontrado.firma = 'Si';
-  
+
               // Convertir la matriz de socios_firmas a una cadena JSON actualizada
               DOCUMENTOS.socios_firmas = JSON.stringify(sociosFirmas);
 
               console.log(DOCUMENTOS);
-              
-  
+
+
               // Realizar la operación de firmado
               this._documentoService.firmarDocumento(id, DOCUMENTOS).subscribe(
                 (respuesta) => {
@@ -219,9 +227,9 @@ export class ExportarComponent {
       console.error('Error al exportar el PDF como Blob:', error);
     }
   }
-  
 
-  
+
+
   private async blobToBase64(blob: Blob): Promise<string> {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
