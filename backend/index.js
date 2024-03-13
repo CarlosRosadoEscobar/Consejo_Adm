@@ -592,3 +592,41 @@ app.get('/usuarios', async (req, res) =>{
 app.listen(PORT, () => {
   console.log(`El servidor ha sido iniciado en http://localhost:${PORT}`);
 });
+
+
+/* 
+ahora puese npm i  otra vez y me sale esto:
+
+npm ERR! code ERESOLVE
+npm ERR! ERESOLVE could not resolve
+npm ERR!
+npm ERR! While resolving: @sbb-esta/angular-core@12.4.0
+npm ERR! Found: @angular/cdk@17.2.2
+npm ERR! node_modules/@angular/cdk
+npm ERR!   @angular/cdk@"^17.2.2" from the root project
+npm ERR!   peer @angular/cdk@">=12.0.0" from @swimlane/ngx-charts@20.5.0
+npm ERR!   node_modules/@swimlane/ngx-charts
+npm ERR!     @swimlane/ngx-charts@"^20.5.0" from the root project
+npm ERR!
+npm ERR! Could not resolve dependency:
+npm ERR! peer @angular/cdk@"^12.0.0-0" from @sbb-esta/angular-core@12.4.0
+npm ERR! node_modules/@sbb-esta/angular-core
+npm ERR!   @sbb-esta/angular-core@"^12.4.0" from the root project
+npm ERR!
+npm ERR! Conflicting peer dependency: @angular/cdk@12.2.13
+npm ERR! node_modules/@angular/cdk
+npm ERR!   peer @angular/cdk@"^12.0.0-0" from @sbb-esta/angular-core@12.4.0
+npm ERR!   node_modules/@sbb-esta/angular-core
+npm ERR!     @sbb-esta/angular-core@"^12.4.0" from the root project
+npm ERR!
+npm ERR! Fix the upstream dependency conflict, or retry
+npm ERR! this command with --force or --legacy-peer-deps
+npm ERR! to accept an incorrect (and potentially broken) dependency resolution.
+npm ERR!
+npm ERR!
+npm ERR! For a full report see:
+npm ERR! C:\Users\AngelGonzalezCruz\AppData\Local\npm-cache\_logs\2024-03-13T00_11_46_858Z-eresolve-report.txt
+
+npm ERR! A complete log of this run can be found in: C:\Users\AngelGonzalezCruz\AppData\Local\npm-cache\_logs\2024-03-13T00_11_46_858Z-debug-0.log
+
+*/
