@@ -60,6 +60,6 @@
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
     "pdf-annotate": "^0.0.0",
-    "typescript": "^5.4.2"
+    "typescript": ">=5.2.0 and <5.4.0"
   }
 }
