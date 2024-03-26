@@ -2,6 +2,8 @@ import { Component, OnInit, HostListener } from '@angular/core';
 import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
 import { UserDataService } from '../../services/user-data.service';
 import { AuthServiceService } from '../../services/auth-service.service';
+import * as ApexCharts from 'apexcharts';
+import { ChartOptions } from './chart.interface';
 
 
 import { single, multi, paises, countrys } from './data';
@@ -13,9 +15,10 @@ import { single, multi, paises, countrys } from './data';
 })
 export class PaneldashboardComponent implements OnInit {
 
+  chartOptions: ChartOptions;
+
   data: any[] = [];
 
-  /* *************************Grafica 1*********************************++ */
   single =[];
   view: [number,number] = [1000, 300];
 
@@ -26,36 +29,6 @@ export class PaneldashboardComponent implements OnInit {
   isDoughnut: boolean = false;
 
 
-   /* ************************Grafica 2*************************** */
-
-  //  multi =[];
-  //  view_multi: [number,number] = [1000,500];
-
-  //  // options
-  //  legend: boolean = true;
-  //  showLabelss: boolean = true;
-  //  animations: boolean = true;
-  //  xAxis: boolean = true;
-  //  yAxis: boolean = true;
-  //  showYAxisLabel: boolean = true;
-  //  showXAxisLabel: boolean = true;
-  //  xAxisLabel: string = 'Year';
-  //  yAxisLabel: string = 'Population';
-  //  timeline: boolean = true;
-
-
- /* ***********************grafica 3 **************************** */
-
-//  paises = [];
-//  views_a: [number,number] = [900, 500];
-
-//   // options
-//   showLegends: boolean = true;
-//   showLabelsss: boolean = true;
-
-
-
-
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -63,17 +36,8 @@ export class PaneldashboardComponent implements OnInit {
     private _authService: AuthServiceService,
     ) {
       Object.assign(this, { single, multi, paises });
+      this.chartOptions = {} as ChartOptions;
     }
-
-/* ***********************grafica 4 **************************** */
-
-// countrys = [];
-// views_b: [number,number] = [500, 500];
-
-// // options
-// showXAxis: boolean = true;
-// showYAxis: boolean = true;
-
 
   onSelect(data: any): void {
     console.log('Item clicked', JSON.parse(JSON.stringify(data)));
@@ -90,18 +54,80 @@ export class PaneldashboardComponent implements OnInit {
 
 
   ngOnInit(): void {
+
+    this.chartOptions = {
+      chart: {
+        height: "100%",
+        maxWidth: "100%",
+        type: "area",
+        fontFamily: "Inter, sans-serif",
+        dropShadow: {
+          enabled: false,
+        },
+        toolbar: {
+          show: false,
+        },
+      },
+      tooltip: {
+        enabled: true,
+        x: {
+          show: false,
+        },
+      },
+      fill: {
+        type: "gradient",
+        gradient: {
+          opacityFrom: 0.55,
+          opacityTo: 0,
+          shade: "#1C64F2",
+          gradientToColors: ["#1C64F2"],
+        },
+      },
+      dataLabels: {
+        enabled: false,
+      },
+      stroke: {
+        width: 6,
+      },
+      grid: {
+        show: false,
+        strokeDashArray: 4,
+        padding: {
+          left: 2,
+          right: 2,
+          top: 0
+        },
+      },
+      series: [
+        {
+          name: "New users",
+          data: [6500, 6418, 6456, 6526, 6356, 6456],
+          color: "#1A56DB",
+        },
+      ],
+      xaxis: {
+        categories: ['01 February', '02 February', '03 February', '04 February', '05 February', '06 February', '07 February'],
+        labels: {
+          show: false,
+        },
+        axisBorder: {
+          show: false,
+        },
+        axisTicks: {
+          show: false,
+        },
+      },
+      yaxis: {
+        show: false,
+      },
+    };
+    if (document.getElementById("area-chart") && typeof ApexCharts !== 'undefined') {
+      const chart = new ApexCharts(document.getElementById("area-chart"), this.chartOptions);
+      chart.render();
+    }
+
   }
 
 
 }
 
-
-/*
-
-ahora en la parte del view
-view: [number,number] = [1000, 250];
-
-quiero cambiar el valor pero desde css con mis breack points
-
-
-*/
