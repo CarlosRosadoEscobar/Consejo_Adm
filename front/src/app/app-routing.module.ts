@@ -18,17 +18,20 @@ import { PanelgraficasComponent } from './components/panelgraficas/panelgraficas
 import { ImportarComponent } from './components/importar/importar.component';
 import { ExportarComponent } from './components/exportar/exportar.component';
 import { SlidebarComponent } from './components/slidebar/slidebar.component';
+import { authGuard } from './guards/auth.guard'; // Importa tu guardia de rutas
+
 
 const routes: Routes = [
   //! VERIFICACION
   {path:''               ,component:LoginComponent},
   {path:'login'          ,component:LoginComponent},
-  {path:'verificacion'   ,component:MfaComponent},
+  {path:'verificacion'   ,component:MfaComponent,canActivate: [authGuard]},
 
   //! PANELES
   {
     path: 'inicio',
     component:SlidebarComponent,
+    canActivate: [authGuard],
     children: [
       { path: '', component: PaneldashboardComponent },
     ]
@@ -36,6 +39,7 @@ const routes: Routes = [
   {
     path: 'modulos',
     component:SlidebarComponent,
+    canActivate: [authGuard],
     children: [
       { path: '', component: PanelmodulosComponent },
     ]
@@ -43,6 +47,7 @@ const routes: Routes = [
   {
     path: 'graficas',
     component:SlidebarComponent,
+    canActivate: [authGuard],
     children: [
       { path: '', component: PanelgraficasComponent },
     ]
@@ -50,6 +55,7 @@ const routes: Routes = [
   {
     path: 'exportar',
     component:SlidebarComponent,
+    canActivate: [authGuard],
     children: [
       { path: '', component: ExportarComponent },
     ]
@@ -57,6 +63,7 @@ const routes: Routes = [
   {
     path: 'importar',
     component:SlidebarComponent,
+    canActivate: [authGuard],
     children: [
       { path: '', component: ImportarComponent },
     ]
@@ -64,6 +71,7 @@ const routes: Routes = [
   {
     path: 'visualizar/:id',
     component:SlidebarComponent,
+    canActivate: [authGuard],
     children: [
       { path: '', component: VisualizarComponent },
     ]
@@ -76,15 +84,79 @@ const routes: Routes = [
   // {path:'visualizar/:id' ,component:VisualizarComponent},
 
   //! MODULOS
-  {path:'admfin'         ,component:AdministracionFinanzasComponent },
-  {path:'caez'           ,component:CaezComponent },
-  {path:'comercial'      ,component:ComercialComponent },
-  {path:'operaciones'    ,component:OperacionesComponent },
-  {path:'jurnormativo'   ,component:JuridicoNormativoComponent},
-  {path:'jurcorporativo' ,component:JuridicoCorporativoComponent },
-  {path:'pp'             ,component:PpComponent},
-  {path:'rrhh'           ,component:RrhhComponent},
-  {path:'ti'             ,component:TiComponent},
+  {
+    path: 'modulos',
+    component:SlidebarComponent,
+    children: [
+      { path: 'admfin', component: AdministracionFinanzasComponent },
+    ]
+  },
+  {
+    path: 'modulos',
+    component:SlidebarComponent,
+    children: [
+      { path: 'caez', component: CaezComponent },
+    ]
+  },
+  {
+    path: 'modulos',
+    component:SlidebarComponent,
+    children: [
+      { path: 'comercial', component: ComercialComponent },
+    ]
+  },
+  {
+    path: 'modulos',
+    component:SlidebarComponent,
+    children: [
+      { path: 'operaciones', component: OperacionesComponent },
+    ]
+  },
+  {
+    path: 'modulos',
+    component:SlidebarComponent,
+    children: [
+      { path: 'jurnormativo', component: JuridicoNormativoComponent },
+    ]
+  },
+  {
+    path: 'modulos',
+    component:SlidebarComponent,
+    children: [
+      { path: 'jurcorporativo', component: JuridicoCorporativoComponent },
+    ]
+  },
+  {
+    path: 'modulos',
+    component:SlidebarComponent,
+    children: [
+      { path: 'pp', component: PpComponent },
+    ]
+  },
+  {
+    path: 'modulos',
+    component:SlidebarComponent,
+    children: [
+      { path: 'rrhh', component: RrhhComponent },
+    ]
+  },
+  {
+    path: 'modulos',
+    component:SlidebarComponent,
+    children: [
+      { path: 'ti', component: TiComponent },
+    ]
+  },
+
+  // {path:'admfin'         ,component:AdministracionFinanzasComponent },
+  // {path:'caez'           ,component:CaezComponent },
+  // {path:'comercial'      ,component:ComercialComponent },
+  // {path:'operaciones'    ,component:OperacionesComponent },
+  // {path:'jurnormativo'   ,component:JuridicoNormativoComponent},
+  // {path:'jurcorporativo' ,component:JuridicoCorporativoComponent },
+  // {path:'pp'             ,component:PpComponent},
+  // {path:'rrhh'           ,component:RrhhComponent},
+  // {path:'ti'             ,component:TiComponent},
 ];
 
 @NgModule({
