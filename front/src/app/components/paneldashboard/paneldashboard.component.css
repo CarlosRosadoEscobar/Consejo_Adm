@@ -223,7 +223,7 @@
 /* ########################## */
 
 .TItleCon{
-  background-color: rgba(255, 255, 255, 0.13);
+  background-color: black;
   margin-top: 10px;
   margin-right: 10px;
   margin-left: 10px;
@@ -233,10 +233,11 @@
   justify-content: center;
   align-items: stretch;
   border-radius: 30px;
+  border: 1px solid white;
 }
 
-.graficasConAdvancedpie,.InfoCon, .userCon, .tableCon, .accecsoRapidoCon{
-  background-color: rgba(255, 255, 255, 0.13);
+.graficasConAdvancedpie,.InfoCon, .userCon, .tableCon, .accecsoRapidoCon, .grafica2{
+  background-color: black;
   margin-top: 10px;
   margin-right: 10px;
   margin-left: 10px;
@@ -246,6 +247,7 @@
   align-items: center;
   justify-content: center;
   border-radius: 30px;
+  border: 1px solid white;
 }
 
 .verDocumentoCon{
