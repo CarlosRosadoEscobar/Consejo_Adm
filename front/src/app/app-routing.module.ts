@@ -19,6 +19,7 @@ import { ImportarComponent } from './components/importar/importar.component';
 import { ExportarComponent } from './components/exportar/exportar.component';
 import { SlidebarComponent } from './components/slidebar/slidebar.component';
 import { authGuard } from './guards/auth.guard'; // Importa tu guardia de rutas
+import { UsuariosComponent } from './components/usuarios/usuarios.component';
 
 
 const routes: Routes = [
@@ -31,7 +32,6 @@ const routes: Routes = [
   {
     path: 'inicio',
     component:SlidebarComponent,
-    canActivate: [authGuard],
     children: [
       { path: '', component: PaneldashboardComponent },
     ]
@@ -39,7 +39,6 @@ const routes: Routes = [
   {
     path: 'modulos',
     component:SlidebarComponent,
-    canActivate: [authGuard],
     children: [
       { path: '', component: PanelmodulosComponent },
     ]
@@ -47,7 +46,6 @@ const routes: Routes = [
   {
     path: 'graficas',
     component:SlidebarComponent,
-    canActivate: [authGuard],
     children: [
       { path: '', component: PanelgraficasComponent },
     ]
@@ -55,7 +53,6 @@ const routes: Routes = [
   {
     path: 'exportar',
     component:SlidebarComponent,
-    canActivate: [authGuard],
     children: [
       { path: '', component: ExportarComponent },
     ]
@@ -63,7 +60,6 @@ const routes: Routes = [
   {
     path: 'importar',
     component:SlidebarComponent,
-    canActivate: [authGuard],
     children: [
       { path: '', component: ImportarComponent },
     ]
@@ -71,11 +67,19 @@ const routes: Routes = [
   {
     path: 'visualizar/:id',
     component:SlidebarComponent,
-    canActivate: [authGuard],
     children: [
       { path: '', component: VisualizarComponent },
     ]
   },
+  {
+    path: 'usuarios',
+    component:SlidebarComponent,
+    children: [
+      { path: '', component: UsuariosComponent },
+    ]
+  },
+
+  // usuarios
 
   // {path:'modulos'        ,component:PanelmodulosComponent},
   // {path:'graficas'       ,component:PanelgraficasComponent},
