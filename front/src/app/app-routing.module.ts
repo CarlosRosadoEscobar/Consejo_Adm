@@ -18,15 +18,17 @@ import { PanelgraficasComponent } from './components/panelgraficas/panelgraficas
 import { ImportarComponent } from './components/importar/importar.component';
 import { ExportarComponent } from './components/exportar/exportar.component';
 import { SlidebarComponent } from './components/slidebar/slidebar.component';
-import { authGuard } from './guards/auth.guard'; // Importa tu guardia de rutas
 import { UsuariosComponent } from './components/usuarios/usuarios.component';
 
+import { authGuard } from './guards/auth.guard';
+
+// canActivate: [authGuard]
 
 const routes: Routes = [
   //! VERIFICACION
   {path:''               ,component:LoginComponent},
   {path:'login'          ,component:LoginComponent},
-  {path:'verificacion'   ,component:MfaComponent,canActivate: [authGuard]},
+  {path:'verificacion'   ,component:MfaComponent},
 
   //! PANELES
   {
@@ -151,6 +153,10 @@ const routes: Routes = [
       { path: 'ti', component: TiComponent },
     ]
   },
+
+
+  //! PANELES CENTRALES
+
 
   // {path:'admfin'         ,component:AdministracionFinanzasComponent },
   // {path:'caez'           ,component:CaezComponent },
