@@ -41,6 +41,7 @@
     "pako": "^2.1.0",
     "pdf-lib": "^1.17.1",
     "pdfjs-dist": "^4.0.379",
+    "preline": "^2.0.3",
     "rxjs": "~7.8.1",
     "signature_pad": "^4.2.0",
     "tslib": "^2.6.2",
