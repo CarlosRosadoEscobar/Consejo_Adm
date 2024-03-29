@@ -1,0 +1,50 @@
+<div class="sidebar" [ngClass]="{ 'open': isSidebarOpen }">
+
+  <!-- HEAD SLIDERBAR -->
+  <div class="logo-details">
+    <div class="imgMenu" [ngClass]="{ 'd-none': !isSidebarOpen }">
+      <img src="../../../assets/images/letra-z-2.png" alt="">
+    </div>
+    <div class="logo_name" [ngClass]="{ 'd-none': !isSidebarOpen }">Panel Zascita</div>
+    <i class="bx bx-menu" (click)="toggleSidebar()" id="btn"></i>
+  </div>
+
+  <!-- BODY SLIDERBAR -->
+  <ul class="nav-list">
+    <!-- BUSCAR -->
+    <li>
+      <i class="bx bx-search"></i>
+      <input type="text" placeholder="Buscar..." />
+      <span class="tooltip">Buscar</span>
+    </li>
+
+    <!-- DASBOARD/INICIO -->
+    <li *ngFor="let item of menuItems">
+    <a [routerLink]="item.routerLink">
+      <i class="{{ item.iconClass }}"></i>
+      <span class="links_name">{{ item.label }}</span>
+    </a>
+    <span class="tooltip">{{ item.label }}</span>
+    </li>
+
+    <!-- INFO USUARIO -->
+    <li class="profile">
+      <div class="profile-details">
+        <img src="../../../assets/images/profile.jpg" alt="profileImg" />
+        <div class="name_job" *ngIf="usuario">
+          <div class="name">{{ primerNombre  }} {{ primerApellido }}</div>
+          <div class="job">{{ usuario.Puesto }}</div>
+        </div>
+      </div>
+      <i class="bx bx-log-out" id="log_out" (click)="logout()"></i>
+    </li>
+  </ul>
+
+</div>
+
+<!-- PANELES -->
+<section class="home-section">
+  <router-outlet></router-outlet>
+</section>
+
+
