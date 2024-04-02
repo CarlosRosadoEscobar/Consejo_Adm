@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterLink, RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './components/login/login.component';
 import { ComercialComponent } from './components/comercial/comercial.component';
 import { AdministracionFinanzasComponent } from './components/administracion-finanzas/administracion-finanzas.component';
@@ -21,6 +21,9 @@ import { SlidebarComponent } from './components/slidebar/slidebar.component';
 import { UsuariosComponent } from './components/usuarios/usuarios.component';
 
 import { authGuard } from './guards/auth.guard';
+import { DocumentosfirmadosComponent } from './components/documentosfirmados/documentosfirmados.component';
+import { DocumentosinfirmarComponent } from './components/documentosinfirmar/documentosinfirmar.component';
+import { DocumentostodosComponent } from './components/documentostodos/documentostodos.component';
 
 // canActivate: [authGuard]
 
@@ -78,6 +81,28 @@ const routes: Routes = [
     component:SlidebarComponent,
     children: [
       { path: '', component: UsuariosComponent },
+    ]
+  },
+  {
+    path: 'documentos',
+    component:SlidebarComponent,
+    children: [
+      { path: '', component: DocumentostodosComponent },
+    ]
+  },
+  {
+    path: 'documentos',
+    component:SlidebarComponent,
+    children: [
+      { path: 'firmados', component: DocumentosfirmadosComponent },
+    ]
+  },
+
+  {
+    path: 'documentos',
+    component:SlidebarComponent,
+    children: [
+      { path: 'sinfirmar', component: DocumentosinfirmarComponent },
     ]
   },
 
@@ -153,9 +178,6 @@ const routes: Routes = [
       { path: 'ti', component: TiComponent },
     ]
   },
-
-
-  //! PANELES CENTRALES
 
 
   // {path:'admfin'         ,component:AdministracionFinanzasComponent },

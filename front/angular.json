@@ -19,7 +19,8 @@
             "allowedCommonJsDependencies": [
               "lodash",
               "apexcharts",
-              "rfdc"
+              "rfdc",
+              "pdfjs-dist"
             ],
             "polyfills": [
               "zone.js"
@@ -48,7 +49,9 @@
             "scripts": [
               "./node_modules/apexcharts/dist/apexcharts.min.js",
               "./node_modules/bootstrap/dist/js/bootstrap.min.js",
-              "node_modules/preline/preline.js"
+              "./node_modules/preline/preline.js",
+              "./node_modules/pdfjs-dist/build/pdf.js",
+              "./node_modules/pdfjs-dist/build/pdf.worker.js"
             ]
           },
           "configurations": {
