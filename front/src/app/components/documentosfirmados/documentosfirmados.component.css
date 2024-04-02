@@ -1,0 +1,110 @@
+.menutamaño {
+  width: 100%;
+  height: 10px;
+}
+
+.panelModulo {
+  background: #000000;
+  --gap: 5em;
+  --line: 1px;
+  --color: rgba(255, 255, 255, 0.2);
+
+  background-image: linear-gradient(-90deg,
+      transparent calc(var(--gap) - var(--line)),
+      var(--color) calc(var(--gap) - var(--line) + 1px),
+      var(--color) var(--gap)),
+    linear-gradient(0deg,
+      transparent calc(var(--gap) - var(--line)),
+      var(--color) calc(var(--gap) - var(--line) + 1px),
+      var(--color) var(--gap));
+  background-size: var(--gap) var(--gap);
+
+  width: 100%;
+  padding-bottom: 20px;
+  height: auto;
+}
+
+.TItleCon {
+  background-color: black;
+  margin-top: 10px;
+  margin-right: 10px;
+  margin-left: 10px;
+  margin-bottom: 10px;
+  height: 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+  border-radius: 30px;
+  border: 1px solid white;
+}
+
+.busquedaDocuementos,
+.visualizacionDocumentos {
+  background-color: black;
+  border: 1px solid white;
+  border-radius: 20px;
+  margin-left: 15px;
+  margin-right: 15px;
+  margin-bottom: 10px;
+  height: auto;
+}
+
+.busqueda {
+  margin: 10px 10px 10px 10px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.busquedaBody {
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+  height: 70px;
+  justify-content: space-between;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  padding: 10px 10px;
+
+}
+
+.documentos {
+  height: auto;
+  margin: 10px 10px 0px 10px;
+  padding: 10px 0px 10px 0px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.pdfCon {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: stretch;
+}
+
+.cardPdf {
+  width: 322px;
+  height: auto;
+  margin: 0px 0px 10px 10px;
+}
+
+.filtros {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+
+.busquedaBodyInput {
+  width: 30%;
+}

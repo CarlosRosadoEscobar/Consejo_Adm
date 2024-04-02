@@ -1,6 +1,5 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnDestroy } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -8,7 +7,7 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './panelmodulos.component.html',
   styleUrls: ['./panelmodulos.component.css']
 })
-export class PanelmodulosComponent {
+export class PanelmodulosComponent implements OnDestroy {
 
   modulos = [
     {"id": 1, "name":"Comercial",                 "Url":"comercial"},
@@ -22,9 +21,21 @@ export class PanelmodulosComponent {
     {"id": 9, "name":"PP",                        "Url":"pp"},
   ];
 
-  constructor(private route: ActivatedRoute, private router: Router) {}
-
+  constructor(private route: ActivatedRoute, private router: Router) {
+    const pageReloaded = localStorage.getItem('pageReloaded');
+    if (!pageReloaded) {
+      localStorage.setItem('pageReloaded', 'true');
+      window.location.reload();
+    }
+  }
   ngOnInit(): void {
+
+    const pageReloaded = localStorage.getItem('pageReloaded');
+    if (!pageReloaded) {
+      localStorage.setItem('pageReloaded', 'true');
+      window.location.reload();
+    }
+
     const sidebar   = document.querySelector('.sidebar');
     const closeBtn  = document.querySelector('#btn');
     const searchBtn = document.querySelector('.bx-search');
@@ -78,6 +89,9 @@ export class PanelmodulosComponent {
     }
   }
 
+  ngOnDestroy(): void {
+    localStorage.removeItem('pageReloaded');
+  }
   oneSelect(modulo: any) {
     console.log('Módulo seleccionado:', modulo);
     this.router.navigate(['/modulos', modulo.Url]);
