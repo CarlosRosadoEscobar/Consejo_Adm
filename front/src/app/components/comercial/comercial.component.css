@@ -21,7 +21,7 @@
 
   width: 100%;
   padding-bottom: 20px;
-  height: 100vh;
+  height: auto;
 }
 
 .TItleCon {
@@ -36,4 +36,16 @@
   align-items: stretch;
   border-radius: 30px;
   border: 1px solid white;
+}
+
+.opcionesCon{
+  margin-top: 10px;
+  margin-right: 10px;
+  margin-left: 10px;
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+  border-radius: 30px;
 }
