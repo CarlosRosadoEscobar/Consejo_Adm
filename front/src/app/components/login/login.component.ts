@@ -5,6 +5,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, NavigationExtras,ActivatedRoute,RouterStateSnapshot } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { authGuard } from '../../guards/auth.guard';
 
 @Component({
   selector: 'app-login',
@@ -43,6 +44,7 @@ export class LoginComponent implements OnInit {
     private _AuthService: AuthServiceService,
     private route: ActivatedRoute,
     private _userDataService: UserDataService,
+    private authGuard: authGuard
   )
   {
     this.usuarioForm = fb.group({
@@ -130,20 +132,16 @@ export class LoginComponent implements OnInit {
                 localStorage.setItem('historialInicioSesion', JSON.stringify(historialInicioSesion));
                 localStorage.setItem('contadorSesiones', contadorSesiones);
 
+                console.log("usuario 1");
+                this._AuthService.loginSuccess();
                 this.router.navigate(['inicio']);
+
             }
             else if(response.mensaje === 'Usuario0'){
               console.log("usuario 0");
               this.router.navigate(['verificacion']);
+              this._AuthService.loginSuccess();
             }
-
-            /*
-
-            mira tengo mi componente en angular
-            y quiero tengo
-
-            */
-
 
 
         },

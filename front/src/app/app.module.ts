@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { RouterModule } from '@angular/router';
+
 
 //! Animaciones
 import { CommonModule } from '@angular/common';
@@ -65,6 +67,7 @@ import { SlidebarComponent } from './components/slidebar/slidebar.component';
     ReactiveFormsModule,
     CommonModule,
     BrowserAnimationsModule,
+    RouterModule,
     ToastrModule.forRoot(),
     HttpClientModule,
     NgxChartsModule,
