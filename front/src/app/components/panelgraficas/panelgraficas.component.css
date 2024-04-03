@@ -1,17 +1,9 @@
+.menutamaño{
+  width: 100%;
+  height: 10px;
+}
+
 .panelModulo{
-  /* background-image: radial-gradient(circle, #1a1a1a, #171717, #131313, #0e0e0e, #080808, #080808, #080808, #080808, #0e0e0e, #131313, #171717, #1a1a1a); */
-
-    /* background-color: #111111;
-  background-image: linear-gradient(
-    32deg,
-    rgba(8, 8, 8, 0.74) 30px,
-    transparent
-  );
-  background-size: 60px 60px;
-  background-position: -5px -5px;
- */
-
-
  background: #000000;
  --gap: 5em;
  --line: 1px;
@@ -31,176 +23,70 @@
    );
  background-size: var(--gap) var(--gap);
 
-
-
   width: 100%;
   padding-bottom: 20px;
+  height: auto;
 }
 
-/* Menu Top */
-.menutamaño{
-  width: 100%;
-  height: 60px;
-}
-
-/* MENU TITLE */
-.dashboardTitleContainer {
+.TItleCon{
   background-color: black;
-  width: 100%;
+  margin-top: 10px;
+  margin-right: 10px;
+  margin-left: 10px;
+  height: 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+  border-radius: 30px;
+  border: 1px solid white;
+}
+
+.graficasCon{
+  background-color: black;
+  border: 1px solid white;
+  border-radius: 30px;
   height: auto;
   margin-top: 10px;
+  margin-left: 15px;
+  margin-right: 15px;
 
-  font-family:Verdana, Geneva, Tahoma, sans-serif;
-  color: white;
 }
 
-/* DASHBOARD */
-.dashboardContainer {
-  background-color: violet;
-  width: 100%;
-  height: 300px;
+.graficasflex2{
+  background-color: black;
+  border: 1px solid white;
+  border-radius: 30px;
+  height: auto;
   margin-top: 10px;
+  margin-left: 15px;
+  margin-right: 15px;
   display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* GRAFICAS */
-.graficasContainer{
-  background-color: tomato;
-  width: 100%;
-  height: 300px;
-  margin-top: 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   flex-direction: row;
   flex-wrap: nowrap;
-}
-
-/* Tabla */
-.tablaContainer{
-  background-color: steelblue;
-  width: 100%;
-  height: 200px;
-  margin-top: 10px;
-  display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
-  flex-direction: row;
-  flex-wrap: nowrap;
 }
 
-.dashConInfo{
-  background-color: #dc3545;
-  width: 100%;
-  height: 100%;
+.grafica1, .grafica2{
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 50%;
+}
+
+.grafica3{
+  margin-top: 15px;
+  margin-bottom: 15px;
+  margin-left: 15px;
+  margin-right: 15px;
   display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
   flex-wrap: wrap;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  align-content: center;
-}
-
-.dashInfo1 {
-  background-color: slateblue;
-  display: flex;
-  width: 100%;
-  height: 50%;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: nowrap;
-  flex-direction: row;
-}
-
-.dashInfo2 {
-  background-color:aliceblue;
-  display: flex;
-  width: 100%;
-  height: 50%;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: nowrap;
-  flex-direction: row;
-}
-
-.dashConInfo2{
-  background-color: #86b7fe;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-wrap: nowrap;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-}
-
-.dashInfo11 {
-  background-color:yellowgreen;
-  display: flex;
-  width: 100%;
-  height: 100%;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: nowrap;
-  flex-direction: row;
-}
-
-.dashInfo22 {
-  background-color:aliceblue;
-  display: flex;
-  width: 100%;
-  height: 100%;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: nowrap;
-  flex-direction: row;
-}
-
-.graficasConInfo{
-  background-color: #0dcaf0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  justify-content: center;
-  align-items: center;
-}
-
-.graficasConInfo2{
-  background-color: #0d6efd;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  justify-content: center;
-  align-items: center;
 
 }
 
-.graficasInfo1{
-  background-color: #86b7fe;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  justify-content: center;
-  align-items: center;
-}
 
-.graficasInfo2{
-  background-color: turquoise;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  justify-content: center;
-  align-items: center;
-}
 
-/* *************** */
+

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd  } from '@angular/router';
 import { UserDataService } from '../../services/user-data.service';
 import { AuthServiceService } from '../../services/auth-service.service';
+import { authGuard } from '../../guards/auth.guard';
+
 
 @Component({
   selector: 'app-slidebar',
@@ -29,6 +31,7 @@ export class SlidebarComponent implements OnInit {
     private router: Router,
     private _userData: UserDataService,
     private _authService: AuthServiceService,
+    private authGuard: authGuard
   ) { }
 
   ngOnInit(): void {
@@ -89,6 +92,7 @@ export class SlidebarComponent implements OnInit {
     // Limpiar los datos del usuario del almacenamiento local
     this._userData.clearUserData();
 
+    this._authService.logout();
     // Navegar a la página de inicio de sesión
     this.router.navigate(['login']);
   }
