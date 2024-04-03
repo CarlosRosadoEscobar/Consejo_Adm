@@ -7,6 +7,7 @@ import { environment } from './config';
   providedIn: 'root'
 })
 export class AuthServiceService {
+  private isAuthenticated: boolean = false;
 
   constructor(private http: HttpClient) { }
 
@@ -55,6 +56,18 @@ export class AuthServiceService {
   enviarHistorialInicioSesion(historialInicioSesion: any[]): Observable<any> {
     const url = `${environment.apiUrl}/registro`;
     return this.http.post(url, historialInicioSesion);
+  }
+
+  isAuthenticatedUser(): boolean {
+    return this.isAuthenticated;
+  }
+
+  loginSuccess(): void {
+    this.isAuthenticated = true;
+  }
+
+  logout(): void {
+    this.isAuthenticated = false;
   }
 
 }

@@ -1,62 +1,81 @@
 <div class="panelModulo">
+  <!-- TOP MENU -->
   <div class="container-fluid menutamaño"></div>
-  <div class="container text-center dashboardTitleContainer">
-    <div class="row">
-      <div class="card mt-5 tabla">
-          <div class="card-body text-center">
-              <span class="titulo">PDF</span>
 
-              <form [formGroup]="documentoForm" (ngSubmit)="guardarDocumento()">
-                  <div class="mt-5">
-                    <input type="file" formControlName="documento" id="documento" (change)="onFileChange($event)"  accept="application/pdf">
-                    <div class="text-danger" *ngIf="documentoForm.get('documento')?.hasError('required') && documentoForm.get('documento')?.touched" >
-                      <span><b>Es necesario subir el documento</b></span>
-                    </div>
-                  </div>
-
-                  <div class="mt-5">
-                    <!-- <label for="colaboradorSelect">Selecciona colaboradores:</label>
-                    <select id="colaboradorSelect" (change)="agregarColaborador($event)">
-                      <option value="disabled" selected></option>
-                      <option *ngFor="let socio of listSocios" [value]="socio.id_colaborador">
-                        {{ socio.Nombre }}
-                      </option>
-                    </select>
-                   
-                    <div *ngFor="let colaborador of documentoForm.get('colaboradores')?.value || []; let i = index">
-                      <p>Has seleccionado a: {{ getColaboradorName(colaborador?.id_colaborador) }}</p>
-                      <button class="btn btn-danger" (click)="quitarColaborador(i)">Quitar</button>
-                    </div> -->
-
-                    <label for="colaboradorSelect">Selecciona colaboradores:</label>
-<select id="colaboradorSelect" (change)="agregarColaborador($event)">
-<option value="" selected></option>
-<option *ngFor="let socio of listSocios" [value]="socio.id_colaborador">
-  {{ socio.Nombre }}
-</option>
-</select>
-
-<div *ngFor="let colaborador of documentoForm.get('colaboradores')?.value || []; let i = index">
-<p>Has seleccionado a: {{ getColaboradorName(colaborador?.id_colaborador) }}</p>
-<button class="btn btn-danger" (click)="quitarColaborador(i)">Quitar</button>
-</div>
-
-
-
-                  </div>
-
-                  
-                  
-
-
-                  <div class="mt-5">
-                    <button class="btn btn-success" [disabled]="documentoForm.invalid">Guardar</button>
-                  </div>
-                </form>                
-          </div>
+  <!-- TITLE -->
+  <div class="TItleCon">
+    <div class="titleCon">
+      <div class="text-center text-5xl font-extrabold leading-none tracking-tight">
+        <span class="bg-clip-text text-transparent bg-gradient-to-r from-teal-400 to-blue-500">
+          Inportar Docuementos
+        </span>
       </div>
-  </div>   
+    </div>
   </div>
+
+  <div class="inportarContainer">
+
+    <div class="card-body text-center">
+
+      <div class="titleText">
+        <span>PDF</span>
+      </div>
+
+      <div class="formularioCon">
+        <form [formGroup]="documentoForm" (ngSubmit)="guardarDocumento()">
+          <div class="mt-5">
+            <input type="file" formControlName="documento" id="documento" (change)="onFileChange($event)"
+              accept="application/pdf">
+            <div class="text-danger"
+              *ngIf="documentoForm.get('documento')?.hasError('required') && documentoForm.get('documento')?.touched">
+              <span><b>Es necesario subir el documento</b></span>
+            </div>
+          </div>
+
+          <div class="mt-5">
+            <!-- <label for="colaboradorSelect">Selecciona colaboradores:</label>
+            <select id="colaboradorSelect" (change)="agregarColaborador($event)">
+              <option value="disabled" selected></option>
+              <option *ngFor="let socio of listSocios" [value]="socio.id_colaborador">
+                {{ socio.Nombre }}
+              </option>
+            </select>
+
+            <div *ngFor="let colaborador of documentoForm.get('colaboradores')?.value || []; let i = index">
+              <p>Has seleccionado a: {{ getColaboradorName(colaborador?.id_colaborador) }}</p>
+              <button class="btn btn-danger" (click)="quitarColaborador(i)">Quitar</button>
+            </div> -->
+
+            <label for="colaboradorSelect">Selecciona colaboradores:</label>
+            <select id="colaboradorSelect" (change)="agregarColaborador($event)">
+              <option value="" selected></option>
+              <option *ngFor="let socio of listSocios" [value]="socio.id_colaborador">
+                {{ socio.Nombre }}
+              </option>
+            </select>
+
+            <div *ngFor="let colaborador of documentoForm.get('colaboradores')?.value || []; let i = index">
+              <p>Has seleccionado a: {{ getColaboradorName(colaborador?.id_colaborador) }}</p>
+              <button class="btn btn-danger" (click)="quitarColaborador(i)">Quitar</button>
+            </div>
+
+
+
+          </div>
+
+
+
+
+
+          <div class="mt-5">
+            <button class="btn btn-success" [disabled]="documentoForm.invalid">Guardar</button>
+          </div>
+        </form>
+      </div>
+
+
+    </div>
+
+  </div>
+
 </div>
-
-

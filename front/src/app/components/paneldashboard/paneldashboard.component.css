@@ -50,7 +50,7 @@
 }
 
 /* Menu Top */
-.menutamaño{
+.topcontainer{
   width: 100%;
   height: 10px;
 }
@@ -223,7 +223,7 @@
 /* ########################## */
 
 .TItleCon{
-  background-color: rgba(255, 255, 255, 0.13);
+  background-color: black;
   margin-top: 10px;
   margin-right: 10px;
   margin-left: 10px;
@@ -233,10 +233,11 @@
   justify-content: center;
   align-items: stretch;
   border-radius: 30px;
+  border: 1px solid white;
 }
 
-.graficasConAdvancedpie,.InfoCon, .userCon, .tableCon{
-  background-color: rgba(255, 255, 255, 0.13);
+.graficasConAdvancedpie,.InfoCon, .userCon, .tableCon, .accecsoRapidoCon, .grafica2{
+  background-color: black;
   margin-top: 10px;
   margin-right: 10px;
   margin-left: 10px;
@@ -246,6 +247,23 @@
   align-items: center;
   justify-content: center;
   border-radius: 30px;
+  border: 1px solid white;
+}
+
+.verDocumentoCon{
+  margin-top: 10px;
+  margin-bottom: 40px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  align-content: center;
+
+}
+
+.docContainers{
+ margin-left: 10px;
 }
 
 .datosInfo{
