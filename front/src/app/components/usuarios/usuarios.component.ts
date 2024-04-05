@@ -1,6 +1,7 @@
 import { Component, OnDestroy  } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { NgxGraphModule } from '@swimlane/ngx-graph';
 
 interface Usuario {
   nombre: string;
@@ -12,7 +13,7 @@ interface Usuario {
 @Component({
   selector: 'app-usuarios',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, NgxGraphModule],
   templateUrl: './usuarios.component.html',
   styleUrl: './usuarios.component.css'
 })

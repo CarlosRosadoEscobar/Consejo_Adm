@@ -11,6 +11,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { PanelmodulosComponent } from './components/panelmodulos/panelmodulos.component';
 import { NgApexchartsModule } from 'ng-apexcharts'
 import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
+import { NgxGraphModule } from '@swimlane/ngx-graph'
 
 
 //! services
@@ -73,7 +74,8 @@ import { SlidebarComponent } from './components/slidebar/slidebar.component';
     NgxChartsModule,
     NgxExtendedPdfViewerModule,
     FormsModule,
-    NgApexchartsModule
+    NgApexchartsModule,
+    NgxGraphModule
   ],
   providers: [],
   bootstrap: [AppComponent]
