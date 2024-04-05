@@ -24,6 +24,7 @@ import { authGuard } from './guards/auth.guard';
 import { DocumentosfirmadosComponent } from './components/documentosfirmados/documentosfirmados.component';
 import { DocumentosinfirmarComponent } from './components/documentosinfirmar/documentosinfirmar.component';
 import { DocumentostodosComponent } from './components/documentostodos/documentostodos.component';
+import { DiagramageneralComponent } from './components/diagramageneral/diagramageneral.component';
 
 // canActivate: [authGuard]
 
@@ -32,6 +33,7 @@ const routes: Routes = [
   {path:''               ,component:LoginComponent},
   {path:'login'          ,component:LoginComponent},
   {path:'verificacion'   ,component:MfaComponent},
+  {path:'diagrama'       ,component:DiagramageneralComponent},
 
   //! PANELES
   {
