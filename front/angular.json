@@ -19,7 +19,9 @@
             "allowedCommonJsDependencies": [
               "lodash",
               "apexcharts",
-              "rfdc"
+              "rfdc",
+              "dagre",
+              "webcola"
             ],
             "polyfills": [
               "zone.js"
