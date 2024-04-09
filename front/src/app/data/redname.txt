@@ -1,0 +1,1 @@
+data module— El módulo de datos contiene los tipos (modelos / entidades) y servicios (repositorios) de los datos consumidos por la aplicación.

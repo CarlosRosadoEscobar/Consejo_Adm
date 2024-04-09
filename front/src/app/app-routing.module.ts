@@ -17,14 +17,14 @@ import { PanelmodulosComponent } from './components/panelmodulos/panelmodulos.co
 import { PanelgraficasComponent } from './components/panelgraficas/panelgraficas.component';
 import { ImportarComponent } from './components/importar/importar.component';
 import { ExportarComponent } from './components/exportar/exportar.component';
-import { SlidebarComponent } from './components/slidebar/slidebar.component';
+import { SlidebarComponent } from './layout/slidebar/slidebar.component';
 import { UsuariosComponent } from './components/usuarios/usuarios.component';
 
-import { authGuard } from './guards/auth.guard';
+import { authGuard } from './core/guards/auth.guard';
 import { DocumentosfirmadosComponent } from './components/documentosfirmados/documentosfirmados.component';
 import { DocumentosinfirmarComponent } from './components/documentosinfirmar/documentosinfirmar.component';
 import { DocumentostodosComponent } from './components/documentostodos/documentostodos.component';
-import { DiagramageneralComponent } from './components/diagramageneral/diagramageneral.component';
+import { DiagramageneralComponent } from './shared/diagramas/consejo_administrativo/diagramageneral/diagramageneral.component';
 
 // canActivate: [authGuard]
 
@@ -107,14 +107,6 @@ const routes: Routes = [
       { path: 'sinfirmar', component: DocumentosinfirmarComponent },
     ]
   },
-
-  // usuarios
-
-  // {path:'modulos'        ,component:PanelmodulosComponent},
-  // {path:'graficas'       ,component:PanelgraficasComponent},
-  // {path:'exportar'       ,component:ExportarComponent},
-  // {path:'importar'       ,component:ImportarComponent},
-  // {path:'visualizar/:id' ,component:VisualizarComponent},
 
   //! MODULOS
   {

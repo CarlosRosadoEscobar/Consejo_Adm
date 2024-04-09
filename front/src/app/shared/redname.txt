@@ -1,0 +1,1 @@
+shared module — Este módulo contiene clases y recursos que se utilizan en más de un módulo cargado dinámicamente. Al cargar siempre con la aplicación, los componentes compartidos están listos cuando un módulo los solicita.

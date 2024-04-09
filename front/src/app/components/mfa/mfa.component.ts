@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router} from '@angular/router';
-import { MfaService } from 'src/app/services/mfa.service';
+import { MfaService } from 'src/app/data/services/mfa.service';
 
 @Component({
   selector: 'app-mfa',

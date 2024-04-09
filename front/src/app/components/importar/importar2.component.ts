@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { Documentos } from 'src/app/models/documentos';
-import { PdfService } from 'src/app/services/pdf.service';
+import { Documentos } from 'src/app/core/models/documentos';
+import { PdfService } from 'src/app/data/services/pdf.service';
 
 
 @Component({
@@ -31,7 +31,7 @@ export class ImportarComponent {
     if (fileInput.files.length > 0) {
       const file = fileInput.files[0];
       const isValidFileType = this.isValidFileType(file);
-      
+
       if (!isValidFileType) {
         this.toastr.error('Por favor, seleccione un archivo PDF.');
         this.documentoForm.get('documento')?.setValue('');
@@ -43,7 +43,7 @@ export class ImportarComponent {
     const allowedTypes = ['application/pdf'];
     return allowedTypes.includes(file.type);
   }
-  
+
 
 
 
@@ -53,7 +53,7 @@ export class ImportarComponent {
     const fileInput = document.getElementById('documento') as HTMLInputElement;
     const file = fileInput.files![0];
     const usuarioS = localStorage.getItem('usuario');
-  
+
     if (!this.isValidFileType(file)) {
       this.toastr.error('Por favor, seleccione un archivo PDF.');
       return;
@@ -68,21 +68,21 @@ export class ImportarComponent {
     const usuario = JSON.parse(usuarioS);
 
     const nombre = usuario.Nombre;
- 
-    
+
+
     const reader = new FileReader();
     reader.onloadend = () => {
       const base64String = reader.result as string;
-  
+
       const DOCUMENTO: Documentos = {
         id: 0,
         documento: base64String,
         fecha: '',
         usuario: nombre,
       };
-  
+
       console.log(DOCUMENTO);
-  
+
       this._documentoService.guardarDocumento(DOCUMENTO).subscribe(data => {
         this.toastr.success('El producto ha sido guardado correctamente');
         this.router.navigate(['/exportar'], { state: { doc: DOCUMENTO } });
@@ -90,7 +90,7 @@ export class ImportarComponent {
     };
     reader.readAsDataURL(file);
   }
-  
 
-  
+
+
 }
