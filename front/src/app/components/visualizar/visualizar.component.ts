@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Documentos } from 'src/app/models/documentos';
-import { PdfService } from 'src/app/services/pdf.service';
+import { Documentos } from 'src/app/core/models/documentos';
+import { PdfService } from 'src/app/data/services/pdf.service';
 
 @Component({
   selector: 'app-visualizar',
@@ -21,7 +21,7 @@ export class VisualizarComponent {
     return (storedTheme && (storedTheme === 'dark' || storedTheme === 'light')) ? storedTheme : 'light';
   }
 
-  
+
   listDocumento : Documentos[] = [];
 
   constructor(private _documentoService: PdfService,private route: ActivatedRoute ){}
@@ -32,17 +32,17 @@ export class VisualizarComponent {
       if (id) {
         this.obtenerDocumento(id);
       }
-    });    
+    });
   }
 
   obtenerDocumento(id: any): void {
-    this._documentoService.obtenerDocumento(id).subscribe(data => { 
+    this._documentoService.obtenerDocumento(id).subscribe(data => {
       this.listDocumento = data;
 
       return this.listDocumento;
 
     });
   }
-  
+
 
 }

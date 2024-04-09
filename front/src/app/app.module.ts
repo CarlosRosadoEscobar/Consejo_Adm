@@ -21,7 +21,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
-import { MenuComponent } from './components/menu/menu.component';
+import { MenuComponent } from './layout/menu/menu.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PaneldashboardComponent } from './components/paneldashboard/paneldashboard.component';
 import { ComercialComponent } from './components/comercial/comercial.component';
@@ -37,7 +37,7 @@ import { PanelgraficasComponent } from './components/panelgraficas/panelgraficas
 import { ExportarComponent } from './components/exportar/exportar.component';
 import { ImportarComponent } from './components/importar/importar.component';
 import { VisualizarComponent } from './components/visualizar/visualizar.component';
-import { SlidebarComponent } from './components/slidebar/slidebar.component';
+import { SlidebarComponent } from './layout/slidebar/slidebar.component';
 
 
 @NgModule({

@@ -1,7 +1,7 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { ActivatedRoute, Router, NavigationExtras } from '@angular/router';
-import { UserDataService } from '../../services/user-data.service';
-import { AuthServiceService } from '../../services/auth-service.service';
+import { UserDataService } from '../../data/services/user-data.service';
+import { AuthServiceService } from '../../data/services/auth-service.service';
 import * as ApexCharts from 'apexcharts';
 import { ChartOptions } from './chart.interface';
 
