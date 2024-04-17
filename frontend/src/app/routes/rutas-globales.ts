@@ -23,7 +23,7 @@ export const rutasCompartidas: Routes = [
     ]
   },
   {
-    path: 'mi-perfil-configuracion',
+    path: 'configuracion-perfil',
     component:SliderbarComponent,
     children: [
       { path: '', component: MiPerfilConfiguracionComponent },
