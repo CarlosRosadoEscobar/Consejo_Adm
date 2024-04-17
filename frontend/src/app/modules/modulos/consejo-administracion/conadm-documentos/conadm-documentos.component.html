@@ -1,0 +1,421 @@
+<div class="bg-white dark:bg-gray-800 flex flex-col md:flex-row items-center whitespace-normal rounded-lg h-[auto] mb-4 p-2">
+  
+  <div class="flex rounded-lg shadow-sm w-3/6">
+    <button type="button"
+      class="w-14 h-12 flex-shrink-0 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-s-md border border-transparent bg-neutral-50 dark:bg-neutral-950 text-black dark:text-white disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">
+      <svg 
+        class="flex-shrink-0 size-4" 
+        xmlns="http://www.w3.org/2000/svg" 
+        width="24" height="24" 
+        viewBox="0 0 24 24"
+        fill="none" 
+        stroke="currentColor" 
+        stroke-width="2" 
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <circle cx="11" cy="11" r="8" />
+        <path d="m21 21-4.3-4.3" />
+      </svg>
+    </button>
+
+    <input 
+      type="text" 
+      id="hs-leading-button-add-on-with-icon" 
+      name="hs-leading-button-add-on-with-icon"
+      class=" bg-gray-50 text-red-50 py-3 px-4 block w-full border-gray-200 shadow-sm rounded-e-lg text-sm focus:z-10 focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600"
+      placeholder="Buscar..."
+    >
+
+  </div>
+
+  <div class="flex w-3/6">
+
+    <div class="flex items-center justify-center p-4">
+      <button id="dropdownDefault" data-dropdown-toggle="dropdownnUno"
+        class="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+        type="button">
+        filtro por fecha
+        <svg class="w-4 h-4 ml-2" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+        </svg>
+      </button>
+      <!-- Dropdown menu -->
+      <div id="dropdownnUno" class="z-10 hidden w-56 p-3 bg-white rounded-lg shadow dark:bg-gray-700">
+        <h6 class="mb-3 text-sm font-medium text-gray-900 dark:text-white">
+          Categoria
+        </h6>
+        <ul class="space-y-2 text-sm" aria-labelledby="dropdownDefault">
+          <li class="flex items-center">
+            <input id="apple" type="checkbox" value=""
+              class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" />
+    
+            <label for="apple" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">
+              Ayer
+            </label>
+          </li>
+    
+          <li class="flex items-center">
+            <input id="fitbit" type="checkbox" value=""
+              class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" />
+    
+            <label for="fitbit" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">
+              Hoy
+            </label>
+          </li>
+    
+          <li class="flex items-center">
+            <input id="dell" type="checkbox" value=""
+              class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" />
+    
+            <label for="dell" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">
+              últimos 7 dias
+            </label>
+          </li>
+    
+          <li class="flex items-center">
+            <input id="asus" type="checkbox" value="" checked
+              class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" />
+    
+            <label for="asus" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">
+              últimos 30 dias
+            </label>
+          </li>
+    
+          <li class="flex items-center">
+            <input id="logitech" type="checkbox" value="" checked
+              class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" />
+    
+            <label for="logitech" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">
+              últimos 90 dias
+            </label>
+          </li>
+
+    
+
+        </ul>
+      </div>
+    </div>
+
+    <div class="flex items-center justify-center ">
+
+      <button id="dropdownDefault" data-dropdown-toggle="dropdownnDos"
+        class="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+        type="button">
+        filtro por estado
+        <svg class="w-4 h-4 ml-2" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+        </svg>
+      </button>
+      <!-- Dropdown menu -->
+      <div id="dropdownnDos" class="z-10 hidden w-56 p-3 bg-white rounded-lg shadow dark:bg-gray-700">
+        <h6 class="mb-3 text-sm font-medium text-gray-900 dark:text-white">
+          Categoria
+        </h6>
+        <ul class="space-y-2 text-sm" aria-labelledby="dropdownDefault">
+          <li class="flex items-center">
+            <input id="apple" type="checkbox" value=""
+              class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" />
+    
+            <label for="apple" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">
+              firmado
+            </label>
+          </li>
+    
+          <li class="flex items-center">
+            <input id="fitbit" type="checkbox" value=""
+              class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" />
+    
+            <label for="fitbit" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">
+              Sin firmar
+            </label>
+          </li>
+          <li class="flex items-center">
+            <input id="fitbit" type="checkbox" value=""
+              class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" />
+    
+            <label for="fitbit" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">
+              todos
+            </label>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+  
+</div>
+
+<div class="bg-white dark:bg-gray-800  rounded-lg h-[auto] mb-4 p-5">
+  <div class="cardsCon gap-4 flex items-center justify-center flex-wrap	 ">
+
+    <div class="cardCon w-60">
+      <a class="flex flex-col group bg-white border shadow-sm rounded-xl overflow-hidden hover:shadow-lg transition dark:bg-neutral-900 dark:border-neutral-700 dark:shadow-neutral-700/70" >
+        <div class="relative pt-[50%] sm:pt-[60%] lg:pt-[80%] rounded-t-xl overflow-hidden">
+          <img class="size-full absolute top-0 start-0 object-cover group-hover:scale-105 transition-transform duration-500 ease-in-out rounded-t-xl" src="https://images.unsplash.com/photo-1680868543815-b8666dba60f7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2532&q=80" alt="Image Description">
+        </div>
+        <div class="p-4 md:p-5">
+          <h3 class="text-lg font-bold text-gray-800 dark:text-white">
+            Archivo_reportes.pdf
+          </h3>
+          <p class="mt-1   text-gray-500 dark:text-neutral-400">
+            Angel Gonzalez
+          </p>
+          <p class="mt-1  text-gray-500 dark:text-neutral-400">
+            16 de mayo del 2024
+          </p>
+
+        </div>
+      </a>
+    </div>
+
+    <div class="cardCon w-60">
+      <a class="flex flex-col group bg-white border shadow-sm rounded-xl overflow-hidden hover:shadow-lg transition dark:bg-neutral-900 dark:border-neutral-700 dark:shadow-neutral-700/70" >
+        <div class="relative pt-[50%] sm:pt-[60%] lg:pt-[80%] rounded-t-xl overflow-hidden">
+          <img class="size-full absolute top-0 start-0 object-cover group-hover:scale-105 transition-transform duration-500 ease-in-out rounded-t-xl" src="https://images.unsplash.com/photo-1680868543815-b8666dba60f7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2532&q=80" alt="Image Description">
+        </div>
+        <div class="p-4 md:p-5">
+          <h3 class="text-lg font-bold text-gray-800 dark:text-white">
+            Archivo_Usuarios.pdf
+          </h3>
+          <p class="mt-1   text-gray-500 dark:text-neutral-400">
+            Angel Gonzalez
+          </p>
+          <p class="mt-1  text-gray-500 dark:text-neutral-400">
+            12 de abril del 2024
+          </p>
+
+        </div>
+      </a>
+    </div>
+
+    <div class="cardCon w-60">
+      <a class="flex flex-col group bg-white border shadow-sm rounded-xl overflow-hidden hover:shadow-lg transition dark:bg-neutral-900 dark:border-neutral-700 dark:shadow-neutral-700/70" >
+        <div class="relative pt-[50%] sm:pt-[60%] lg:pt-[80%] rounded-t-xl overflow-hidden">
+          <img class="size-full absolute top-0 start-0 object-cover group-hover:scale-105 transition-transform duration-500 ease-in-out rounded-t-xl" src="https://images.unsplash.com/photo-1680868543815-b8666dba60f7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2532&q=80" alt="Image Description">
+        </div>
+        <div class="p-4 md:p-5">
+          <h3 class="text-lg font-bold text-gray-800 dark:text-white">
+            validacion_doc.pdf
+          </h3>
+          <p class="mt-1   text-gray-500 dark:text-neutral-400">
+            Angel Gonzalez
+          </p>
+          <p class="mt-1  text-gray-500 dark:text-neutral-400">
+            13 de mayodel 2024
+          </p>
+
+        </div>
+      </a>
+    </div>
+
+    <div class="cardCon w-60">
+      <a class="flex flex-col group bg-white border shadow-sm rounded-xl overflow-hidden hover:shadow-lg transition dark:bg-neutral-900 dark:border-neutral-700 dark:shadow-neutral-700/70" >
+        <div class="relative pt-[50%] sm:pt-[60%] lg:pt-[80%] rounded-t-xl overflow-hidden">
+          <img class="size-full absolute top-0 start-0 object-cover group-hover:scale-105 transition-transform duration-500 ease-in-out rounded-t-xl" src="https://images.unsplash.com/photo-1680868543815-b8666dba60f7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2532&q=80" alt="Image Description">
+        </div>
+        <div class="p-4 md:p-5">
+          <h3 class="text-lg font-bold text-gray-800 dark:text-white">
+            Archivo_reportes.pdf
+          </h3>
+          <p class="mt-1   text-gray-500 dark:text-neutral-400">
+            Angel Gonzalez
+          </p>
+          <p class="mt-1  text-gray-500 dark:text-neutral-400">
+            16 de mayo del 2024
+          </p>
+
+        </div>
+      </a>
+    </div>
+
+    <div class="cardCon w-60">
+      <a class="flex flex-col group bg-white border shadow-sm rounded-xl overflow-hidden hover:shadow-lg transition dark:bg-neutral-900 dark:border-neutral-700 dark:shadow-neutral-700/70" >
+        <div class="relative pt-[50%] sm:pt-[60%] lg:pt-[80%] rounded-t-xl overflow-hidden">
+          <img class="size-full absolute top-0 start-0 object-cover group-hover:scale-105 transition-transform duration-500 ease-in-out rounded-t-xl" src="https://images.unsplash.com/photo-1680868543815-b8666dba60f7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2532&q=80" alt="Image Description">
+        </div>
+        <div class="p-4 md:p-5">
+          <h3 class="text-lg font-bold text-gray-800 dark:text-white">
+            Archivo_Usuarios.pdf
+          </h3>
+          <p class="mt-1   text-gray-500 dark:text-neutral-400">
+            Angel Gonzalez
+          </p>
+          <p class="mt-1  text-gray-500 dark:text-neutral-400">
+            12 de abril del 2024
+          </p>
+
+        </div>
+      </a>
+    </div>
+
+    <div class="cardCon w-60">
+      <a class="flex flex-col group bg-white border shadow-sm rounded-xl overflow-hidden hover:shadow-lg transition dark:bg-neutral-900 dark:border-neutral-700 dark:shadow-neutral-700/70" >
+        <div class="relative pt-[50%] sm:pt-[60%] lg:pt-[80%] rounded-t-xl overflow-hidden">
+          <img class="size-full absolute top-0 start-0 object-cover group-hover:scale-105 transition-transform duration-500 ease-in-out rounded-t-xl" src="https://images.unsplash.com/photo-1680868543815-b8666dba60f7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2532&q=80" alt="Image Description">
+        </div>
+        <div class="p-4 md:p-5">
+          <h3 class="text-lg font-bold text-gray-800 dark:text-white">
+            validacion_doc.pdf
+          </h3>
+          <p class="mt-1   text-gray-500 dark:text-neutral-400">
+            Angel Gonzalez
+          </p>
+          <p class="mt-1  text-gray-500 dark:text-neutral-400">
+            13 de mayodel 2024
+          </p>
+
+        </div>
+      </a>
+    </div>
+    
+    <div class="cardCon w-60">
+      <a class="flex flex-col group bg-white border shadow-sm rounded-xl overflow-hidden hover:shadow-lg transition dark:bg-neutral-900 dark:border-neutral-700 dark:shadow-neutral-700/70" >
+        <div class="relative pt-[50%] sm:pt-[60%] lg:pt-[80%] rounded-t-xl overflow-hidden">
+          <img class="size-full absolute top-0 start-0 object-cover group-hover:scale-105 transition-transform duration-500 ease-in-out rounded-t-xl" src="https://images.unsplash.com/photo-1680868543815-b8666dba60f7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2532&q=80" alt="Image Description">
+        </div>
+        <div class="p-4 md:p-5">
+          <h3 class="text-lg font-bold text-gray-800 dark:text-white">
+            Archivo_reportes.pdf
+          </h3>
+          <p class="mt-1   text-gray-500 dark:text-neutral-400">
+            Angel Gonzalez
+          </p>
+          <p class="mt-1  text-gray-500 dark:text-neutral-400">
+            16 de mayo del 2024
+          </p>
+
+        </div>
+      </a>
+    </div>
+
+    <div class="cardCon w-60">
+      <a class="flex flex-col group bg-white border shadow-sm rounded-xl overflow-hidden hover:shadow-lg transition dark:bg-neutral-900 dark:border-neutral-700 dark:shadow-neutral-700/70" >
+        <div class="relative pt-[50%] sm:pt-[60%] lg:pt-[80%] rounded-t-xl overflow-hidden">
+          <img class="size-full absolute top-0 start-0 object-cover group-hover:scale-105 transition-transform duration-500 ease-in-out rounded-t-xl" src="https://images.unsplash.com/photo-1680868543815-b8666dba60f7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2532&q=80" alt="Image Description">
+        </div>
+        <div class="p-4 md:p-5">
+          <h3 class="text-lg font-bold text-gray-800 dark:text-white">
+            Archivo_Usuarios.pdf
+          </h3>
+          <p class="mt-1   text-gray-500 dark:text-neutral-400">
+            Angel Gonzalez
+          </p>
+          <p class="mt-1  text-gray-500 dark:text-neutral-400">
+            12 de abril del 2024
+          </p>
+
+        </div>
+      </a>
+    </div>
+
+    <div class="cardCon w-60">
+      <a class="flex flex-col group bg-white border shadow-sm rounded-xl overflow-hidden hover:shadow-lg transition dark:bg-neutral-900 dark:border-neutral-700 dark:shadow-neutral-700/70" >
+        <div class="relative pt-[50%] sm:pt-[60%] lg:pt-[80%] rounded-t-xl overflow-hidden">
+          <img class="size-full absolute top-0 start-0 object-cover group-hover:scale-105 transition-transform duration-500 ease-in-out rounded-t-xl" src="https://images.unsplash.com/photo-1680868543815-b8666dba60f7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2532&q=80" alt="Image Description">
+        </div>
+        <div class="p-4 md:p-5">
+          <h3 class="text-lg font-bold text-gray-800 dark:text-white">
+            validacion_doc.pdf
+          </h3>
+          <p class="mt-1   text-gray-500 dark:text-neutral-400">
+            Angel Gonzalez
+          </p>
+          <p class="mt-1  text-gray-500 dark:text-neutral-400">
+            13 de mayodel 2024
+          </p>
+
+        </div>
+      </a>
+    </div>
+    
+    <div class="cardCon w-60">
+      <a class="flex flex-col group bg-white border shadow-sm rounded-xl overflow-hidden hover:shadow-lg transition dark:bg-neutral-900 dark:border-neutral-700 dark:shadow-neutral-700/70" >
+        <div class="relative pt-[50%] sm:pt-[60%] lg:pt-[80%] rounded-t-xl overflow-hidden">
+          <img class="size-full absolute top-0 start-0 object-cover group-hover:scale-105 transition-transform duration-500 ease-in-out rounded-t-xl" src="https://images.unsplash.com/photo-1680868543815-b8666dba60f7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2532&q=80" alt="Image Description">
+        </div>
+        <div class="p-4 md:p-5">
+          <h3 class="text-lg font-bold text-gray-800 dark:text-white">
+            Archivo_reportes.pdf
+          </h3>
+          <p class="mt-1   text-gray-500 dark:text-neutral-400">
+            Angel Gonzalez
+          </p>
+          <p class="mt-1  text-gray-500 dark:text-neutral-400">
+            16 de mayo del 2024
+          </p>
+
+        </div>
+      </a>
+    </div>
+
+    <div class="cardCon w-60">
+      <a class="flex flex-col group bg-white border shadow-sm rounded-xl overflow-hidden hover:shadow-lg transition dark:bg-neutral-900 dark:border-neutral-700 dark:shadow-neutral-700/70" >
+        <div class="relative pt-[50%] sm:pt-[60%] lg:pt-[80%] rounded-t-xl overflow-hidden">
+          <img class="size-full absolute top-0 start-0 object-cover group-hover:scale-105 transition-transform duration-500 ease-in-out rounded-t-xl" src="https://images.unsplash.com/photo-1680868543815-b8666dba60f7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2532&q=80" alt="Image Description">
+        </div>
+        <div class="p-4 md:p-5">
+          <h3 class="text-lg font-bold text-gray-800 dark:text-white">
+            Archivo_Usuarios.pdf
+          </h3>
+          <p class="mt-1   text-gray-500 dark:text-neutral-400">
+            Angel Gonzalez
+          </p>
+          <p class="mt-1  text-gray-500 dark:text-neutral-400">
+            12 de abril del 2024
+          </p>
+
+        </div>
+      </a>
+    </div>
+
+    <div class="cardCon w-60">
+      <a class="flex flex-col group bg-white border shadow-sm rounded-xl overflow-hidden hover:shadow-lg transition dark:bg-neutral-900 dark:border-neutral-700 dark:shadow-neutral-700/70" >
+        <div class="relative pt-[50%] sm:pt-[60%] lg:pt-[80%] rounded-t-xl overflow-hidden">
+          <img class="size-full absolute top-0 start-0 object-cover group-hover:scale-105 transition-transform duration-500 ease-in-out rounded-t-xl" src="https://images.unsplash.com/photo-1680868543815-b8666dba60f7?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2532&q=80" alt="Image Description">
+        </div>
+        <div class="p-4 md:p-5">
+          <h3 class="text-lg font-bold text-gray-800 dark:text-white">
+            validacion_doc.pdf
+          </h3>
+          <p class="mt-1   text-gray-500 dark:text-neutral-400">
+            Angel Gonzalez
+          </p>
+          <p class="mt-1  text-gray-500 dark:text-neutral-400">
+            13 de mayodel 2024
+          </p>
+
+        </div>
+      </a>
+    </div>
+    
+    
+  </div>
+</div>
+
+
+
+<!-- 
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+  <div class="border-2 border-dashed border-gray-300 rounded-lg dark:border-gray-600 h-32 md:h-64"></div>
+  <div class="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-32 md:h-64"></div>
+  <div class="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-32 md:h-64"></div>
+  <div class="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-32 md:h-64"></div>
+</div>
+<div class="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-96 mb-4"></div>
+<div class="grid grid-cols-2 gap-4 mb-4">
+  <div class="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-48 md:h-72"></div>
+  <div class="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-48 md:h-72"></div>
+  <div class="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-48 md:h-72"></div>
+  <div class="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-48 md:h-72"></div>
+</div>
+<div class="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-96 mb-4"></div>
+<div class="grid grid-cols-2 gap-4">
+  <div class="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-48 md:h-72"></div>
+  <div class="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-48 md:h-72"></div>
+  <div class="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-48 md:h-72"></div>
+  <div class="border-2 border-dashed rounded-lg border-gray-300 dark:border-gray-600 h-48 md:h-72"></div>
+</div> 
+-->
