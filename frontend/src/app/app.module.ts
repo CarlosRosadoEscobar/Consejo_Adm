@@ -12,7 +12,6 @@ import { GraficasUsuariosComponent } from './shared/graficas/consejo-administrac
 import { GraficasReportesComponent } from './shared/graficas/consejo-administracion/graficas-reportes/graficas-reportes.component';
 import { GraficasDocumentosComponent } from './shared/graficas/consejo-administracion/graficas-documentos/graficas-documentos.component';
 import { GraficasVentasComponent } from './shared/graficas/consejo-administracion/graficas-ventas/graficas-ventas.component';
-import { AdminFormularioComponent } from './modules/modulos/administrador/admin-formulario/admin-formulario.component';
 import { ConadmDashboardComponent } from './modules/modulos/consejo-administracion/conadm-dashboard/conadm-dashboard.component';
 import { ConadmModulosComponent } from './modules/modulos/consejo-administracion/conadm-modulos/conadm-modulos.component';
 import { ConadmDocumentosComponent } from './modules/modulos/consejo-administracion/conadm-documentos/conadm-documentos.component';
@@ -82,7 +81,6 @@ import { StatsAdt4Component } from './shared/application-stats/atraccion-talento
     GraficasReportesComponent,
     GraficasDocumentosComponent,
     GraficasVentasComponent,
-    AdminFormularioComponent,
     ConadmDashboardComponent,
     ConadmModulosComponent,
     ConadmDocumentosComponent,
