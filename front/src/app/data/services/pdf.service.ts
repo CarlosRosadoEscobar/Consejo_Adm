@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Documentos } from '../models/documentos';
+import { Documentos } from '../../core/models/documentos';
 import { environment } from './config';
 
 @Injectable({
@@ -36,8 +36,8 @@ export class PdfService {
   obtenerDocumento(id: number): Observable<any> {
     return this.http.get(this.url + id);
   }
- 
-  
+
+
   firmarDocumento(id:number, documento:Documentos): Observable<any> {
     return this.http.put(this.url + id, documento);
   }

@@ -1,11 +1,11 @@
-import { Usuarios } from 'src/app/models/usuarios';
-import { AuthServiceService } from '../../services/auth-service.service';
-import { UserDataService } from '../../services/user-data.service';
+import { Usuarios } from 'src/app/core/models/usuarios';
+import { AuthServiceService } from '../../data/services/auth-service.service';
+import { UserDataService } from '../../data/services/user-data.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, NavigationExtras,ActivatedRoute,RouterStateSnapshot } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { authGuard } from '../../guards/auth.guard';
+import { authGuard } from '../../core/guards/auth.guard';
 
 @Component({
   selector: 'app-login',

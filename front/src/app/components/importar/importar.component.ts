@@ -2,10 +2,10 @@ import { Component } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { Documentos } from 'src/app/models/documentos';
-import { PdfService } from 'src/app/services/pdf.service';
-import { UsuariosService } from 'src/app/services/usuarios.service';
-import { Socios } from 'src/app/models/socios';
+import { Documentos } from 'src/app/core/models/documentos';
+import { PdfService } from 'src/app/data/services/pdf.service';
+import { UsuariosService } from 'src/app/data/services/usuarios.service';
+import { Socios } from 'src/app/core/models/socios';
 
 @Component({
   selector: 'app-importar',
@@ -15,7 +15,7 @@ import { Socios } from 'src/app/models/socios';
 export class ImportarComponent {
   listSocios : Socios[] = [];
   documentoForm : FormGroup;
-  
+
   constructor(
     private fb : FormBuilder,
     private router : Router,
@@ -28,13 +28,13 @@ export class ImportarComponent {
       colaboradores: this.fb.array([]),
     });
   }
-  
+
   onFileChange(event: any): void {
     const fileInput = event.target;
     if (fileInput.files.length > 0) {
       const file = fileInput.files[0];
       const isValidFileType = this.isValidFileType(file);
-      
+
       if (!isValidFileType) {
         this.toastr.error('Por favor, seleccione un archivo PDF.');
         this.documentoForm.get('documento')?.setValue('');
@@ -47,30 +47,30 @@ export class ImportarComponent {
     return allowedTypes.includes(file.type);
   }
 
-  
+
 
   ngOnInit(){
     this.obtenerUsuarios();
   }
-  
+
   obtenerUsuarios():void{
     this._usuarioService.obtenerUsuario().subscribe(data => {
       this.listSocios = data;
-      console.log(data);      
+      console.log(data);
     },error=>{
       console.log(error);
     })
   }
 
   selectedColaborador: string | null = null;
-  
+
 
   getColaboradorName(id_colaborador: string | null): string {
     const colaboradorId = this.selectedColaborador;
     if (!id_colaborador) {
       return 'Ninguno';
     }
-  
+
     const socio = this.listSocios.find(s => s.id_colaborador === id_colaborador);
     return socio ? socio.Nombre : 'Ninguno';
     this.selectedColaborador = '';
@@ -103,7 +103,7 @@ export class ImportarComponent {
     colaboradoresArray.push(this.fb.group({
       id_colaborador: colaboradorId,
       nombre: colaboradorNombre,
-      firma: 'No',      
+      firma: 'No',
     }));
 
     // Imprimir el arreglo en la consola
@@ -145,7 +145,7 @@ export class ImportarComponent {
       return;
     }
 
-  
+
     if (!this.isValidFileType(file)) {
       this.toastr.error('Por favor, seleccione un archivo PDF.');
       return;
@@ -160,15 +160,15 @@ export class ImportarComponent {
     const usuario = JSON.parse(usuarioS);
 
     const nombre = usuario.Nombre;
- 
-    
+
+
     const reader = new FileReader();
     reader.onloadend = () => {
       const base64String = reader.result as string;
 
       console.log(base64String);
-      
-  
+
+
       const DOCUMENTO: Documentos = {
         id: 0,
         documento: base64String,
@@ -176,9 +176,9 @@ export class ImportarComponent {
         usuario: nombre,
         socios_firmas:colaboradoresString
       };
-  
+
       console.log(DOCUMENTO);
-  
+
       this._documentoService.guardarDocumento(DOCUMENTO).subscribe(data => {
         this.toastr.success('El producto ha sido guardado correctamente');
         this.router.navigate(['/exportar'], { state: { doc: DOCUMENTO } });
@@ -186,7 +186,7 @@ export class ImportarComponent {
     };
     reader.readAsDataURL(file);
   }
-  
 
-  
+
+
 }

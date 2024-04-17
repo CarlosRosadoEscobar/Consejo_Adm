@@ -1,0 +1,133 @@
+<div class="panelModulo">
+    <!-- TOP MENU -->
+    <div class="container-fluid menutamaño"></div>
+
+    <!-- TITLE -->
+    <div class="TItleCon d-none">
+      <div class="titleCon">
+        <div class="text-center text-5xl font-extrabold leading-none tracking-tight">
+          <span class="bg-clip-text text-transparent bg-gradient-to-r from-teal-400 to-blue-500">
+            diagrama General
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="diagramaCon bg-black border border-white ml-[15px] mr-[15px] h-[550px] mt-[10px]">
+
+        <ngx-graph
+          class="chart-container"
+          [view]="view"
+          [enableZoom]="enableZoom"
+          [draggingEnabled]="draggingEnabled"
+          [panningEnabled]="panningEnabled"
+          [autoCenter]="autoCenter"
+          [links]="links"
+          [nodes]="nodes"
+          [clusters]="clusters"
+          layout="dagreCluster"
+          oretation="LR"
+          [layoutSettings]="{ orientation: orientation }"
+        >
+
+          <ng-template #defsTemplate>
+            <svg:marker id="arrow" viewBox="0 -5 10 10" refX="8" refY="0" markerWidth="4" markerHeight="4" orient="auto">
+              <svg:path d="M0,-5L10,0L0,5" class="arrow-head" />
+            </svg:marker>
+          </ng-template>
+
+          <ng-template #clusterTemplate let-cluster>
+            <svg:g class="node cluster">
+              <svg:rect
+                rx="5"
+                ry="5"
+                [attr.width]="cluster.dimension.width"
+                [attr.height]="cluster.dimension.height"
+                [attr.fill]="cluster.data.color"
+              />
+            </svg:g>
+          </ng-template>
+
+          <ng-template #nodeTemplate let-node>
+            <svg:g class="node">
+              <!-- Rectángulo como fondo -->
+              <svg:rect
+              [attr.width]="(node.id === 'centro')  ? (400)   : node.dimension.width"
+              [attr.height]="(node.id === 'centro') ? (500)  : node.dimension.height"
+              [attr.fill]="(node.id === 'centro')   ? 'black' : 'black'"
+              [attr.rx]="(node.id === 'centro')     ? 10 : 10"
+              [attr.ry]="(node.id === 'centro')     ? 10 : 10"
+              [attr.stroke]="(node.id === 'centro') ? 'white' : 'white'"
+              [attr.stroke-width]="(node.id === 'centro') ? 1 : 1"
+              [attr.stroke-width]="(node.id === 'centro') ? 1 : 1"
+              [attr.opacity]="(node.id === 'centro') ? 1 : 1"
+              />
+
+              <!-- Imagen -->
+              <svg:image
+                *ngIf="node.data.imageUrl"
+                [attr.src]="node.data.imageUrl"
+                [attr.width]="100"
+                [attr.height]="100"
+                [attr.x]="10"
+                [attr.y]="10"
+              />
+
+              <!-- Texto del nodo -->
+              <svg:text
+                alignment-baseline="central"
+                [attr.x]="node.x + node.width / 2"
+                [attr.y]="node.y + node.height / 2"
+                [attr.fill]="(node.id === 'centro') ? 'white' : 'white'"
+              >
+                {{node.label}}
+              </svg:text>
+
+              <!-- Título -->
+              <svg:title>{{ node.data.title }}</svg:title>
+
+            </svg:g>
+          </ng-template>
+
+          <ng-template #linkTemplate let-link>
+            <svg:g class="edge">
+              <svg:path class="line" stroke-width="2" marker-end="url(#arrow)"></svg:path>
+              <svg:text class="edge-label" text-anchor="middle">
+                <textPath
+                  class="text-path"
+                  [attr.href]="'#' + link.id"
+                  [style.dominant-baseline]="link.dominantBaseline"
+                  startOffset="50%"
+                >
+                  {{link.label}}
+                </textPath>
+              </svg:text>
+            </svg:g>
+          </ng-template>
+
+        </ngx-graph>
+
+    </div>
+
+</div>
+
+
+<!--
+
+  x: La coordenada x del vértice superior izquierdo del rectángulo.
+  y: La coordenada y del vértice superior izquierdo del rectángulo.
+  width: La anchura del rectángulo.
+  height: La altura del rectángulo.
+  rx: El radio horizontal de las esquinas redondeadas.
+  ry: El radio vertical de las esquinas redondeadas.
+  fill: El color de relleno del rectángulo.
+  stroke: El color del borde del rectángulo.
+  stroke-width: El ancho del borde del rectángulo.
+  opacity: La opacidad del rectángulo, donde 0 es completamente transparente y 1 es completamente opaco.
+
+  "TB" (Top to Bottom): De arriba hacia abajo.
+  "BT" (Bottom to Top): De abajo hacia arriba.
+  "LR" (Left to Right): De izquierda a derecha.
+  "RL" (Right to Left): De derecha a izquierda.
+
+-->

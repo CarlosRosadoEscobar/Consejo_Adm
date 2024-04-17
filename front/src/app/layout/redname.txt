@@ -1,0 +1,1 @@
+layout directory— Este directorio contiene componentes que actúan como un diseño o son partes de un diseño como el header, footer, skeleton, etc.

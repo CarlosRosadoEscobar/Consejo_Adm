@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd  } from '@angular/router';
-import { UserDataService } from '../../services/user-data.service';
-import { AuthServiceService } from '../../services/auth-service.service';
-import { authGuard } from '../../guards/auth.guard';
+import { UserDataService } from '../../data/services/user-data.service';
+import { AuthServiceService } from '../../data/services/auth-service.service';
+import { authGuard } from '../../core/guards/auth.guard';
 
 
 @Component({
