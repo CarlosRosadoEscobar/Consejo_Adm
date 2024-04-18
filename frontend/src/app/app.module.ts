@@ -71,6 +71,8 @@ import { StatsAdt1Component } from './shared/application-stats/atraccion-talento
 import { StatsAdt2Component } from './shared/application-stats/atraccion-talento/stats-adt2/stats-adt2.component';
 import { StatsAdt3Component } from './shared/application-stats/atraccion-talento/stats-adt3/stats-adt3.component';
 import { StatsAdt4Component } from './shared/application-stats/atraccion-talento/stats-adt4/stats-adt4.component';
+import { CargoService } from './data/dataCargo';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -140,12 +142,19 @@ import { StatsAdt4Component } from './shared/application-stats/atraccion-talento
     StatsAdt2Component,
     StatsAdt3Component,
     StatsAdt4Component,
+
+    
+
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule
+
   ],
-  providers: [],
+  providers: [
+    CargoService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

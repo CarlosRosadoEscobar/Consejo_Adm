@@ -5,8 +5,8 @@ interface sucursal {
 }
 
 const sucursales: sucursal[] = [
-    { id: 1, ubicacion: "cierra mojada", codigo:"cierra" },
-    { id: 2, ubicacion: "Colonia del valle", codigo:"delvalle" },
+    { id: 1, ubicacion: "Sierra Mojada", codigo:"Sierra" },
+    { id: 2, ubicacion: "Colonia del valle", codigo:"DelValle" },
 ];
 
 console.log(sucursales[0]);
