@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
+
 //? Components
 import { SliderbarComponent } from './shared/sliderbar/sliderbar.component';
 import { LoginComponent } from './modules/auth/login/login.component';

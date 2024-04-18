@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { OnInit } from '@angular/core';
-import { initFlowbite } from 'flowbite';
 import { Router, Event, NavigationEnd } from '@angular/router';
+import { initFlowbite } from 'flowbite';
 
 import { IStaticMethods } from 'preline/preline';
 declare global {
