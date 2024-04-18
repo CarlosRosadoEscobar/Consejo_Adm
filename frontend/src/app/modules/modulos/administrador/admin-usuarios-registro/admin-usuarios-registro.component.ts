@@ -3,6 +3,7 @@ import { CargoService } from '../../../../data/dataCargo';
 import { Estados } from '../../../../data/dataRegion';
 import { Pregunta,PreguntasService } from '../../../../data/dataPreguntas';
 import { RolesService } from '../../../../data/dataRol';
+import { initFlowbite } from 'flowbite';
 
 @Component({
   selector: 'app-admin-usuarios-registro',
@@ -11,6 +12,12 @@ import { RolesService } from '../../../../data/dataRol';
 })
 
 export class AdminUsuariosRegistroComponent {
+
+  ngOnInit(): void {
+    initFlowbite();
+  
+  }
+
   areas: string[] = [];
   areaSeleccionada: string = '';
   puestos: any[] = [];

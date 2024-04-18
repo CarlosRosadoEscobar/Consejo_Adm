@@ -161,13 +161,7 @@
           <option value="" selected disabled>Selecciona una pregunta</option>
           <option *ngFor="let pregunta of preguntas" [value]="pregunta.id">{{ pregunta.pregunta }}</option>
         </select>
-        <input id="af-payment-payment-method" type="text" class="py-2 px-3 pe-11 block w-full border-gray-200 shadow-sm text-sm rounded-lg focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600" placeholder="Respuesta" *ngIf="mostrarInputRespuesta()" [(ngModel)]="respuesta" name="respuesta" #respuestaInput >
-        <select id="random-questions" class="py-2 px-3 pe-11 block w-full border-gray-200 shadow-sm text-sm rounded-lg focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"  name="rolSeleccionado" [(ngModel)]="rolSeleccionado">
-          <option value="" selected disabled>Seleccionar el rol</option>
-          <option *ngFor="let rol of roles" [value]="rol.id">
-            {{ rol.rol }}
-          </option>
-        </select>
+        <input id="af-payment-payment-method" type="text" class="py-2 px-3 pe-11 block w-full border-gray-200 shadow-sm text-sm rounded-lg focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-neutral-900 dark:border-neutral-700 dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600" placeholder="Respuesta" *ngIf="mostrarInputRespuesta()" [(ngModel)]="respuesta" name="respuesta" #respuestaInput >        
       </div>
     </div>
     <!-- End Section -->
