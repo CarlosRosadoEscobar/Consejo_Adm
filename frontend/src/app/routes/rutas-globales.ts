@@ -1,16 +1,19 @@
 import { Routes } from '@angular/router';
 import { LoginComponent } from '../modules/auth/login/login.component';
 import { VerificacionComponent } from '../modules/auth/verificacion/verificacion.component';
-import { SliderbarComponent } from '../shared/sliderbar/sliderbar.component';
+import { SliderbarComponent } from '../layout/sliderbar/sliderbar.component';
 
 //!
-import { MiPerfilComponent } from '../shared/perfil/mi-perfil/mi-perfil.component';
-import { MiPerfilConfiguracionComponent } from '../shared/perfil/mi-perfil-configuracion/mi-perfil-configuracion.component';
-import { AcercardeComponent } from '../shared/perfil/acercarde/acercarde.component';
+import { MiPerfilComponent } from '../layout/perfil/mi-perfil/mi-perfil.component';
+import { MiPerfilConfiguracionComponent } from '../layout/perfil/mi-perfil-configuracion/mi-perfil-configuracion.component';
+import { AcercardeComponent } from '../layout/perfil/acercarde/acercarde.component';
+import { Page404Component } from '../layout/error-servidor/page404/page404.component';
 
 export const rutasPrincipales: Routes = [
+  { path:'', component:LoginComponent },
   { path:'login', component:LoginComponent },
   { path:'verificacion',component:VerificacionComponent},
+  { path: '**', component:Page404Component }
 
 ];
 
@@ -34,13 +37,6 @@ export const rutasCompartidas: Routes = [
     component:SliderbarComponent,
     children: [
       { path: '', component: AcercardeComponent },
-    ]
-  },
-  {
-    path: 'diagrama-Zascita',
-    component:SliderbarComponent,
-    children: [
-      { path: '', component: MiPerfilComponent },
     ]
   },
 

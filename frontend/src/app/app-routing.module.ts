@@ -14,10 +14,11 @@ const routes: Routes = [
   ...consejoAdministracion,
   ...atraccionTalento,
 
-  ...rutasPrincipales,
+  ...graficas,
+
   ...rutasCompartidas,
   ...rutasPruebas,
-  ...graficas,
+  ...rutasPrincipales,
 
 ];
 
