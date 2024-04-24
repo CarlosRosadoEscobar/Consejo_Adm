@@ -60,9 +60,9 @@ module.exports = {
     ]
   },
   
-  // darkMode: 'class',
-  // darkMode: 'selector',
-  // darkMode: ['variant', '&:not(.light *)'],
+  darkMode: 'class',
+  darkMode: 'selector',
+  darkMode: ['variant', '&:not(.light *)'],
   darkMode: ['variant', [
     '@media (prefers-color-scheme: dark) { &:not(.light *) }',
     '&:is(.dark *)',
