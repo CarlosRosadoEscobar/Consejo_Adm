@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 import { ConadmDashboardComponent } from "../../modules/modulos/consejo-administracion/conadm-dashboard/conadm-dashboard.component";
-import { SliderbarComponent } from "../../shared/sliderbar/sliderbar.component";
+import { SliderbarComponent } from "../../layout/sliderbar/sliderbar.component";
 import { ConadmModuloComercialComponent } from '../../modules/modulos/consejo-administracion/conadm-modulo-comercial/conadm-modulo-comercial.component';
 import { ConadmModuloRHComponent } from '../../modules/modulos/consejo-administracion/conadm-modulo-rh/conadm-modulo-rh.component';
 import { ConadmModuloJuridicoNormaticoComponent } from '../../modules/modulos/consejo-administracion/conadm-modulo-juridico-normatico/conadm-modulo-juridico-normatico.component';
@@ -23,7 +23,7 @@ export const consejoAdministracion: Routes = [
       ]
     },
     {
-      path: 'documentos',
+      path: 'documentos-consejo-administraccion',
       component:SliderbarComponent,
       children: [
         { path: '', component: ConadmDocumentosComponent },

@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 
 
 //? Components
-import { SliderbarComponent } from './shared/sliderbar/sliderbar.component';
+import { SliderbarComponent } from './layout/sliderbar/sliderbar.component';
 import { LoginComponent } from './modules/auth/login/login.component';
 import { VerificacionComponent } from './modules/auth/verificacion/verificacion.component';
 import { GraficasUsuariosComponent } from './shared/graficas/consejo-administracion/graficas-usuarios/graficas-usuarios.component';
@@ -16,8 +16,8 @@ import { GraficasVentasComponent } from './shared/graficas/consejo-administracio
 import { ConadmDashboardComponent } from './modules/modulos/consejo-administracion/conadm-dashboard/conadm-dashboard.component';
 import { ConadmModulosComponent } from './modules/modulos/consejo-administracion/conadm-modulos/conadm-modulos.component';
 import { ConadmDocumentosComponent } from './modules/modulos/consejo-administracion/conadm-documentos/conadm-documentos.component';
-import { MiPerfilComponent } from './shared/perfil/mi-perfil/mi-perfil.component';
-import { MiPerfilConfiguracionComponent } from './shared/perfil/mi-perfil-configuracion/mi-perfil-configuracion.component';
+import { MiPerfilComponent } from './layout/perfil/mi-perfil/mi-perfil.component';
+import { MiPerfilConfiguracionComponent } from './layout/perfil/mi-perfil-configuracion/mi-perfil-configuracion.component';
 import { StatsUsersComponent } from './shared/application-stats/consejo-administracion/stats-users/stats-users.component';
 import { StatsSessionsComponent } from './shared/application-stats/consejo-administracion/stats-sessions/stats-sessions.component';
 import { StatsPageViewsComponent } from './shared/application-stats/consejo-administracion/stats-page-views/stats-page-views.component';
@@ -58,7 +58,7 @@ import { ConadmTabsPpPlantillaComponent } from './modules/modulos/consejo-admini
 import { ConadmTabsComercialCrecimientosServiciosComponent } from './modules/modulos/consejo-administracion/conadm-tabs-modulos/tabs-comercial/conadm-tabs-comercial-crecimientos-servicios/conadm-tabs-comercial-crecimientos-servicios.component';
 import { ConadmTabsComercialCrecimientosVentasComponent } from './modules/modulos/consejo-administracion/conadm-tabs-modulos/tabs-comercial/conadm-tabs-comercial-crecimientos-ventas/conadm-tabs-comercial-crecimientos-ventas.component';
 import { ConadmTabsComercialSeguimientosProspectosComponent } from './modules/modulos/consejo-administracion/conadm-tabs-modulos/tabs-comercial/conadm-tabs-comercial-seguimientos-prospectos/conadm-tabs-comercial-seguimientos-prospectos.component';
-import { AcercardeComponent } from './shared/perfil/acercarde/acercarde.component';
+import { AcercardeComponent } from './layout/perfil/acercarde/acercarde.component';
 import { AdtDashboardComponent } from './modules/modulos/atraccion-talento/adt-dashboard/adt-dashboard.component';
 import { AdtBitacoraComponent } from './modules/modulos/atraccion-talento/adt-bitacora/adt-bitacora.component';
 import { AdtRequerimientoComponent } from './modules/modulos/atraccion-talento/adt-requerimiento/adt-requerimiento.component';
@@ -73,6 +73,15 @@ import { StatsAdt3Component } from './shared/application-stats/atraccion-talento
 import { StatsAdt4Component } from './shared/application-stats/atraccion-talento/stats-adt4/stats-adt4.component';
 import { CargoService } from './data/dataCargo';
 import { FormsModule } from '@angular/forms';
+import { MenuAtraccionTalentoComponent } from './layout/menu/menu-atraccion-talento/menu-atraccion-talento.component';
+import { MenuAdministradorComponent } from './layout/menu/menu-administrador/menu-administrador.component';
+import { MenuConsejoAdminstracionComponent } from './layout/menu/menu-consejo-adminstracion/menu-consejo-adminstracion.component';
+import { AdtDocumentosComponent } from './modules/modulos/atraccion-talento/adt-documentos/adt-documentos.component';
+import { GraficasVacantesComponent } from './shared/graficas/atraccion-talento/graficas-vacantes/graficas-vacantes.component';
+import { GraficasContratacionComponent } from './shared/graficas/atraccion-talento/graficas-contratacion/graficas-contratacion.component';
+import { Page404Component } from './layout/error-servidor/page404/page404.component';
+import { TablaVacantesComponent } from './shared/tablas/atraccion-talento/tabla-vacantes/tabla-vacantes.component';
+import { TablaVacantes2Component } from './shared/tablas/atraccion-talento/tabla-vacantes2/tabla-vacantes2.component';
 
 @NgModule({
   declarations: [
@@ -142,8 +151,15 @@ import { FormsModule } from '@angular/forms';
     StatsAdt2Component,
     StatsAdt3Component,
     StatsAdt4Component,
-
-    
+    MenuAtraccionTalentoComponent,
+    MenuAdministradorComponent,
+    MenuConsejoAdminstracionComponent,
+    AdtDocumentosComponent,
+    GraficasVacantesComponent,
+    GraficasContratacionComponent,
+    Page404Component,
+    TablaVacantesComponent,
+    TablaVacantes2Component,
 
   ],
   imports: [
